@@ -15,5 +15,5 @@ DatabaseConnection();
 app.use(userRoutes);
 
 app.listen(port, ():void => {
-    console.log(`server running on ${port}`);
+    console.log(`server running on  ${port}`);
 });
