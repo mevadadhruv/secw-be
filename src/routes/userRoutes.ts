@@ -10,7 +10,7 @@ router.get('/users',controller.getUser);
 
 router.get('/users/:id',controller.getUserbyId);
 
-router.patch('/users/:id',controller.updateUser);
+router.put('/users/:id',controller.updateUser);
 
 router.delete('/users/:id',controller.deleteUser);
 

@@ -1,82 +1,61 @@
 import userModel from "../models/user.model";
 import express from "express";
-
+import UserService from "../services/userService";
+const userService = new UserService()
 export default class UserController {
-    createUser(req: express.Request, res: express.Response) {
+
+    async createUser(req: express.Request, res: express.Response) {
         try {
-            const emailId = req.body.emailId;
-            const password = req.body.password;
-            userModel.create({
-                emailId,
-                password
-            }).then((result) => {
-                return res.status(400).json({ message: 'created successfully' });
-            }).catch((err) => {
-                console.log("within try : ", err);
-            });
+           const service = await userService.createUser(req.body);
+           return res.status(200).json({message : "User Created Successfully!"});
         }
         catch (err) {
             return res.json({ err });
         }
     }
 
-    getUser(req: express.Request, res: express.Response) {
+    async getUser(req: express.Request, res: express.Response) {
         try {
-            userModel.find().then((result) => {
-                return res.json({ result });
-            }).catch((err) => {
-                console.log('within try : ', err)
-            });
+            const users = await userService.getUser();
+            if(users){
+                return res.status(200).json({users});
+            }
         }
         catch (err) {
-            console.log(err);
+            return res.json({ err });
         }
     }
 
     async getUserbyId(req: express.Request, res: express.Response) {
         try {
-            const userFind = await userModel.findById(req.params.id);
-            if(!userFind){
-                res.json({message : "no user associated with id"});
-            }
-            console.log('find:- ', userFind);
-            return res.json({userFind});
+            const userId = req.params.id;
+            const user = await userService.getUserbyId(userId);
+            return res.status(200).json({user});
         }
         catch (err) {
-            console.log(err);
+            return res.json({err});
         }
     }
 
-    updateUser(req: express.Request, res: express.Response) {
+    async updateUser(req: express.Request, res: express.Response) {
        try{
-            const updateUser = userModel.findByIdAndUpdate(req.params.id,
-                req.body.emailId,
-                req.body.password
-            );
-            if(!updateUser){
-                return res.json({message : "no user associated with id"});
-            }
-            console.log(updateUser);
-            return res.json({message : "updated successfully"});
-       }
+            const userId = req.params.id;
+            const updateUser = await userService.updateUser(userId,req.body);
+            return res.status(200).json({message : "user updated successfully!!" , updateUser});
+        }
        catch(err){
-            console.log(err);
+            return res.json({err});
        }
     }
 
-    deleteUser(req: express.Request, res: express.Response) {//soft-delete
+    async deleteUser(req: express.Request, res: express.Response) {//soft-delete
         try{
-            const userId = userModel.findById(req.params.id);
-            //console.log(userId);
-            if(!userId){
-                res.json({message : "user not existed"});
-            }
-            const deleteUser = userId.deleteOne();
-            //console.log(deleteUser);
-            return res.json({message : "user deleted sucessfully"});
+            const userId = req.params.id;
+            const deleteUser = await userService.deleteUser(userId);
+            return res.status(200).json({message : "user deleted successfully"});
         }
         catch(err){
-            console.log(err);
+            return res.json({err});
         }
     }
 }
