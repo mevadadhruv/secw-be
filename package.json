@@ -1,19 +1,29 @@
 {
   "name": "secw-be",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "secw",
+  "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
   },
-  "author": "",
+  "author": "bhakti",
   "license": "ISC",
   "dependencies": {
+    "@types/body-parser": "^1.19.2",
     "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.2.0",
+    "expres": "^0.0.5",
     "express": "^4.18.2",
     "inversify": "^6.0.1",
     "mongodb": "^5.6.0",
-    "mongoose": "^7.3.0",
+    "mongoose": "^7.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.3.1",
+    "nodemon": "^2.0.22",
     "typescript": "^5.1.3"
   }
 }
