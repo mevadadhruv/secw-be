@@ -1,4 +1,7 @@
 import mongoose, { Schema, Types } from "mongoose";
+import bcrypt from "bcrypt";
+
+const salt_factor = 10;
 
 const Userschema = new mongoose.Schema({
     emailId : {
@@ -16,5 +19,5 @@ const Userschema = new mongoose.Schema({
 },{
     timestamps : true
 });
-
+     
 export default mongoose.model('User',Userschema);

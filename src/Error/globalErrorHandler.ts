@@ -2,7 +2,7 @@ import express from "express";
 const AppError = require("./AppError");
 
 const sendErrorProd = (err: any, req: express.Request, res: express.Response) => {
-  // A) API
+
   if (req.originalUrl.startsWith('/api')) {
     if (err.isOperational) {
       return res.status(err.statusCode).json({
@@ -24,10 +24,9 @@ const sendErrorProd = (err: any, req: express.Request, res: express.Response) =>
       message: 'Something went wrong!'
     });
   }
-  // B) Programming or other unknown error: don't leak error details
-  // 1) Log error
+  
   console.error('ERROR 💥', err);
-  // 2) Send generic message
+  
   return res.status(err.statusCode).render('error', {
     error: err.status,
     message: 'Something went wrong!'

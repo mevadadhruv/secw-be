@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import mongodb from "mongodb";
 import * as dotenv from "dotenv";
 
 export function DatabaseConnection(){

@@ -74,4 +74,27 @@ export default class UserController {
             return res.json({err});
         }
     }
+
+    async LoginUser(req:express.Request, res:express.Response){
+        try{
+            const user : CreateUser = {
+                emailId:req.body.emailId,
+                password:req.body.password
+            };
+            if(!(user.emailId && user.password)){
+                return res.status(400).json({message : "field can`t be empty"});
+            }
+            const userCheck = await userService.LoginUser(user);
+            console.log(userCheck);
+            if(!userCheck){
+                return res.status(400).json({message : "invalid creditionals"});
+            }
+            else{
+                return res.status(200).json({message : "login successfully!"});
+            }
+        }
+        catch(err){
+            return res.json({err});
+        }
+    }
 }
