@@ -8,7 +8,13 @@ const Userschema = new mongoose.Schema({
     password : {
         type:String,
         required:'please enter password'
+    },
+    lastLoginAt : {
+        type: Date,
+        default:null
     }
+},{
+    timestamps : true
 });
 
 export default mongoose.model('User',Userschema);

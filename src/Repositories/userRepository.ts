@@ -1,9 +1,10 @@
 import userModel from "../models/user.model";
+import { CreateUser,UpdateUser,GetUser } from "../types/userTypes";
 
 export default class UserRepository {
-    async createUser(incoming: any) {
-        const emailId = incoming.emailId;
-        const password = incoming.password;
+    async createUser(user:CreateUser) {
+        const emailId = user.emailId;
+        const password = user.password;
         const res = await userModel.create(
             { emailId, password }
         );
@@ -20,14 +21,13 @@ export default class UserRepository {
         return res;
     }
 
-    async updateUser(incoming:any,id:String){
-        const res = await userModel.findByIdAndUpdate(id,incoming.body);
-        res?.save();
+    async updateUser(id:String,user:UpdateUser){
+        const res = await userModel.findByIdAndUpdate(id,user); 
         return res;
     }
 
     async deleteUser(id:String){
-        const res = await userModel.findByIdAndRemove(id);
+        const res = await userModel.findByIdAndDelete(id);
         return res;
     }
 }

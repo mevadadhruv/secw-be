@@ -1,10 +1,11 @@
 import UserRepository from "../Repositories/userRepository";
+import { CreateUser,UpdateUser,GetUser } from "../types/userTypes";
 
 const userRepository = new UserRepository();
 
 export default class UserService {
-    async createUser(incoming: any) {
-        const repo = await userRepository.createUser(incoming);
+    async createUser(user:CreateUser) {
+        const repo = await userRepository.createUser(user);
         return repo;
     }
 
@@ -18,8 +19,8 @@ export default class UserService {
         return users;
     }
 
-    async updateUser(id:String,incoming:any){
-        const updateUser = await userRepository.updateUser(id,incoming);
+    async updateUser(id:String,user:UpdateUser){
+        const updateUser = await userRepository.updateUser(id,user);
         return updateUser;
     }
 

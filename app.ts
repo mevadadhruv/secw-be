@@ -7,8 +7,9 @@ import userRoutes from "./src/routes/userRoutes";
 dotenv.config();
 const port = process.env.PORT;
 const app:Application = express();
+
 app.use(json());
-app.use(bodyParser.urlencoded({ extended:true }));
+app.use(bodyParser.urlencoded({ extended:false }));
 
 DatabaseConnection();
 
