@@ -1,21 +1,31 @@
+import { injectable } from "inversify";
+import { IUserRepository } from "../interfaces/IUserRepository";
 import userModel from "../models/user.model";
 import { CreateUser,UpdateUser,GetUser } from "../types/userTypes";
 import bcrypt from "bcrypt";
 
-export default class UserRepository {
-    async createUser(user:CreateUser) {
+@injectable()
+export default class UserRepository implements IUserRepository{ 
+    constructor() {
+
+    }
+    async createUser(user:CreateUser): Promise<GetUser> {
         try{
             const emailId = user.emailId;
             const password = user.password;
             const salt = await bcrypt.genSalt(10);
             const hashPassword = await bcrypt.hash(password.toString(),salt);
             const res = await userModel.create(
-            { emailId, password : hashPassword }
+                { emailId, password : hashPassword }
             );
-            return res;
+            const id = res.id;
+            const email = res.emailId;
+            const pass = res.password;
+            return {id:id,emailId:email,password:pass};
         }
         catch(err){
-            console.log('inside repository',err);
+            console.log('inside repository');
+            throw(err);
         }
     }
 
@@ -25,62 +35,81 @@ export default class UserRepository {
             return res;
         }
         catch(err){
-            console.log('inside repository',err);
+            console.log('inside repository');
+            throw(err);
         } 
     }
 
-    async getUserbyId(id:String){
+    async getUserbyId(id:String):Promise<GetUser>{
         try{
             const res = await userModel.findById(id);
-            return res;
+            const _id = res?.id;
+            const email = res?.emailId;
+            const pass = res?.password;
+            return {id:_id,emailId:email,password:pass};
         }
         catch(err){
-            console.log('inside repository',err);
+            console.log('inside repository');
+            throw(err);
         }
     }
 
-    async updateUser(id:String,user:UpdateUser){
+    async updateUser(id:String,user:UpdateUser):Promise<GetUser>{
         try{
             const res = await userModel.findByIdAndUpdate(id,user); 
-            return res;
+            //const _id = res?._id
+            const email = res?.emailId
+            const pass = res?.password
+            return { emailId:email,password:pass };
         }
         catch(err){
-            console.log('inside repository',err);
+            console.log('inside repository');
+            throw(err);
         }
     }
 
-    async getUserByemail(user:CreateUser){
+    async getUserByemail(user:CreateUser):Promise<GetUser>{
         try{
             const checkUser = await userModel.findOne({emailId : user.emailId});
-            return checkUser;
+            const id = checkUser?.id;
+            //const email = checkUser?.emailId;
+            const password = checkUser?.password;
+            return { id,password };
         }
         catch(err){
-            console.log('inside repository',err);
+            console.log('inside repository');
+            throw(err);
         }
     }
 
-    async deleteUser(id:String){
+    async deleteUser(id:String):Promise<GetUser>{
         try{
             const res = await userModel.findByIdAndDelete(id);
-            return res;
+            const _id = res?.id;
+            const email = res?.emailId;
+            const password = res?.password;
+            return {id:_id,emailId:email,password:password};
         }
         catch(err){
-            console.log('inside repository',err);
+            console.log('inside repository');
+            throw(err);
         }
     }
 
-    async loginUser(user:CreateUser){
+    async loginUser(user:CreateUser):Promise<GetUser>{
         try{
             const emailId = user.emailId;
             const password = user.password;
             const salt = await bcrypt.genSalt(10);
             const hashPassword = await bcrypt.hash(password.toString(),salt);
             const userCheck = await userModel.findOne({emailId:emailId,password:hashPassword});
+            const id = userCheck?.id;
             console.log(userCheck);
-            return userCheck;
+            return {id,emailId,password};
         }
         catch(err){
-            console.log('inside repository',err);
+            console.log('inside repository');
+            throw(err);
         }
     }
 }

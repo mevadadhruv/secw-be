@@ -1,8 +1,10 @@
 import express,{Application} from "express";
 import * as dotenv from "dotenv";
+import "reflect-metadata";
 import bodyParser,{ json } from "body-parser";
+import { iocContainer as container } from "./src/config/container";
 import { DatabaseConnection } from "./src/config/db";
-import userRoutes from "./src/routes/userRoutes";
+import index from "./src/routes/index";
 
 dotenv.config();
 const port = process.env.PORT;
@@ -13,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended:false }));
 
 DatabaseConnection();
 
-app.use(userRoutes);
+app.use(index.router,index.profileRouter);
 
 app.listen(port, ():void => {
     console.log(`server running on  ${port}`);
