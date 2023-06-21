@@ -1,5 +1,5 @@
 node_modules/
 # npm node module
 package-lock.json
-
+dist/
  
