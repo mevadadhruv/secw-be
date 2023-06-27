@@ -3,6 +3,9 @@ import { CreateUser, RegisterUser } from "../types/userTypes";
 import { inject, injectable } from "inversify";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import { types } from "../config/types";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 @injectable()
 export default class ProfileController{
@@ -33,5 +36,4 @@ private _profileService : IRegisterUserService;
             return res.json({err});
         }
     }
-
 }

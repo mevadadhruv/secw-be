@@ -4,6 +4,11 @@ import profileModel from "../models/profile.model";
 import { CreateUser, GetRegisterUser, RegisterUser } from "../types/userTypes";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import { types } from "../config/types";
+import jwt, { Secret } from "jsonwebtoken";
+import * as dotenv from "dotenv";
+
+dotenv.config();
+const secretKey = process.env.JWT_SECRET_KEY;
 
 @injectable()
 export default class profileRepository implements IRegisterUserRepository{
