@@ -3,20 +3,23 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import * as dotenv from "dotenv";
 import { inject, injectable } from "inversify";
+import { iocContainer as Container } from "../config/container";
 import { types } from "../config/types";
 import { IUserService } from "../interfaces/IUserService";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
-import { CreateUser, RegisterUser } from "../types/userTypes";
-import userModel from "../models/user.model";
+import { GoogleAuthController } from "./GoogleAuthController";
 
 dotenv.config();
 
+const profileService = Container.get<IRegisterUserService>(types.IRegisterUserService);
+const googleController = new GoogleAuthController(profileService);
 const GoogleClientID = process.env.GOOGLE_CLIENT_ID;
 const GoogleSecretKey = process.env.GOOGLE_CLIENT_SECRET;
 const callbackURL = process.env.CALLBACK_URL;
 
 @injectable()
 export default class AuthController {
+
 private _UserService : IUserService;
 private _ProfilService : IRegisterUserService;
 
@@ -27,14 +30,16 @@ private _ProfilService : IRegisterUserService;
     }
 
     async AuthUser(req:express.Request, res:express.Response){
-        let that = this;
+        
+        // let that = this;
+        
         try{
             passport.serializeUser((user:any,done)=>{
                 done(null,user.id);
             });
             
             passport.deserializeUser(async(id:String,done:passport.DoneCallback)=>{
-                const currentUser = await that._UserService.getUserbyId(id);
+                const currentUser = await this._UserService.getUserbyId(id);
                 done(null,currentUser);
             });
 
@@ -44,31 +49,9 @@ private _ProfilService : IRegisterUserService;
                 callbackURL : callbackURL,
                 passReqToCallback : true
             },
-           (request: any, accessToken: any, refreshToken: any, profile: passport.Profile, done: passport.DoneCallback) => {
-            console.log("/......");    
-            const id = profile.id;
-            console.log(id);
-                const email = profile!.emails[0].value;
-                console.log(email);
-                const firstname = profile.name?.givenName;
-                console.log(firstname);
-                const lastname = profile.name?.familyName;
-                console.log(lastname);
-                const CheckCurrentUser = userModel.findOne({emailId:email});
-                console.log(CheckCurrentUser);
-                console.log("it also run");
-                const AddUser:RegisterUser = {first_name:firstname,last_name:lastname,Address:"",phone_number:""};
-                const AddUserInfo : CreateUser = {
-                        emailId: email,
-                        password: "" 
-                    }; 
-                    console.log("it run also then");
-                    console.log(AddUser);
-                    console.log(AddUserInfo);
-                    const NewUser = that._ProfilService.UserRegistration(AddUser,AddUserInfo);
-                    console.log(NewUser);
-                    console.log("yes it saved");
-                    return done(null,profile);            
+            (request: any, accessToken: any, refreshToken: any, profile: passport.Profile, done: passport.DoneCallback) => {
+                googleController.AuthCallback(request,accessToken,refreshToken,profile,done);
+                return done(null,profile);            
             })
             );
         }

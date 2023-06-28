@@ -4,19 +4,15 @@ import profileModel from "../models/profile.model";
 import { CreateUser, GetRegisterUser, RegisterUser } from "../types/userTypes";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import { types } from "../config/types";
-import jwt, { Secret } from "jsonwebtoken";
-import * as dotenv from "dotenv";
-
-dotenv.config();
-const secretKey = process.env.JWT_SECRET_KEY;
 
 @injectable()
 export default class profileRepository implements IRegisterUserRepository{
-
-    private _userRepository : IUserRepository;
+private _userRepository : IUserRepository;
+    
     constructor(@inject(types.IUserRepository) userRepo:IUserRepository){
         this._userRepository = userRepo;
     }
+
     async UserRegistration(user:RegisterUser,users:CreateUser): Promise<GetRegisterUser>{
         try{
             const Address = user.Address;

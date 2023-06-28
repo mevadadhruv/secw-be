@@ -3,13 +3,19 @@ import { IUserRepository } from "../interfaces/IUserRepository";
 import userModel from "../models/user.model";
 import { CreateUser,UpdateUser,GetUser } from "../types/userTypes";
 import bcrypt from "bcrypt";
+import * as dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+
+dotenv.config();
+const secretKey = process.env.JWT_SECRET_KEY;
 
 @injectable()
 export default class UserRepository implements IUserRepository{ 
+    
     constructor() {
 
     }
+    
     async createUser(user:CreateUser): Promise<GetUser> {
         try{
             const emailId = user.emailId;
@@ -19,6 +25,7 @@ export default class UserRepository implements IUserRepository{
             const res = await userModel.create(
                 { emailId, password : hashPassword }
             );
+            
             const id = res.id;
             const email = res.emailId;
             const pass = res.password;

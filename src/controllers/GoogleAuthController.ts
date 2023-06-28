@@ -1,4 +1,3 @@
-import express from "express";
 import passport from "passport";
 import userModel from "../models/user.model";
 import { CreateUser, RegisterUser } from "../types/userTypes";
@@ -8,40 +7,44 @@ import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 
 @injectable()
 export class GoogleAuthController{
+    
     private _ProfilService : IRegisterUserService;
 
-    constructor(@inject(types.IRegisterUserService) profileService:IRegisterUserService){
+    constructor(@inject(types.IRegisterUserService) profileService:IRegisterUserService)
+    {
         this._ProfilService = profileService;
     }
-
-async AuthenticateUser(req:express.Request,res:express.Response){
-    let that = this;
-    console.log("inside async function");
-    await function(request: any, accessToken: any, refreshToken: any, profile: passport.Profile, done: passport.DoneCallback){
+    AuthCallback = (request: any, accessToken: any, refreshToken: any, profile: passport.Profile, done: passport.DoneCallback) => {
         console.log("inside await function");
-        try{
-                const id = profile.id;
-                const email = profile!.emails[0].value;
-                const firstname = profile.name?.givenName;
-                const lastname = profile.name?.familyName;
-                const CheckCurrentUser = userModel.findOne({emailId:email});
-                console.log("it also run");
-                const AddUser:RegisterUser = {first_name:firstname,last_name:lastname};
-                const AddUserInfo : CreateUser = {
-                        emailId: email,
-                        password: "" 
-                    }; 
-                    console.log("and then it also");
-                if(!CheckCurrentUser) {
-                        const NewUser = that._ProfilService.UserRegistration(AddUser,AddUserInfo);
-                        return done(null,NewUser);
-                    }
-                    console.log("an dthen it alsoooo");
-                return done(null,profile);
+        try
+        {
+            console.log("/......");    
+            const id = profile.id;
+            console.log(id);
+            const email = profile!.emails[0].value;
+            console.log(email);
+            const firstname = profile.name?.givenName;
+            console.log(firstname);
+            const lastname = profile.name?.familyName;
+            console.log(lastname);
+            const CheckCurrentUser = userModel.findOne({emailId:email});
+            console.log(CheckCurrentUser);
+            console.log("it also run");
+            const AddUser:RegisterUser = {first_name:firstname,last_name:lastname,Address:"",phone_number:""};
+            const AddUserInfo : CreateUser = {
+                    emailId: email,
+                    password: "" 
+                }; 
+            console.log("it run also then");
+            console.log(AddUser);
+            console.log(AddUserInfo);
+            const NewUser = this._ProfilService.UserRegistration(AddUser,AddUserInfo);
+            console.log(NewUser);
+            console.log("yes it saved");               
         }
-        catch(err){
+        catch(err)
+        {
             console.log(err);
         }
     }
-}         
 }
