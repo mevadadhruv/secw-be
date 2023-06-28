@@ -34,7 +34,7 @@ AuthRouter.get('/auth/google/callback',
 }));
 
 AuthRouter.get('/auth/google/callback/success', (req, res) => {
-    res.send("welcome" + req.user);
+    res.send("welcome");
 });
 
 AuthRouter.get('/auth/google/callback/failure', (req, res) => {

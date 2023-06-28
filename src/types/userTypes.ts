@@ -1,6 +1,7 @@
 export declare type CreateUser = {
     emailId : String,
-    password : String
+    password : string,
+    token?:string
 };
 
 export declare type UpdateUser = {
@@ -24,7 +25,8 @@ export declare type RegisterUser = {
     phone_number? : String,
     emailId? : String,
     password? :String,
-    userId ?: String
+    userId ?: String,
+    googleId ?: String
 };
 
 export declare type GetRegisterUser = {

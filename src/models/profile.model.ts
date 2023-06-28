@@ -19,9 +19,6 @@ const profileSchema = new mongoose.Schema({
     },
     googleId : {
         type : String 
-    },
-    Token : {
-        type : String
     }
 },{
     timestamps : true

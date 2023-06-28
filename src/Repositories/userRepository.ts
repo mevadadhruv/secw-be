@@ -23,11 +23,10 @@ export default class UserRepository implements IUserRepository{
             const salt = await bcrypt.genSalt(10);
             const hashPassword = await bcrypt.hash(password?.toString(),salt);
             const res = await userModel.create(
-                { emailId, password : hashPassword }
+                { emailId, password : hashPassword}
             );
-            
             const id = res.id;
-            const email = res.emailId;
+            const email = res.emailId;  
             const pass = res.password;
             return {id:id,emailId:email,password:pass};
         }

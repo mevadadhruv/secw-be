@@ -14,7 +14,7 @@ export class GoogleAuthController{
     {
         this._ProfilService = profileService;
     }
-    AuthCallback = (request: any, accessToken: any, refreshToken: any, profile: passport.Profile, done: passport.DoneCallback) => {
+    AuthCallback = async(request: any, accessToken: any, refreshToken: any, profile: passport.Profile, done: passport.DoneCallback) => {
         console.log("inside await function");
         try
         {
@@ -27,20 +27,18 @@ export class GoogleAuthController{
             console.log(firstname);
             const lastname = profile.name?.familyName;
             console.log(lastname);
-            const CheckCurrentUser = userModel.findOne({emailId:email});
-            console.log(CheckCurrentUser);
-            console.log("it also run");
             const AddUser:RegisterUser = {first_name:firstname,last_name:lastname,Address:"",phone_number:""};
             const AddUserInfo : CreateUser = {
                     emailId: email,
                     password: "" 
-                }; 
-            console.log("it run also then");
-            console.log(AddUser);
-            console.log(AddUserInfo);
-            const NewUser = this._ProfilService.UserRegistration(AddUser,AddUserInfo);
-            console.log(NewUser);
-            console.log("yes it saved");               
+            };
+            const userCheck = await userModel.findOne({emailId:email});
+            if(!userCheck){
+                const NewUser = this._ProfilService.UserRegistration(AddUser,AddUserInfo);
+                console.log(NewUser);
+                console.log("yes it saved");
+                done(null,NewUser);
+            }               
         }
         catch(err)
         {
