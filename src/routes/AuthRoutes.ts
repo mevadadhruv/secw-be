@@ -1,6 +1,5 @@
 import express, { NextFunction } from "express";
 import passport from "passport";
-import session from "express-session";
 import AuthController from "../controllers/AuthController";
 import {iocContainer as container} from "../config/container";
 import { IUserService } from "../interfaces/IUserService";
@@ -34,7 +33,7 @@ AuthRouter.get('/auth/google/callback',
 }));
 
 AuthRouter.get('/auth/google/callback/success', (req, res) => {
-    res.send("welcome");
+    res.redirect("https://www.google.com/");
 });
 
 AuthRouter.get('/auth/google/callback/failure', (req, res) => {

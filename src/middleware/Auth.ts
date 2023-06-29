@@ -9,6 +9,7 @@ const secretKey = process.env.JWT_SECRET_KEY;
 
 export const VerifyToken = async(req:express.Request,res:express.Response,next:NextFunction) => {
         const token = req.body.token || req.query.token || req.headers["x-access-token"];
+        console.log(token);
         if(!token){
             next(new AppError("PLease Login First to continue",403));
         }
