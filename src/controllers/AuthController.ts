@@ -1,21 +1,16 @@
 import express from "express";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
-import * as dotenv from "dotenv";
 import { inject, injectable } from "inversify";
 import { iocContainer as Container } from "../config/container";
 import { types } from "../config/types";
 import { IUserService } from "../interfaces/IUserService";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import { GoogleAuthController } from "./GoogleAuthController";
-
-dotenv.config();
+import {config} from "../config/env";
 
 const profileService = Container.get<IRegisterUserService>(types.IRegisterUserService);
 const googleController = new GoogleAuthController(profileService);
-const GoogleClientID = process.env.GOOGLE_CLIENT_ID;
-const GoogleSecretKey = process.env.GOOGLE_CLIENT_SECRET;
-const callbackURL = process.env.CALLBACK_URL;
 
 @injectable()
 export default class AuthController {
@@ -44,9 +39,9 @@ private _ProfilService : IRegisterUserService;
             });
 
             passport.use(new GoogleStrategy({
-                clientID : GoogleClientID,
-                clientSecret : GoogleSecretKey,
-                callbackURL : callbackURL,
+                clientID : config.GOOGLE_CLIENT_ID,
+                clientSecret : config.GOOGLE_SECRET_KEY,
+                callbackURL : config.GOOGLE_REDIRECT_URL,
                 passReqToCallback : true
             },
             (request: any, accessToken: any, refreshToken: any, profile: passport.Profile, done: passport.DoneCallback) => {

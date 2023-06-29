@@ -7,14 +7,9 @@ import AppError from "../Error/AppError";
 import {sendErrorProd} from "../Error/globalErrorHandler";
 const message =  require("../Error/globalSuccessHandler");
 import jwt from "jsonwebtoken";
-import * as dotenv from "dotenv";
+import {config} from "../config/env";
 import userModel from "../models/user.model";
 import bcrypt from "bcrypt";
-
-dotenv.config();
-
-const secretKey = process.env.JWT_SECRET_KEY;
-const tokenKey = process.env.TOKEN_HOLDER_KEY;
 
 @injectable()   
 export default class UserController {
@@ -106,7 +101,7 @@ export default class UserController {
             }
             const userCheck = await userModel.findOne({emailId:user.emailId});
             if(userCheck && (await bcrypt.compare(user.password,userCheck.password))){
-                const token = jwt.sign({email,password},secretKey,{expiresIn:"3000m"});
+                const token = jwt.sign({email,password},config.JWT_SECRET_KEY,{expiresIn:"3000m"});
                 userCheck.token = token;
                 return message.sendResponse(200,"user have been logged in!",userCheck,res);
             } 

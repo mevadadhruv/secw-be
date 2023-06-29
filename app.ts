@@ -1,5 +1,4 @@
 import express,{Application} from "express";
-import * as dotenv from "dotenv";
 import "reflect-metadata";
 import bodyParser,{ json } from "body-parser";
 import { iocContainer as container } from "./src/config/container";
@@ -8,9 +7,7 @@ import index from "./src/routes/index";
 import passport from "passport";
 import session from "express-session";
 import {} from "./src/controllers/AuthController";
-
-dotenv.config();
-const port = process.env.PORT;
+import {config} from "./src/config/env";
 
 const app:Application = express();
 
@@ -27,6 +24,6 @@ DatabaseConnection();
 
 app.use(index.router,index.profileRouter,index.AuthRouter);
 
-app.listen(port, ():void => {
-    console.log(`server running on  ${port}`);
+app.listen(config.PORT, ():void => {
+    console.log(`server running on  ${config.PORT}`);
 });
