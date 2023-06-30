@@ -7,11 +7,12 @@ import { types } from "../config/types";
 
 @injectable()
 export default class profileRepository implements IRegisterUserRepository{
-
-    private _userRepository : IUserRepository;
+private _userRepository : IUserRepository;
+    
     constructor(@inject(types.IUserRepository) userRepo:IUserRepository){
         this._userRepository = userRepo;
     }
+
     async UserRegistration(user:RegisterUser,users:CreateUser): Promise<GetRegisterUser>{
         try{
             const Address = user.Address;

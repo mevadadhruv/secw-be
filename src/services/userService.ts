@@ -3,6 +3,8 @@ import { IUserRepository } from "../interfaces/IUserRepository";
 import { injectable, inject } from "inversify";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
+import AppError from "../Error/AppError";
+import userModel from "../models/user.model";
 
 @injectable()
 export default class UserService implements IUserService{
@@ -14,6 +16,10 @@ private _userrepository : IUserRepository;
 
     async createUser(user:CreateUser):Promise<GetUser>{
         try{
+            const existingUser = await userModel.findOne({emailId:user.emailId});
+            if(existingUser){
+                throw new AppError("email is already exist",400);
+            }
             const repo = await this._userrepository.createUser(user);
             return repo;
         }
@@ -34,8 +40,13 @@ private _userrepository : IUserRepository;
 
     async getUserbyId(id : String):Promise<GetUser>{
         try{
-            const users = await this._userrepository.getUserbyId(id); 
-            return users;
+            const users = await this._userrepository.getUserbyId(id);
+            if(!users){
+                throw new AppError("user does not exist",400);
+            }
+            else{
+                return users;
+            } 
         }
         catch(err){
             throw(err);
@@ -44,8 +55,14 @@ private _userrepository : IUserRepository;
 
     async updateUser(id:String,user:UpdateUser):Promise<GetUser>{
         try{
-            const updateUser = await this._userrepository.updateUser(id,user);
-            return updateUser;
+            const users = await this._userrepository.getUserbyId(id);
+            if(!users){
+                throw new AppError("user does not exist",400);
+            }
+            else{
+                const updateUser = await this._userrepository.updateUser(id,user);
+                return updateUser;
+            }
         }
         catch(err){
             throw(err);
@@ -54,8 +71,14 @@ private _userrepository : IUserRepository;
 
     async deleteUser(id:String):Promise<GetUser>{
         try{
-            const deleteUser = await this._userrepository.deleteUser(id);
-            return deleteUser;
+            const users = await this._userrepository.getUserbyId(id);
+            if(!users){
+                throw new AppError("user does not exist",400);
+            }
+            else{
+                const deleteUser = await this._userrepository.deleteUser(id);
+                return deleteUser;
+            }
         }
         catch(err){
             throw(err);

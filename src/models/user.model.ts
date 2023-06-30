@@ -9,6 +9,9 @@ const Userschema = new mongoose.Schema({
         type:String,
         required:'please enter password'
     },
+    token : {
+        type : String
+    },
     lastLoginAt : {
         type: Date,
         default:null
