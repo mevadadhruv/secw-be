@@ -19,7 +19,7 @@ export const UserValidation = async(req:Express.Request,res:Express.Response,nex
     let options = { abortEarly: false };
     const { error } =  userSchema.validate(req.body,options);
     if (error) {
-      const errorMessages = error.details.map((err) => err.message);
+      const errorMessages = error.details.map((err:any) => err.message);
       console.log(errorMessages);
       return res.status(400).json({
         // Error: errorMessages,
