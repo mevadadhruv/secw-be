@@ -31,12 +31,15 @@ export default class AuthController {
 
   async AuthUser(isGoogle: Boolean): Promise<void> {
     try {
+      console.log("authuser");
       passport.serializeUser((user: any, done) => {
+        console.log("authuser serializeUser");
         done(null, user.id);
       });
 
       passport.deserializeUser(
         async (id: String, done: passport.DoneCallback) => {
+          console.log("authuser deserializeUser");
           const currentUser = await this._UserService.getUserbyId(id);
           done(null, currentUser);
         }
@@ -50,14 +53,15 @@ export default class AuthController {
               callbackURL: config.GOOGLE_REDIRECT_URL,
               passReqToCallback: true,
             },
-            (
+            async (
               request: any,
               accessToken: any,
               refreshToken: any,
               profile: passport.Profile,
               done: passport.DoneCallback
             ) => {
-              googleController.AuthCallback(
+              console.log("authuser use GoogleStrategy");
+              await googleController.AuthCallback(
                 accessToken,
                 refreshToken,
                 profile,
@@ -71,20 +75,20 @@ export default class AuthController {
       } else {
         new FacebookStrategy(
           {
-            clientID: config.facebook_api_key,
-            clientSecret: config.facebook_api_secret,
-            callbackURL: config.callback_url,
+            clientID: config.FACEBOOK_API_KEY,
+            clientSecret: config.FACEBOOK_API_SECRET,
+            callbackURL: config.FCALLBACK_URL,
             profileFields: ["emails", "name"],
           },
-          function (
+          async function (
             accessToken: any,
             refreshToken: any,
             profile: any,
             done: any
           ) {
+            console.log("authuser use GoogleStrategy");
             console.log("fb profile:- ", profile);
-
-            googleController.AuthCallback(
+            await googleController.AuthCallback(
               accessToken,
               refreshToken,
               profile,

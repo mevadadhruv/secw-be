@@ -48,16 +48,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 AuthRouter.get(
-  "/",
+  "/gbutton",
   (req: express.Request, res: express.Response, next: NextFunction) => {
-    res.send("<button><a href='/gauth/google'>Google</a></button>"),
-      //   void authController.AuthUser(true);
-      next();
+    res.send("<button><a href='/gauth'>Google</a></button>"),
+      void authController.AuthUser(true);
+    next();
   }
 );
 
 AuthRouter.get(
-  "/gauth/google",
+  "/gauth",
   passport.authenticate("google", {
     scope: ["profile", "email"],
   })
@@ -71,50 +71,54 @@ AuthRouter.get(
   })
 );
 
-//fb
-// app.get("/", function (req, res) {
-//   res.render("index", { user: req.user });
-// });
+// fb
+app.get("/", function (req, res) {
+  res.render("index", { user: req.user });
+});
 
-// app.get("/account", ensureAuthenticated, function (req, res) {
-//   console.log("account req- ", req);
-//   res.render("account", { user: req.user });
-// });
+app.get("/account", ensureAuthenticated, function (req, res) {
+  console.log("account req- ", req);
+  res.render("account", { user: req.user });
+});
 
-// AuthRouter.get(
-//   "/fbutton",
-//   async (req: express.Request, res: express.Response, next: NextFunction) => {
-//     res.send("<button><a href='/fbauth'>facebook</a></button>"), next();
-//     await authController.AuthUser(false);
-//   }
-// );
+AuthRouter.get(
+  "/fbutton",
+  async (req: express.Request, res: express.Response, next: NextFunction) => {
+    await authController.AuthUser(false);
+    res.send("<button><a href='/fbauth/facebook'>facebook</a></button>"),
+      next();
+  }
+);
 
-// app.get("/fbauth", passport.authenticate("facebook", { scope: "email" }));
+app.get(
+  "/fbauth/facebook",
+  passport.authenticate("facebook", { scope: "email" })
+);
 
-// app.get(
-//   "/fbauth/facebook/callback",
-//   passport.authenticate("facebook", {
-//     successRedirect: handlefun(false, false),
-//     failureRedirect: handlefun(false, false),
-//   })
-// );
+app.get(
+  "/fbauth/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: handlefun(false, false),
+    failureRedirect: handlefun(false, false),
+  })
+);
 
-// app.get("/logout", function (req, res) {
-//   console.log("logout");
-//   req.logout((err) => {
-//     if (err) {
-//       console.log("logout err:- ", err);
-//       throw err;
-//     }
-//   });
-//   res.redirect("/fbutton");
-// });
-// function ensureAuthenticated(req: any, res: any, next: any) {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   }
-//   console.log("ensureAuthenticated");
-//   res.redirect("/login");
-// }
+app.get("/logout", function (req, res) {
+  console.log("logout");
+  req.logout((err) => {
+    if (err) {
+      console.log("logout err:- ", err);
+      throw err;
+    }
+  });
+  res.redirect("/fbutton");
+});
+function ensureAuthenticated(req: any, res: any, next: any) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  console.log("ensureAuthenticated");
+  res.redirect("/login");
+}
 
 export default AuthRouter;
