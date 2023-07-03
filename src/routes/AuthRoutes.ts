@@ -43,10 +43,9 @@ const handlefun = (isSuccess: boolean, isLink: boolean): string => {
 };
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: "keyboard cat", name: "sid" }));
+app.use(session({ resave:false, saveUninitialized:false, secret: "keyboard cat", name: "sid" }));
 app.use(passport.initialize());
 app.use(passport.session());
-
 AuthRouter.get(
   "/gbutton",
   (req: express.Request, res: express.Response, next: NextFunction) => {
@@ -72,11 +71,11 @@ AuthRouter.get(
 );
 
 // fb
-app.get("/", function (req, res) {
+AuthRouter.get("/", function (req, res) {
   res.render("index", { user: req.user });
 });
 
-app.get("/account", ensureAuthenticated, function (req, res) {
+AuthRouter.get("/account", ensureAuthenticated, function (req, res) {
   console.log("account req- ", req);
   res.render("account", { user: req.user });
 });
@@ -85,17 +84,17 @@ AuthRouter.get(
   "/fbutton",
   async (req: express.Request, res: express.Response, next: NextFunction) => {
     await authController.AuthUser(false);
-    res.send("<button><a href='/fbauth/facebook'>facebook</a></button>"),
+    res.send("<button><a href='/fbauth'>facebook</a></button>"),
       next();
   }
 );
 
-app.get(
-  "/fbauth/facebook",
-  passport.authenticate("facebook", { scope: "email" })
+AuthRouter.get(
+  "/fbauth",
+  passport.authenticate("facebook", { scope:["email"] })
 );
 
-app.get(
+AuthRouter.get(
   "/fbauth/facebook/callback",
   passport.authenticate("facebook", {
     successRedirect: handlefun(false, false),
@@ -103,7 +102,7 @@ app.get(
   })
 );
 
-app.get("/logout", function (req, res) {
+AuthRouter.get("/logout", function (req, res) {
   console.log("logout");
   req.logout((err) => {
     if (err) {
@@ -113,6 +112,7 @@ app.get("/logout", function (req, res) {
   });
   res.redirect("/fbutton");
 });
+
 function ensureAuthenticated(req: any, res: any, next: any) {
   if (req.isAuthenticated()) {
     return next();

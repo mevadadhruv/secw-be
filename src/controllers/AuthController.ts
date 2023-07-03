@@ -73,29 +73,31 @@ export default class AuthController {
           )
         );
       } else {
-        new FacebookStrategy(
-          {
-            clientID: config.FACEBOOK_API_KEY,
-            clientSecret: config.FACEBOOK_API_SECRET,
-            callbackURL: config.FCALLBACK_URL,
-            profileFields: ["emails", "name"],
-          },
-          async function (
-            accessToken: any,
-            refreshToken: any,
-            profile: any,
-            done: any
-          ) {
-            console.log("authuser use GoogleStrategy");
-            console.log("fb profile:- ", profile);
-            await googleController.AuthCallback(
-              accessToken,
-              refreshToken,
-              profile,
-              done
-            );
-            return done(null, profile);
-          }
+        passport.use(
+          new FacebookStrategy(
+            {
+              clientID: config.FACEBOOK_API_KEY,
+              clientSecret: config.FACEBOOK_API_SECRET,
+              callbackURL: config.FCALLBACK_URL,
+              profileFields: ["emails", "name"],
+            },
+            async function (
+              accessToken: any,
+              refreshToken: any,
+              profile: any,
+              done: any
+            ) {
+              console.log("authuser use GoogleStrategy");
+              console.log("fb profile:- ", profile);
+              await googleController.AuthCallback(
+                accessToken,
+                refreshToken,
+                profile,
+                done
+              );
+              return done(null, profile);
+            }
+          )
         );
       }
     } catch (err) {
