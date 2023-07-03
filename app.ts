@@ -8,14 +8,6 @@ import { config } from "./src/config/env";
 
 const app: Application = express();
 
-app.use(
-  session({
-    resave: false,
-    saveUninitialized: false,
-    secret: "SECRETKEY",
-  })
-);
-
 app.use(json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
