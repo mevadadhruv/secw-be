@@ -14,10 +14,10 @@ export default class profileRepository implements IRegisterUserRepository{
     }
     async UserRegistration(user:RegisterUser,users:CreateUser): Promise<GetRegisterUser>{
         try{
-            const Address = user.Address;
-            const first_name = user.first_name;
-            const last_name = user.last_name;
-            const phone_number = user.phone_number;
+            const Address = user.address;
+            const first_name = user.firstName;
+            const last_name = user.lastName;
+            const phone_number = user.phoneNumber;
             const userRegister = this._userRepository.createUser(users);
             const userId = (await userRegister).id;
             const RegisterUser = await profileModel.create({

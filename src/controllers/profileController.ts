@@ -15,10 +15,10 @@ private _profileService : IRegisterUserService;
     async userRegistration(req : express.Request,res: express.Response){
         try{
             const register : RegisterUser = {
-                Address: req.body.Address,
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                phone_number: req.body.phone_number
+                address: req.body.Address,
+                firstName: req.body.first_name,
+                lastName: req.body.last_name,
+                phoneNumber: req.body.phone_number
             };
             const Registeration : CreateUser = {
                 emailId: req.body.emailId,
