@@ -56,3 +56,15 @@ export declare type GetDocument = {
   extension : string;
   size : string;
 };
+
+export declare type Vendor = {
+  id? : string;
+  name : string;
+  logo : string;
+};
+
+export declare type GetVendor = {
+  id? : string;
+  name : string;
+  logo : string;
+};
