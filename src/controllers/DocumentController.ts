@@ -1,23 +1,44 @@
 import express, { NextFunction } from "express";
 import sendErrorProd from "../Error/globalErrorHandler";
 import document from "../config/Document";
-import documentModel from "../models/document.model";
 const message = require("../Error/globalSuccessHandler");
 import AppError from "../Error/AppError";
+import { inject, injectable } from "inversify";
+import { IDocumentService } from "../interfaces/IDocumentService";
+import { types } from "../config/types";
+import {DocumentType} from "../types/userTypes";
 
+@injectable()
 export default class DocumentController {
+private _documentService : IDocumentService;
+
+    constructor(@inject(types.IDocumentService) documentService : IDocumentService){
+        this._documentService = documentService;
+    }
 
     async AddDocument(req: express.Request, res: express.Response, next: NextFunction) {
         try {
-            const uploadImage  = document('dhruv-images').single("Attachment");
+            const uploadImage = document('dhruv-images').single("Attachment");
             uploadImage(req, res, async (err) => {
                 if (err) {
                     return new AppError("Image not found", 301);
                 }
                 //console.log(req.file);
                 const documentFile : any = req.file;
+                const documentName = documentFile.originalname;
+                const documentDescription = documentFile.encoding;
+                const documentAttachment = documentFile.location;
+                const documentExtension = documentFile.mimetype;
+                const documentSize = documentFile.size;
+                const documentType : DocumentType = {
+                    name : documentName,
+                    description : documentDescription,
+                    attachment : documentAttachment,
+                    extension : documentExtension,
+                    size : documentSize
+                };
                 //console.log(documentFile.location);
-                const document = await documentModel.create({Attachment:documentFile.location, description: req.file.encoding, Extension: req.file.mimetype, Size: req.file.size, name: req.file.originalname });
+                const document = await this._documentService.AddDocument(documentType);
                 return message.sendResponse(200, "image created", document, res);
             })
         }
@@ -29,7 +50,7 @@ export default class DocumentController {
     async getDocumentById(req:express.Request,res:express.Response,next:NextFunction){
         try{
             const documentId = req.params.id;
-            const getDocumets = await documentModel.findById(documentId);
+            const getDocumets = await this._documentService.getDocumentById(documentId);
             if(getDocumets){
                 return message.sendResponse(200,"image find",getDocumets,res);
             }
@@ -48,9 +69,21 @@ export default class DocumentController {
                     return new AppError("Image not found", 301);
                 }
                 const documentFile : any = req.file;
-                const updatedDOcument = await documentModel.findByIdAndUpdate(updateId,{Attachment:documentFile.location, description: req.file.encoding, Extension: req.file.mimetype, Size: req.file.size, name: req.file.originalname });
-                if(updatedDOcument){
-                    return message.sendResponse(200,"updated successfully",updatedDOcument,res);
+                const documentName = documentFile.originalname;
+                const documentDescription = documentFile.encoding;
+                const documentAttachment = documentFile.location;
+                const documentExtension = documentFile.mimetype;
+                const documentSize = documentFile.size;
+                const documentType : DocumentType = {
+                    name : documentName,
+                    description : documentDescription,
+                    attachment : documentAttachment,
+                    extension : documentExtension,
+                    size : documentSize
+                };
+                const updatedDocument = await this._documentService.UpdateDocument(updateId,documentType);
+                if(updatedDocument){
+                    return message.sendResponse(200,"updated successfully",updatedDocument,res);
                 }
             })
         }
@@ -62,7 +95,7 @@ export default class DocumentController {
     async DeleteDocument(req:express.Request,res:express.Response,next:NextFunction){
         try{
             const deleteId = req.params.id;
-            const DeleteDocument = await documentModel.findByIdAndDelete(deleteId);
+            const DeleteDocument = await this._documentService.DeleteDocument(deleteId);
             if(DeleteDocument){
                 return message.sendResponseDelete(200,"Deleted successfully!",res);
             }

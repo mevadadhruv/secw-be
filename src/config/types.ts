@@ -3,5 +3,7 @@ export const types = {
     IUserService : Symbol("IUserService"),
     IDatabase : Symbol("IDatabase"),
     IRegisterUserRepository : Symbol("IRegisterUserRepository"),
-    IRegisterUserService : Symbol("IRegisterUserService")
+    IRegisterUserService : Symbol("IRegisterUserService"),
+    IDocumentRepository : Symbol("IDocumentRepository"),
+    IDocumentService : Symbol("IDocumentService")
 }

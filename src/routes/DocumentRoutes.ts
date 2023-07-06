@@ -1,7 +1,11 @@
 import express from "express";
 import DocumentController from "../controllers/DocumentController";
+import { iocContainer as Container } from "../config/container";
+import { IDocumentService } from "../interfaces/IDocumentService";
+import { types } from "../config/types";
 
-const documentController = new DocumentController();
+const documentService = Container.get<IDocumentService>(types.IDocumentService);
+const documentController = new DocumentController(documentService);
 
 const DocumentRouter = express.Router();
 
