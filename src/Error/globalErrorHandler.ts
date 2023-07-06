@@ -56,4 +56,4 @@ const checking = (err: any, req: express.Request, res: express.Response, next: a
   }
 };
 
-export default checking;
+export default sendErrorProd;

@@ -10,6 +10,10 @@ import { IRegisterUserRepository } from "../interfaces/IRegisterUserRepository";
 import ProfileService from "../services/profileService";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import profileRepository from "../Repositories/profileRepository";
+import { IDocumentRepository } from "../interfaces/IDocumentRepository";
+import DocumentRepository from "../Repositories/DocumentRepository";
+import { IDocumentService } from "../interfaces/IDocumentService";
+import DocumentService from "../services/DocumentService";
 
 const iocContainer = new Container();
 
@@ -18,5 +22,7 @@ iocContainer.bind<IUserRepository>(types.IUserRepository).to(UserRepository);
 iocContainer.bind<IUserService>(types.IUserService).to(UserService);
 iocContainer.bind<IRegisterUserRepository>(types.IRegisterUserRepository).to(profileRepository);
 iocContainer.bind<IRegisterUserService>(types.IRegisterUserService).to(ProfileService);
+iocContainer.bind<IDocumentRepository>(types.IDocumentRepository).to(DocumentRepository);
+iocContainer.bind<IDocumentService>(types.IDocumentService).to(DocumentService);
 
 export {iocContainer};
