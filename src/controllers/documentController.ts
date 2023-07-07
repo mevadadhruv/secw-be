@@ -1,8 +1,8 @@
 import express, { NextFunction } from "express";
-import sendErrorProd from "../Error/globalErrorHandler";
+import sendErrorProd from "../error/globalErrorHandler";
 import document from "../config/document";
-const message = require("../Error/globalSuccessHandler");
-import appError from "../Error/appError";
+const message = require("../error/globalSuccessHandler");
+import appError from "../error/appError";
 import { inject, injectable } from "inversify";
 import { IDocumentService } from "../interfaces/IDocumentService";
 import { types } from "../config/types";
