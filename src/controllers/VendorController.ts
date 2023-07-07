@@ -3,7 +3,7 @@ import { inject, injectable } from "inversify";
 import { IVendorService } from "../interfaces/IVendorService";
 import { types } from "../config/types";
 import { Vendor } from "../types/userTypes";
-import logo from "../config/Document";
+import logo from "../config/document";
 const message = require("../Error/globalSuccessHandler");
 import AppError from "../Error/AppError";
 
