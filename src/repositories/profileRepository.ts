@@ -41,10 +41,6 @@ export default class profileRepository implements IRegisterUserRepository{
 
     async UpdateProfile(id:string,user:RegisterUser):Promise<GetRegisterUser>{
         try{
-            // const documentUpdate = await this._documentRepository.UpdateDocument(id,document);
-            // const documentUpdateId = documentUpdate;
-            // const userUpdate = await this._userRepository.updateUser(id,users);
-            // const userUpdateId = userUpdate;
             const updateProfile = await profileModel.findByIdAndUpdate(id,user);
             return {id:updateProfile.id,address:updateProfile.Address,firstName:updateProfile.first_name,lastName:updateProfile.last_name,phoneNumber:updateProfile.phone_number};
         }

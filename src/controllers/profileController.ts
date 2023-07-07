@@ -5,6 +5,7 @@ import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import { types } from "../config/types";
 import document from "../config/document";
 import AppError from "../error/appError";
+const message = require("../error/globalSuccessHandler");
 
 @injectable()
 export default class ProfileController{
@@ -67,7 +68,7 @@ private _profileService : IRegisterUserService;
             };
             const updateProfile = await this._profileService.UpdateProfile(updateProfileId,Profile);
             if(updateProfile){
-                
+                return message.sendResponse(200,"updated sucessfully",updateProfile,res);
             }
         }
         catch(err){
@@ -77,7 +78,11 @@ private _profileService : IRegisterUserService;
 
     async DeleteProfile(req:express.Request,res:express.Response){
         try{
-
+            const deleteProfileId = req.params.id;
+            const deleteProfile = await this._profileService.deleteProfile(deleteProfileId);
+            if(deleteProfile){
+                return message.sendResponseDelete(200,"Deleted successfully",res);
+            }
         }
         catch(err){
             return res.json({err});
