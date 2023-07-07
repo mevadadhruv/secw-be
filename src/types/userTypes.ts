@@ -49,7 +49,7 @@ export declare type DocumentType = {
 };
 
 export declare type GetDocument = {
-  id? : string;
+  id : string;
   name : string;
   description : string;
   attachment : string;

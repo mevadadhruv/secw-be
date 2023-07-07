@@ -16,6 +16,10 @@ const profileSchema = new mongoose.Schema({
     userId : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "Userschema"
+    },
+    documentId : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "DocumentSchema"
     }
 },{
     timestamps : true
