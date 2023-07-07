@@ -1,5 +1,6 @@
 import documentModel from "../models/document.model";
 import { GetDocument ,DocumentType} from "../types/userTypes";
+import document from "../config/document";
 import { IDocumentRepository } from "../interfaces/IDocumentRepository";
 import { injectable } from "inversify";
 
