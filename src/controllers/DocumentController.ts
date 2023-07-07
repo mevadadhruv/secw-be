@@ -1,6 +1,6 @@
 import express, { NextFunction } from "express";
 import sendErrorProd from "../Error/globalErrorHandler";
-import document from "../config/Document";
+import document from "../config/document";
 const message = require("../Error/globalSuccessHandler");
 import AppError from "../Error/AppError";
 import { inject, injectable } from "inversify";
