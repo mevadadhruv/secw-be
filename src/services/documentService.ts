@@ -32,9 +32,9 @@ private _documentRepository : IDocumentRepository;
         }
     }
     
-    UpdateDocument(id: string, document: DocumentType): Promise<GetDocument> {
+    async UpdateDocument(id: string, document: DocumentType): Promise<GetDocument> {
         try{
-            const UpdateDocument = this.UpdateDocument(id,document);
+            const UpdateDocument = await this._documentRepository.UpdateDocument(id,document);
             return UpdateDocument;
         }
         catch(err){
@@ -42,9 +42,9 @@ private _documentRepository : IDocumentRepository;
         }
     }
     
-    DeleteDocument(id: string): Promise<GetDocument> {
+    async DeleteDocument(id: string): Promise<GetDocument> {
         try{
-            const deleteDocument = this._documentRepository.DeleteDocument(id);
+            const deleteDocument = await this._documentRepository.DeleteDocument(id);
             return deleteDocument;
         }
         catch(err){
