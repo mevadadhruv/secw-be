@@ -11,11 +11,11 @@ import ProfileService from "../services/profileService";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import profileRepository from "../Repositories/profileRepository";
 import { IDocumentRepository } from "../interfaces/IDocumentRepository";
-import DocumentRepository from "../Repositories/DocumentRepository";
+import DocumentRepository from "../Repositories/documentRepository";
 import { IDocumentService } from "../interfaces/IDocumentService";
-import DocumentService from "../services/DocumentService";
+import DocumentService from "../services/documentService";
 import { IVendorRepository } from "../interfaces/IVendorRepository";
-import VendorRepository from "../Repositories/VendorRepository";
+import VendorRepository from "../Repositories/vendorRepository";
 import { IVendorService } from "../interfaces/IVendorService";
 import VendorService from "../services/VendorService";
 

@@ -2,7 +2,7 @@ import express, { NextFunction } from "express";
 import sendErrorProd from "../Error/globalErrorHandler";
 import document from "../config/document";
 const message = require("../Error/globalSuccessHandler");
-import AppError from "../Error/AppError";
+import appError from "../Error/appError";
 import { inject, injectable } from "inversify";
 import { IDocumentService } from "../interfaces/IDocumentService";
 import { types } from "../config/types";
@@ -21,7 +21,7 @@ private _documentService : IDocumentService;
             const uploadImage = document('dhruv-images').single("Attachment");
             uploadImage(req, res, async (err) => {
                 if (err) {
-                    return new AppError("Image not found", 301);
+                    return new appError("Image not found", 301);
                 }
                 //console.log(req.file);
                 const documentFile : any = req.file;
@@ -64,11 +64,11 @@ private _documentService : IDocumentService;
         try{
             const updateId = req.params.id;
             const uploadImage  = document('dhruv-images').single("Attachment");
-            uploadImage(req,res,async(err)=>{
+            uploadImage(req,res,async(err:any)=>{
                 if (err) {
-                    return new AppError("Image not found", 301);
+                    return new appError("Image not found", 301);
                 }
-                const documentFile : any = req.file;
+                const documentFile :any = req.file;
                 const documentName = documentFile.originalname;
                 const documentDescription = documentFile.encoding;
                 const documentAttachment = documentFile.location;

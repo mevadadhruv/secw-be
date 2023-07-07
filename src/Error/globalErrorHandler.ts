@@ -1,5 +1,5 @@
 import express from "express";
-const AppError = require("./AppError");
+const appError = require("./appError");
 
 const sendErrorProd = (err: any, req: express.Request, res: express.Response) => {
 
@@ -42,15 +42,15 @@ const checking = (err: any, req: express.Request, res: express.Response, next: a
 
   if (err.name === "CastError") {
     const message = `Cast error: Invalid id!please check your id:${err.value}.`;
-    return new AppError(message, 400);
+    return new appError(message, 400);
   } else if (err.code === 11000) {
     const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
     const message = `This named field is already exists:${value}. Please use another value!`;
-    return new AppError(message, 400);
+    return new appError(message, 400);
   } else if (error.name === 'ValidationError') {
     const errors: { [key: string]: string[] } = err.errors;
     const message = `Invalid input data. ${Object.values(errors).join('. ')}`;
-    return new AppError(message, 400);
+    return new appError(message, 400);
   } else {
     sendErrorProd(error, req, res);
   }

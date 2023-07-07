@@ -1,5 +1,5 @@
 import express from "express";
-import DocumentController from "../controllers/DocumentController";
+import DocumentController from "../controllers/documentController";
 import { iocContainer as Container } from "../config/container";
 import { IDocumentService } from "../interfaces/IDocumentService";
 import { types } from "../config/types";

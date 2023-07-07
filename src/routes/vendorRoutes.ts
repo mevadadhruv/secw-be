@@ -1,5 +1,5 @@
 import express from "express";
-import VendorController from "../controllers/VendorController";
+import VendorController from "../controllers/vendorController";
 import { iocContainer as Container } from "../config/container";
 import { IVendorService } from "../interfaces/IVendorService";
 import { types } from "../config/types";

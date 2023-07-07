@@ -5,7 +5,7 @@ import { types } from "../config/types";
 import { Vendor } from "../types/userTypes";
 import logo from "../config/document";
 const message = require("../Error/globalSuccessHandler");
-import AppError from "../Error/AppError";
+import appError from "../Error/appError";
 
 @injectable()
 export default class VendorController{
@@ -21,7 +21,7 @@ private _vendorService : IVendorService;
             const uploadImage = logo('dhruv-images').single("logo");
             uploadImage(req, res, async (err) => {
                 if (err) {
-                    return new AppError("Image not found", 301);
+                    return new appError("Image not found", 301);
                 }
                 const documentFile : any = req.file;
                 //console.log(documentFile);
@@ -37,7 +37,7 @@ private _vendorService : IVendorService;
                     return message.sendResponse(200, "vendor created", addVendor, res);
                 }
                 else{
-                    return new AppError("something went very wrong",400);
+                    return new appError("something went very wrong",400);
                 }
             })
         }
@@ -75,9 +75,9 @@ private _vendorService : IVendorService;
         try{
             const vendorId = req.params.id;
             const uploadImage = logo('dhruv-images').single("logo");
-            uploadImage(req, res, async (err) => {
+            uploadImage(req, res, async (err:any) => {
                 if (err) {
-                    return new AppError("Image not found", 301);
+                    return new appError("Image not found", 301);
                 }
                 const documentFile : any = req.file;
                 //console.log(documentFile);
@@ -93,7 +93,7 @@ private _vendorService : IVendorService;
                     return message.sendResponse(200, "vendor updated", updateVendor, res);
                 }
                 else{
-                    return new AppError("something went very wrong",400);
+                    return new appError("something went very wrong",400);
                 }
             })
         }
