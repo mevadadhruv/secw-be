@@ -3,8 +3,8 @@ import { CreateUser, RegisterUser, DocumentType } from "../types/userTypes";
 import { inject, injectable } from "inversify";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import { types } from "../config/types";
-import document from "../config/Document";
-import AppError from "../Error/AppError";
+import document from "../config/document";
+import AppError from "../error/appError";
 
 @injectable()
 export default class ProfileController{
@@ -17,7 +17,7 @@ private _profileService : IRegisterUserService;
     async userRegistration(req : express.Request,res: express.Response){
         try{
             const uplodImage = document("dhruv-images").single("Attachment");
-            uplodImage(req,res,async(err)=>{
+            uplodImage(req,res,async(err:any)=>{
                 if(err){
                     return new AppError("Image not found", 301);
                 }

@@ -4,8 +4,8 @@ import { IVendorService } from "../interfaces/IVendorService";
 import { types } from "../config/types";
 import { Vendor } from "../types/userTypes";
 import logo from "../config/document";
-const message = require("../Error/globalSuccessHandler");
-import appError from "../Error/appError";
+const message = require("../error/globalSuccessHandler");
+import appError from "../error/appError";
 
 @injectable()
 export default class VendorController{
