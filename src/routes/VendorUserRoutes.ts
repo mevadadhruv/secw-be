@@ -9,9 +9,9 @@ const vendorUser = new VendorUserController(vendorService);
 
 const VendorUserRouter = express.Router();
 
-VendorUserRouter.post("/add",(req,res)=>vendorUser.addVendorUser(req,res));
-VendorUserRouter.get("/vendorusers",(req,res)=>vendorUser.getVendorUser(req,res));
-VendorUserRouter.get("/vendorusers/:id",(req,res)=>vendorUser.getById(req,res));
-VendorUserRouter.delete("/delete/:id",(req,res)=>vendorUser.deleteVendorUser(req,res));
+VendorUserRouter.post("/add",(req,res,next)=>vendorUser.addVendorUser(req,res,next));
+VendorUserRouter.get("/vendorusers",(req,res,next)=>vendorUser.getVendorUser(req,res,next));
+VendorUserRouter.get("/vendorusers/:id",(req,res,next)=>vendorUser.getById(req,res,next));
+VendorUserRouter.delete("/delete/:id",(req,res,next)=>vendorUser.deleteVendorUser(req,res,next));
 
 export default VendorUserRouter;

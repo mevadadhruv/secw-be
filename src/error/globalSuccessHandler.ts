@@ -1,6 +1,6 @@
 import express from "express";
 
-exports.sendResponse = (statusCode : number, message : string, data : any, res : express.Response) => {
+  export const sendResponse = (statusCode : number, message : string, data : any, res : express.Response) => {
     return res.status(statusCode).json({
        error:false,
       message,
@@ -8,7 +8,7 @@ exports.sendResponse = (statusCode : number, message : string, data : any, res :
     });
   };
 
-  exports.sendResponseGet = (statusCode : number,data : any, res : express.Response) => {
+  export const sendResponseGet = (statusCode : number,data : any, res : express.Response) => {
     return res.status(statusCode).json({
        error:false,
       // message,
@@ -16,7 +16,7 @@ exports.sendResponse = (statusCode : number, message : string, data : any, res :
     });
   };
 
-  exports.sendResponseDelete = (statusCode : number,message : string,res:express.Response) => {
+  export const sendResponseDelete = (statusCode : number,message : string,res:express.Response) => {
     return res.status(statusCode).json({
        error:false,
       message,

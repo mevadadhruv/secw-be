@@ -1,8 +1,9 @@
-import express from "express";
+import express, { NextFunction } from "express";
 import { inject, injectable } from "inversify";
 import { CreateUser, UpdateUser } from "../types/userTypes";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
+import { checking } from "../error/globalErrorHandler";
 @injectable()   
 export default class UserController {
     private UserService : IUserService;
@@ -11,7 +12,7 @@ export default class UserController {
         this.UserService = userService;
     }
 
-    async createUser(req: express.Request, res: express.Response) {
+    async createUser(req: express.Request, res: express.Response,next:NextFunction) {
         try {
             const user : CreateUser = {
                 emailId:req.body.emailId,
@@ -21,11 +22,11 @@ export default class UserController {
            return res.status(200).json({message : "User Created Successfully!"});
         }
         catch (err) {
-            return res.json({ err });
+            return checking(err,req,res,next);
         }
     }
 
-    async getUser(req: express.Request, res: express.Response) {
+    async getUser(req: express.Request, res: express.Response,next:NextFunction) {
         try {
             const users = await this.UserService.getUser();
             if(users){
@@ -33,22 +34,22 @@ export default class UserController {
             }
         }
         catch (err) {
-            return res.json({ err });
+            return checking(err,req,res,next);
         }
     }
 
-    async getUserbyId(req: express.Request, res: express.Response) {
+    async getUserbyId(req: express.Request, res: express.Response,next:NextFunction) {
         try {
             const userId = req.params.id;
             const user = await this.UserService.getUserbyId(userId);
             return res.status(200).json({user});
         }
         catch (err) {
-            return res.json({err});
+            return checking(err,req,res,next);
         }
     }
 
-    async updateUser(req: express.Request, res: express.Response) {
+    async updateUser(req: express.Request, res: express.Response,next:NextFunction) {
        try{
             const userId = req.params.id;
             const User : UpdateUser = {
@@ -65,22 +66,22 @@ export default class UserController {
             }
         }
        catch(err){
-            return res.json({err});
+            return checking(err,req,res,next);
        }
     }
 
-    async deleteUser(req: express.Request, res: express.Response) {
+    async deleteUser(req: express.Request, res: express.Response,next:NextFunction) {
         try{
             const userId = req.params.id;
             const deleteUser = await this.UserService.deleteUser(userId);
             return res.status(200).json({message : "user deleted successfully"});
         }
         catch(err){
-            return res.json({err});
+            return checking(err,req,res,next);
         }
     }
 
-    async LoginUser(req:express.Request, res:express.Response){
+    async LoginUser(req:express.Request, res:express.Response,next:NextFunction){
         try{
             const user : CreateUser = {
                 emailId:req.body.emailId,
@@ -99,7 +100,7 @@ export default class UserController {
             }
         }
         catch(err){
-            return res.json({err});
+            return checking(err,req,res,next);
         }
     }
 }

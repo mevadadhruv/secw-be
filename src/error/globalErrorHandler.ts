@@ -1,7 +1,7 @@
 import express from "express";
 const appError = require("./appError");
 
-const sendErrorProd = (err: any, req: express.Request, res: express.Response) => {
+export const sendErrorProd = (err: any, req: express.Request, res: express.Response) => {
 
   if (req.originalUrl.startsWith('/')) {
     if (err.isOperational) {
@@ -13,7 +13,7 @@ const sendErrorProd = (err: any, req: express.Request, res: express.Response) =>
     console.error('ERROR', err);
     return res.status(500).json({
       error: err.status,
-      message: 'Internal Server Error!'
+      message: err.message
     });
   }
 
@@ -21,7 +21,7 @@ const sendErrorProd = (err: any, req: express.Request, res: express.Response) =>
     console.log(err);
     return res.status(err.statusCode).render('error', {
       error: err.status,
-      message: 'Something went wrong!'
+      message: err.message
     });
   }
   
@@ -29,11 +29,11 @@ const sendErrorProd = (err: any, req: express.Request, res: express.Response) =>
   
   return res.status(err.statusCode).render('error', {
     error: err.status,
-    message: 'Something went wrong!'
+    message: err.message
   });
 };
 
-const checking = (err: any, req: express.Request, res: express.Response, next: any) => {
+export const checking = (err: any, req: express.Request, res: express.Response, next: any) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || true;
 
@@ -41,7 +41,7 @@ const checking = (err: any, req: express.Request, res: express.Response, next: a
   error.message = err.message;
 
   if (err.name === "CastError") {
-    const message = `Cast error: Invalid id!please check your id:${err.value}.`;
+    const message = `Cast error: Invalid id!please check your id:${err.value}. BAD REQUEST`;
     return new appError(message, 400);
   } else if (err.code === 11000) {
     const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
@@ -49,11 +49,16 @@ const checking = (err: any, req: express.Request, res: express.Response, next: a
     return new appError(message, 400);
   } else if (error.name === 'ValidationError') {
     const errors: { [key: string]: string[] } = err.errors;
-    const message = `Invalid input data. ${Object.values(errors).join('. ')}`;
+    const message = `Invalid input data. ${Object.values(errors).join('. ')} BAD REQUEST`;
     return new appError(message, 400);
-  } else {
+  }else if(error.name === 'Not Found'){
+    const message = `data not found!!`;
+    return new appError(message, 404);
+  }else if(error.name === 'Unauthorized'){
+    const message = 'please sign in to continue!';
+    return new appError(message,401);
+  } 
+  else {
     sendErrorProd(error, req, res);
   }
 };
-
-export default sendErrorProd;

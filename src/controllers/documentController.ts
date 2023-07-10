@@ -1,5 +1,5 @@
 import express, { NextFunction } from "express";
-import sendErrorProd from "../error/globalErrorHandler";
+import {checking,sendErrorProd} from "../error/globalErrorHandler";
 import document from "../config/document";
 const message = require("../error/globalSuccessHandler");
 import appError from "../error/appError";
@@ -43,7 +43,7 @@ private _documentService : IDocumentService;
             })
         }
         catch (err) {
-            return sendErrorProd(err, req, res);
+            return checking(err, req, res,next);
         }
     }
 
@@ -56,7 +56,7 @@ private _documentService : IDocumentService;
             }
         }
         catch(err){
-            return sendErrorProd(err,req,res);
+            return checking(err, req, res,next);
         }
     }
 
@@ -88,7 +88,7 @@ private _documentService : IDocumentService;
             })
         }
         catch(err){
-            return sendErrorProd(err,req,res);
+            return checking(err, req, res,next);
         }
     }
     
@@ -101,7 +101,7 @@ private _documentService : IDocumentService;
             }
         }
         catch(err){
-            return sendErrorProd(err,req,res);
+            return checking(err, req, res,next);
         }
     }
 }
