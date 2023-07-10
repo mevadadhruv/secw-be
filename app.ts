@@ -11,6 +11,9 @@ dotenv.config();
 const port = config.PORT;
 const app:Application = express();
 
+
+
+
 app.use(cors({ origin: '*' }));
 app.options('*', cors({ origin: '*' }));
 app.use(function (req, res, next) {
