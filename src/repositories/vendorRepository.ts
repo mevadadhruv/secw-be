@@ -5,6 +5,7 @@ import vendorModel from "../models/vendor.model";
 import { IDocumentService } from "../interfaces/IDocumentService";
 import { types } from "../config/types";
 import { IDocumentRepository } from "../interfaces/IDocumentRepository";
+import { ObjectId } from "mongodb";
 
 @injectable()
 export default class VendorRepository implements IVendorRepository{
@@ -39,11 +40,14 @@ private _document : IDocumentService;
     
     async getVendorById(id: string): Promise<GetVendor> {
         try{
-            const getVendor = await vendorModel.findById(id);
+            const getVendor = await vendorModel.findById(new ObjectId(id));
             console.log(getVendor);
-            return {name:getVendor.name,logo:getVendor.logo};
+            console.log(getVendor.name);
+            console.log(getVendor.logo);
+            return {id:getVendor.id, name:getVendor.name,logo:getVendor.logo};
         }
         catch(err){
+            console.log("vendor repository");
             throw err;
         }
     }

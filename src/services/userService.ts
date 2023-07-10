@@ -32,7 +32,7 @@ private _userrepository : IUserRepository;
         }
     }
 
-    async getUserbyId(id : String):Promise<GetUser>{
+    async getUserbyId(id : string):Promise<GetUser>{
         try{
             const users = await this._userrepository.getUserbyId(id); 
             return users;

@@ -3,17 +3,17 @@ const appError = require("./appError");
 
 const sendErrorProd = (err: any, req: express.Request, res: express.Response) => {
 
-  if (req.originalUrl.startsWith('/api')) {
+  if (req.originalUrl.startsWith('/')) {
     if (err.isOperational) {
       return res.status(err.statusCode).json({
         error: err.status,
         message: err.message
       });
     }
-    console.error('ERROR 💥', err);
+    console.error('ERROR', err);
     return res.status(500).json({
       error: err.status,
-      message: 'Something went very wrong!'
+      message: 'Internal Server Error!'
     });
   }
 
@@ -25,7 +25,7 @@ const sendErrorProd = (err: any, req: express.Request, res: express.Response) =>
     });
   }
   
-  console.error('ERROR 💥', err);
+  console.error('ERROR', err);
   
   return res.status(err.statusCode).render('error', {
     error: err.status,
