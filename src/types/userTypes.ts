@@ -68,3 +68,8 @@ export declare type GetVendor = {
   name : string;
   logo : string;
 };
+
+export declare type GetVendorUser = {
+  userId? : String;
+  vendorId? : String;
+}

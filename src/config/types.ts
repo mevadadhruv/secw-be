@@ -7,5 +7,7 @@ export const types = {
     IDocumentRepository : Symbol("IDocumentRepository"),
     IDocumentService : Symbol("IDocumentService"),
     IVendorRepository : Symbol("IVendorRepository"),
-    IVendorService : Symbol("IVendorService")
+    IVendorService : Symbol("IVendorService"),
+    IVendorUserRepository : Symbol("IVendorUserRepository"),
+    IVendorUserService : Symbol("IVendorUserService")
 }
