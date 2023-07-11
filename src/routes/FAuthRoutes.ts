@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { handlefun } from "../helper/handlefun";
-import AuthStrategyController from "../controllers/AuthStrategyController";
+import AuthStrategyController from "../controllers/authStrategyController";
 
 const userService = container.get<IUserService>(types.IUserService);
 const profileService = container.get<IRegisterUserService>(
