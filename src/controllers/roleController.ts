@@ -1,5 +1,5 @@
 import express, { NextFunction } from "express";
-import { sendErrorProd } from "../Error/globalErrorHandler";
+import { sendErrorProd } from "../error/globalErrorHandler";
 const message = require("../error/globalSuccessHandler");
 import { inject, injectable } from "inversify";
 import { IRoleService } from "../interfaces/IRoleService";

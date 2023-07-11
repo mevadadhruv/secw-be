@@ -2,7 +2,7 @@ import roleModel from '../models/role.model';
 import { Role } from '../types/userTypes';
 import { IRoleRepository } from '../interfaces/IRoleRepository';
 import { injectable } from 'inversify';
-import appError from '../Error/appError';
+import appError from '../error/appError';
 import mongoose from 'mongoose';
 const mongooseTypes = mongoose.Types;
 @injectable()

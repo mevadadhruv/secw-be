@@ -5,8 +5,8 @@ import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import { types } from "../config/types";
 import * as dotenv from "dotenv";
 import document from "../config/document";
-import AppError from "../Error/appError";
-import { checking, sendErrorProd } from "../Error/globalErrorHandler";
+import AppError from "../error/appError";
+import { checking, sendErrorProd } from "../error/globalErrorHandler";
 const message = require("../error/globalSuccessHandler");
 
 @injectable()

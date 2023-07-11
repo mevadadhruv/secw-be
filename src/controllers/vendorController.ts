@@ -5,8 +5,8 @@ import { types } from "../config/types";
 import { Vendor } from "../types/userTypes";
 import logo from "../config/document";
 const message = require("../error/globalSuccessHandler");
-import appError from "../Error/appError";
-import {checking,sendErrorProd} from "../Error/globalErrorHandler";
+import appError from "../error/appError";
+import {checking,sendErrorProd} from "../error/globalErrorHandler";
 
 @injectable()
 export default class VendorController{

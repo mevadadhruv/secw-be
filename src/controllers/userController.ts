@@ -3,13 +3,13 @@ import { inject, injectable } from "inversify";
 import { CreateUser, UpdateUser } from "../types/userTypes";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
-import AppError from "../Error/appError";
-import { sendErrorProd } from "../Error/globalErrorHandler";
-const message = require("../Error/globalSuccessHandler");
+import AppError from "../error/appError";
+import { sendErrorProd } from "../error/globalErrorHandler";
+const message = require("../error/globalSuccessHandler");
 import jwt from "jsonwebtoken";
 import { config } from "../config/env";
 import userModel from "../models/user.model";
-import { checking } from "../Error/globalErrorHandler";
+import { checking } from "../error/globalErrorHandler";
 import bcrypt from "bcrypt";
 
 @injectable()

@@ -2,12 +2,12 @@ import express, { NextFunction } from "express";
 import { IVendorUserService } from "../interfaces/IVendorUserService";
 import { inject, injectable } from "inversify";
 import { types } from "../config/types";
-import { checking } from "../Error/globalErrorHandler";
+import { checking } from "../error/globalErrorHandler";
 import {
   sendResponse,
   sendResponseDelete,
   sendResponseGet,
-} from "../Error/globalSuccessHandler";
+} from "../error/globalSuccessHandler";
 
 @injectable()
 export default class VendorUserController {
