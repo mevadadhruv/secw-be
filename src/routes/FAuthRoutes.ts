@@ -18,7 +18,14 @@ const authController = new AuthStrategyController(userService, profileService);
 const FAuthRouter = express.Router();
 FAuthRouter.use(cookieParser());
 FAuthRouter.use(bodyParser.urlencoded({ extended: false }));
-FAuthRouter.use(session({ secret: "keyboard cat", name: "sid" }));
+FAuthRouter.use(
+  session({
+    secret: "keyboard cat",
+    name: "sid",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 FAuthRouter.use(passport.initialize());
 FAuthRouter.use(passport.session());
 FAuthRouter.get("/", function (req, res) {
