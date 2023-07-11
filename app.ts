@@ -28,10 +28,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 DatabaseConnection();
 
 app.use(index.router);
-app.use("/profile", index.profileRouter);
-app.use("/document", index.DocumentRouter);
-app.use("/vendor", index.VendorRouter);
+app.use('/profile',index.profileRouter);
+app.use('/document',index.DocumentRouter);
+app.use('/vendor',index.VendorRouter);
 app.use("/role", index.roleRouter);
+app.use('/vendorUser',index.VendorUserRouter);
 
 app.listen(port, (): void => {
   console.log(`server running on  ${port}`);

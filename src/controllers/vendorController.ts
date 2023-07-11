@@ -6,6 +6,7 @@ import { Vendor } from "../types/userTypes";
 import logo from "../config/document";
 const message = require("../error/globalSuccessHandler");
 import appError from "../error/appError";
+import {checking,sendErrorProd} from "../error/globalErrorHandler";
 
 @injectable()
 export default class VendorController{
@@ -42,7 +43,7 @@ private _vendorService : IVendorService;
             })
         }
         catch(err){
-            throw err;
+            return checking(err,req,res,next);
         }
     }
 
@@ -54,7 +55,7 @@ private _vendorService : IVendorService;
             }
         }
         catch(err){
-            throw err;
+            return checking(err,req,res,next);
         }
     }
 
@@ -67,7 +68,7 @@ private _vendorService : IVendorService;
             }
         }
         catch(err){
-            throw err;
+            return checking(err,req,res,next);
         }
     }
 
@@ -98,7 +99,7 @@ private _vendorService : IVendorService;
             })
         }
         catch(err){
-            throw err;
+            return checking(err,req,res,next);
         }
     }
 
@@ -111,7 +112,7 @@ private _vendorService : IVendorService;
             }
         }
         catch(err){
-            throw err;
+            return checking(err,req,res,next);
         }
     }
 }

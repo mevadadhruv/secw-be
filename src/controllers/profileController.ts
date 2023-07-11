@@ -1,10 +1,11 @@
-import express from "express";
+import express, { NextFunction } from "express";
 import { CreateUser, RegisterUser, DocumentType } from "../types/userTypes";
 import { inject, injectable } from "inversify";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import { types } from "../config/types";
 import document from "../config/document";
 import AppError from "../error/appError";
+import {checking,sendErrorProd} from "../error/globalErrorHandler";
 const message = require("../error/globalSuccessHandler");
 
 @injectable()
@@ -15,7 +16,7 @@ private _profileService : IRegisterUserService;
         this._profileService = profileService;
     }
 
-    async userRegistration(req : express.Request,res: express.Response){
+    async userRegistration(req : express.Request,res: express.Response,next:NextFunction){
         try{
             const uplodImage = document("dhruv-images").single("Attachment");
             uplodImage(req,res,async(err:any)=>{
@@ -53,11 +54,11 @@ private _profileService : IRegisterUserService;
             })
         }
         catch(err){
-            return res.json({err});
+            return checking(err,req,res,next);
         }
     }
 
-    async UpdateProfile(req:express.Request,res:express.Response){
+    async UpdateProfile(req:express.Request,res:express.Response,next:NextFunction){
         try{
             const updateProfileId = req.params.id;
             const Profile : RegisterUser = {
@@ -72,11 +73,11 @@ private _profileService : IRegisterUserService;
             }
         }
         catch(err){
-            return res.json({err});
+            return checking(err,req,res,next);
         }
     }
 
-    async DeleteProfile(req:express.Request,res:express.Response){
+    async DeleteProfile(req:express.Request,res:express.Response,next:NextFunction){
         try{
             const deleteProfileId = req.params.id;
             const deleteProfile = await this._profileService.deleteProfile(deleteProfileId);
@@ -85,7 +86,7 @@ private _profileService : IRegisterUserService;
             }
         }
         catch(err){
-            return res.json({err});
+            return checking(err,req,res,next);
         }
     }
 }

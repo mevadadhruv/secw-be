@@ -3,6 +3,7 @@ import { IUserRepository } from "../interfaces/IUserRepository";
 import userModel from "../models/user.model";
 import { CreateUser,UpdateUser,GetUser } from "../types/userTypes";
 import bcrypt from "bcrypt";
+import { ObjectId } from "mongodb";
 
 @injectable()
 export default class UserRepository implements IUserRepository{ 
@@ -40,9 +41,9 @@ export default class UserRepository implements IUserRepository{
         } 
     }
 
-    async getUserbyId(id:String):Promise<GetUser>{
+    async getUserbyId(id:string):Promise<GetUser>{
         try{
-            const res = await userModel.findById(id);
+            const res = await userModel.findById(new ObjectId(id));
             const _id = res?.id;
             const email = res?.emailId;
             const pass = res?.password;
