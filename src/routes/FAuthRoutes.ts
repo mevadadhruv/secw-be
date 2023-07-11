@@ -1,6 +1,5 @@
 import express, { NextFunction } from "express";
 import passport from "passport";
-import AuthStrategyController from "../controllers/authStrategyController";
 import { iocContainer as container } from "../config/container";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
@@ -9,6 +8,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { handlefun } from "../helper/handlefun";
+import AuthStrategyController from "../controllers/AuthStrategyController";
 
 const userService = container.get<IUserService>(types.IUserService);
 const profileService = container.get<IRegisterUserService>(
