@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 DatabaseConnection();
 
-app.use(index.router, index.profileRouter, index.AuthRouter);
+app.use(index.router, index.profileRouter, index.FAuthRouter,index.GAuthRoutes);
 
 app.listen(config.PORT, (): void => {
   console.log(`server running on  ${config.PORT}`);

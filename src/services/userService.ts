@@ -3,7 +3,7 @@ import { IUserRepository } from "../interfaces/IUserRepository";
 import { injectable, inject } from "inversify";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
-import AppError from "../Error/AppError";
+import AppError from "../error/appError";
 import userModel from "../models/user.model";
 
 @injectable()
