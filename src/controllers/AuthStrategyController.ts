@@ -8,7 +8,7 @@ import { iocContainer as Container } from "../config/container";
 import { types } from "../config/types";
 import { IUserService } from "../interfaces/IUserService";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
-import { AuthController } from "./authController";
+import { AuthController } from "./AuthController";
 import { config } from "../config/env";
 
 const profileService = Container.get<IRegisterUserService>(
