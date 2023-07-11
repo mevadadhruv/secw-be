@@ -1,8 +1,10 @@
 import router from "../routes/userRoutes";
 import profileRouter from "./profileRoutes";
+import FAuthRouter from "./fAuthRoutes";
+import GAuthRoutes from "./gAuthRoutes";
 import DocumentRouter from "./documentRoutes";
 import VendorRouter from "./vendorRoutes";
-import VendorUserRouter from "./VendorUserRoutes";
+import VendorUserRouter from "./vendorUserRoutes";
 import roleRouter from "./roleRoutes";
 
 export default {
@@ -12,4 +14,6 @@ export default {
   VendorRouter,
   VendorUserRouter,
   roleRouter,
+  GAuthRoutes,
+  FAuthRouter,
 };

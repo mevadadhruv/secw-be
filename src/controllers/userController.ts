@@ -3,23 +3,31 @@ import { inject, injectable } from "inversify";
 import { CreateUser, UpdateUser } from "../types/userTypes";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
+import AppError from "../error/appError";
+import { sendErrorProd } from "../error/globalErrorHandler";
+const message = require("../error/globalSuccessHandler");
+import jwt from "jsonwebtoken";
+import { config } from "../config/env";
+import userModel from "../models/user.model";
 import { checking } from "../error/globalErrorHandler";
-@injectable()   
-export default class UserController {
-    private UserService : IUserService;
+import bcrypt from "bcrypt";
 
-    constructor(@inject(types.IUserService) userService:IUserService){
+@injectable()
+export default class UserController {
+    private UserService: IUserService;
+
+    constructor(@inject(types.IUserService) userService: IUserService) {
         this.UserService = userService;
     }
 
     async createUser(req: express.Request, res: express.Response,next:NextFunction) {
         try {
-            const user : CreateUser = {
-                emailId:req.body.emailId,
-                password:req.body.password
+            const user: CreateUser = {
+                emailId: req.body.emailId,
+                password: req.body.password
             };
-           const service = await this.UserService.createUser(user);
-           return res.status(200).json({message : "User Created Successfully!"});
+            const service = await this.UserService.createUser(user);
+            return message.sendResponse(200, "user created successfully", service, res);
         }
         catch (err) {
             return checking(err,req,res,next);
@@ -29,8 +37,8 @@ export default class UserController {
     async getUser(req: express.Request, res: express.Response,next:NextFunction) {
         try {
             const users = await this.UserService.getUser();
-            if(users){
-                return res.status(200).json({users});
+            if (users) {
+                return message.sendResponseGet(200, users, res);
             }
         }
         catch (err) {
@@ -42,7 +50,7 @@ export default class UserController {
         try {
             const userId = req.params.id;
             const user = await this.UserService.getUserbyId(userId);
-            return res.status(200).json({user});
+            return message.sendResponseGet(200, user, res);
         }
         catch (err) {
             return checking(err,req,res,next);
@@ -52,17 +60,17 @@ export default class UserController {
     async updateUser(req: express.Request, res: express.Response,next:NextFunction) {
        try{
             const userId = req.params.id;
-            const User : UpdateUser = {
-                emailId : req.body.emailId,
-                password : req.body.password
+            const User: UpdateUser = {
+                emailId: req.body.emailId,
+                password: req.body.password
             };
-            const updateUser = await this.UserService.updateUser(userId,User);
-            if(!updateUser){
-                return res.status(400).json({message : "no such user existed"});
+            const updateUser = await this.UserService.updateUser(userId, User);
+            if (!updateUser) {
+                return new AppError("no such user existed", 400);
             }
-            if(updateUser){
+            if (updateUser) {
                 const updatedUser = await this.UserService.getUserbyId(userId);
-                return res.status(200).json({message : "user updated successfully!!" , updateUser});
+                return message.sendResponse(200, "User updated successfully", updatedUser, res);
             }
         }
        catch(err){
@@ -74,7 +82,7 @@ export default class UserController {
         try{
             const userId = req.params.id;
             const deleteUser = await this.UserService.deleteUser(userId);
-            return res.status(200).json({message : "user deleted successfully"});
+            return message.sendResponseDelete(200, "user deleted successfully!", res);
         }
         catch(err){
             return checking(err,req,res,next);
@@ -87,16 +95,19 @@ export default class UserController {
                 emailId:req.body.emailId,
                 password:req.body.password
             };
-            if(!(user.emailId && user.password)){
-                return res.status(400).json({message : "field can`t be empty"});
+            const email = user.emailId;
+            const password = user.password;
+            if (!(user.emailId && user.password)) {
+                return res.status(400).json({ message: "field can`t be empty" });
             }
-            const userCheck = await this.UserService.LoginUser(user);
-            console.log(userCheck);
-            if(!userCheck){
-                return res.status(400).json({message : "invalid creditionals"});
+            const userCheck = await userModel.findOne({ emailId: user.emailId });
+            if (userCheck && (await bcrypt.compare(user.password, userCheck.password))) {
+                const token = jwt.sign({ email, password }, config.JWT_SECRET_KEY, { expiresIn: "3000m" });
+                userCheck.token = token;
+                return message.sendResponse(200, "user have been logged in!", userCheck, res);
             }
-            else{
-                return res.status(200).json({message : "login successfully!"});
+            else {
+                next(new AppError("Invalid credentials", 400));
             }
         }
         catch(err){

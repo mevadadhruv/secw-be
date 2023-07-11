@@ -5,7 +5,6 @@ export interface IUserRepository{
     getUser():any;
     getUserbyId(id:String) : Promise<GetUser>;
     updateUser(id:String,user:UpdateUser):Promise<GetUser>;
-    getUserByemail(user:CreateUser):Promise<GetUser>;
     deleteUser(id:String):Promise<GetUser>;
     loginUser(user:CreateUser):Promise<GetUser>;
 }

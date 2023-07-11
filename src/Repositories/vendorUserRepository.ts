@@ -3,7 +3,7 @@ import { IVendorUserRepository } from "../interfaces/IVendorUserRepository";
 import { IVendorRepository } from "../interfaces/IVendorRepository";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import { types } from "../config/types";
-import VendorUserModel from "../models/VendorUser.model";
+import VendorUserModel from "../models/vendorUser.model";
 
 @injectable()
 export default class VendorUserRepository implements IVendorUserRepository{
