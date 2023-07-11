@@ -75,3 +75,11 @@ export declare type Role = {
 	createdAt?: Date;
 	updatedAt?: Date;
 };
+
+export declare type Review = {
+	id? :string;
+	review? : string;
+	reviewstar? : number;
+	createdAt? : Date;
+	updatedAt? : Date;
+};
