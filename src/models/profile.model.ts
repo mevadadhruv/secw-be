@@ -1,27 +1,30 @@
 import mongoose from "mongoose";
 
-const profileSchema = new mongoose.Schema({
-    Address : {
-        type : String
+const profileSchema = new mongoose.Schema(
+  {
+    address: {
+      type: String,
     },
-    first_name : {
-        type : String
+    firstName: {
+      type: String,
     },
-    last_name : {
-        type : String
+    lastName: {
+      type: String,
     },
-    phone_number : {
-        type : String
+    phoneNumber: {
+      type: String,
     },
-    userId : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "Userschema"
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Userschema",
     },
-    googleId : {
-        type : String 
-    }
-},{
-    timestamps : true
-});
+    sId: {
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default mongoose.model('Profile',profileSchema);
+export default mongoose.model("Profile", profileSchema);

@@ -1,57 +1,58 @@
-import express from "express";
 import passport from "passport";
-import { Strategy as GoogleStrategy } from "passport-google-oauth2";
+import userModel from "../models/user.model";
+import { CreateUser, RegisterUser } from "../types/userTypes";
 import { inject, injectable } from "inversify";
-import { iocContainer as Container } from "../config/container";
 import { types } from "../config/types";
-import { IUserService } from "../interfaces/IUserService";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
-import { GoogleAuthController } from "./GoogleAuthController";
-import {config} from "../config/env";
-
-const profileService = Container.get<IRegisterUserService>(types.IRegisterUserService);
-const googleController = new GoogleAuthController(profileService);
 
 @injectable()
-export default class AuthController {
+export class AuthController {
+  private _ProfilService: IRegisterUserService;
+  constructor(
+    @inject(types.IRegisterUserService) profileService: IRegisterUserService
+  ) {
+    this._ProfilService = profileService;
+  }
+  AuthCallback = async (
+    accessToken: any,
+    refreshToken: any,
+    profile: passport.Profile,
+    done: passport.DoneCallback,
+    request?: any
+  ) => {
+    try {
+      const id = profile.id;
+      const email = profile!.emails[0].value;
+      const firstname = profile.name?.givenName;
+      const lastname = profile.name?.familyName;
+      const AddUser: RegisterUser = {
+        firstName: firstname,
+        lastName: lastname,
+        address: "",
+        phoneNumber: "",
+        sId: id,
+      };
+      const AddUserInfo: CreateUser = {
+        emailId: email,
+        password: "",
+      };
+      console.log("checking !!!" + email);
+      const userCheck = await userModel.findOne({
+        emailId: AddUserInfo.emailId,
+      });
+      console.log("checking userCheck!!!" + userCheck);
+      if (!userCheck) {
 
-private _UserService : IUserService;
-private _ProfilService : IRegisterUserService;
-
-    constructor(@inject(types.IUserService) userService:IUserService,
-    @inject(types.IRegisterUserService) profileService:IRegisterUserService){
-        this._UserService = userService;
-        this._ProfilService = profileService;
+        const NewUser = await this._ProfilService.UserRegistration(
+          AddUser,
+          AddUserInfo
+        );
+        console.log("NewUser:- ", NewUser);
+        done(null, NewUser);
+      }
+    } catch (err) {
+      console.log(err);
+      throw new Error("error in auth class" + err);
     }
-
-    async AuthUser(req:express.Request, res:express.Response){
-        
-        // let that = this;
-        
-        try{
-            passport.serializeUser((user:any,done)=>{
-                done(null,user.id);
-            });
-            
-            passport.deserializeUser(async(id:String,done:passport.DoneCallback)=>{
-                const currentUser = await this._UserService.getUserbyId(id);
-                done(null,currentUser);
-            });
-
-            passport.use(new GoogleStrategy({
-                clientID : config.GOOGLE_CLIENT_ID,
-                clientSecret : config.GOOGLE_SECRET_KEY,
-                callbackURL : config.GOOGLE_REDIRECT_URL,
-                passReqToCallback : true
-            },
-            (request: any, accessToken: any, refreshToken: any, profile: passport.Profile, done: passport.DoneCallback) => {
-                googleController.AuthCallback(request,accessToken,refreshToken,profile,done);
-                return done(null,profile);            
-            })
-            );
-        }
-        catch(err){
-            console.log(err);         
-        }
-    }
+  };
 }

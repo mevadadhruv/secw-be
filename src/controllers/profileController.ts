@@ -8,32 +8,38 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 @injectable()
-export default class ProfileController{
-private _profileService : IRegisterUserService;
+export default class ProfileController {
+  private _profileService: IRegisterUserService;
 
-    constructor(@inject(types.IRegisterUserService) profileService : IRegisterUserService){
-        this._profileService = profileService;
-    }
+  constructor(
+    @inject(types.IRegisterUserService) profileService: IRegisterUserService
+  ) {
+    this._profileService = profileService;
+  }
 
-    async userRegistration(req : express.Request,res: express.Response){
-        try{
-            const register : RegisterUser = {
-                Address: req.body.Address,
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                phone_number: req.body.phone_number
-            };
-            const Registeration : CreateUser = {
-                emailId: req.body.emailId,
-                password: req.body.password
-            };
-            const registerUser = await this._profileService.UserRegistration(register,Registeration);
-            if(registerUser){
-                return res.status(200).json({message : "User register successfully!!"});
-            }
-        }
-        catch(err){
-            return res.json({err});
-        }
+  async userRegistration(req: express.Request, res: express.Response) {
+    try {
+      const register: RegisterUser = {
+        address: req.body.address,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phoneNumber: req.body.phoneNumber,
+      };
+      const Registeration: CreateUser = {
+        emailId: req.body.emailId,
+        password: req.body.password,
+      };
+      const registerUser = await this._profileService.UserRegistration(
+        register,
+        Registeration
+      );
+      if (registerUser) {
+        return res
+          .status(200)
+          .json({ message: "User register successfully!!" });
+      }
+    } catch (err) {
+      return res.json({ err });
     }
+  }
 }

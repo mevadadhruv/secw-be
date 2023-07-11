@@ -1,5 +1,6 @@
 import router from "../routes/userRoutes";
 import profileRouter from "./profileRoutes";
-import AuthRouter from "./AuthRoutes";
+import FAuthRouter from "./fAuthRoutes";
+import GAuthRoutes from "./gAuthRoutes";
 
-export default {router,profileRouter,AuthRouter};
+export default { router, profileRouter, GAuthRoutes, FAuthRouter };
