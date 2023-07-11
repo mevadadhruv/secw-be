@@ -1,5 +1,5 @@
-import express from "express";
-const appError = require("./appError");
+import express from 'express';
+const appError = require('./appError');
 
 export const sendErrorProd = (err: any, req: express.Request, res: express.Response) => {
 
@@ -37,8 +37,8 @@ export const checking = (err: any, req: express.Request, res: express.Response, 
   err.statusCode = err.statusCode || 500;
   err.status = err.status || true;
 
-  let error = {...err };
-  error.message = err.message;
+	let error = { ...err };
+	error.message = err.message;
 
   if (err.name === "CastError") {
     const message = `Cast error: Invalid id!please check your id:${err.value}. BAD REQUEST`;

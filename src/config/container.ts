@@ -22,19 +22,37 @@ import { IVendorUserRepository } from "../interfaces/IVendorUserRepository";
 import { IVendorUserService } from "../interfaces/IVendorUserService";
 import VendorUserService from "../services/VendorUserService";
 import VendorUserRepository from "../repositories/VendorUserRepository";
+import { IRoleRepository } from "../interfaces/IRoleRepository";
+import RoleRepository from "../repositories/roleRepository";
+import { IRoleService } from "../interfaces/IRoleService";
+import RoleService from "../services/roleService";
 
 const iocContainer = new Container();
 
 iocContainer.load(buildProviderModule());
 iocContainer.bind<IUserRepository>(types.IUserRepository).to(UserRepository);
 iocContainer.bind<IUserService>(types.IUserService).to(UserService);
-iocContainer.bind<IRegisterUserRepository>(types.IRegisterUserRepository).to(profileRepository);
-iocContainer.bind<IRegisterUserService>(types.IRegisterUserService).to(ProfileService);
-iocContainer.bind<IDocumentRepository>(types.IDocumentRepository).to(DocumentRepository);
+iocContainer
+  .bind<IRegisterUserRepository>(types.IRegisterUserRepository)
+  .to(profileRepository);
+iocContainer
+  .bind<IRegisterUserService>(types.IRegisterUserService)
+  .to(ProfileService);
+iocContainer
+  .bind<IDocumentRepository>(types.IDocumentRepository)
+  .to(DocumentRepository);
 iocContainer.bind<IDocumentService>(types.IDocumentService).to(DocumentService);
-iocContainer.bind<IVendorRepository>(types.IVendorRepository).to(VendorRepository);
+iocContainer
+  .bind<IVendorRepository>(types.IVendorRepository)
+  .to(VendorRepository);
 iocContainer.bind<IVendorService>(types.IVendorService).to(VendorService);
-iocContainer.bind<IVendorUserRepository>(types.IVendorUserRepository).to(VendorUserRepository);
-iocContainer.bind<IVendorUserService>(types.IVendorUserService).to(VendorUserService)
 
-export {iocContainer};
+iocContainer
+  .bind<IVendorUserRepository>(types.IVendorUserRepository)
+  .to(VendorUserRepository);
+iocContainer
+  .bind<IVendorUserService>(types.IVendorUserService)
+  .to(VendorUserService);
+iocContainer.bind<IRoleService>(types.IRoleService).to(RoleService);
+iocContainer.bind<IRoleRepository>(types.IRoleRepository).to(RoleRepository);
+export { iocContainer };
