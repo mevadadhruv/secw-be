@@ -8,7 +8,7 @@ import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import session from "express-session";
-import { handlefun } from "../helpers/handlefun";
+import { handlefun } from "../helper/handlefun";
 const userService = container.get<IUserService>(types.IUserService);
 const profileService = container.get<IRegisterUserService>(
   types.IRegisterUserService

@@ -3,6 +3,7 @@ import { IUserRepository } from "../interfaces/IUserRepository";
 import userModel from "../models/user.model";
 import { CreateUser, UpdateUser, GetUser } from "../types/userTypes";
 import bcrypt from "bcrypt";
+import { ObjectId } from "mongodb";
 import * as dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 var mongoose = require("mongoose");

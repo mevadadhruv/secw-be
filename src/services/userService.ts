@@ -3,7 +3,7 @@ import { IUserRepository } from "../interfaces/IUserRepository";
 import { injectable, inject } from "inversify";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
-import AppError from "../error/appError";
+import AppError from "../Error/appError";
 import userModel from "../models/user.model";
 
 @injectable()
@@ -38,7 +38,7 @@ private _userrepository : IUserRepository;
         }
     }
 
-    async getUserbyId(id : String):Promise<GetUser>{
+    async getUserbyId(id : string):Promise<GetUser>{
         try{
             const users = await this._userrepository.getUserbyId(id);
             if(!users){

@@ -4,7 +4,7 @@ import { CreateUser, RegisterUser } from "../types/userTypes";
 import { inject, injectable } from "inversify";
 import { types } from "../config/types";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
-
+import { DocumentType } from "../types/userTypes";
 @injectable()
 export class AuthController {
   private _ProfilService: IRegisterUserService;
@@ -42,7 +42,6 @@ export class AuthController {
       });
       console.log("checking userCheck!!!" + userCheck);
       if (!userCheck) {
-
         const NewUser = await this._ProfilService.UserRegistration(
           AddUser,
           AddUserInfo

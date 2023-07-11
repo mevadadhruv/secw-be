@@ -12,4 +12,7 @@ export const config = {
   FACEBOOK_API_SECRET: process.env.FACEBOOK_API_SECRET,
   FCALLBACK_URL: process.env.FCALLBACK_URL,
   JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
+  REGION: process.env.REGION,
+  ACCESS_KEY_ID: process.env.ACCESSKEYID,
+  SECRET_KEY_ACCESS: process.env.SECRETKEYACCESS,
 };

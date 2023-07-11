@@ -3,12 +3,13 @@ import { inject, injectable } from "inversify";
 import { CreateUser, UpdateUser } from "../types/userTypes";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
-import AppError from "../error/appError";
-import { sendErrorProd } from "../error/globalErrorHandler";
+import AppError from "../Error/appError";
+import { sendErrorProd } from "../Error/globalErrorHandler";
 const message = require("../Error/globalSuccessHandler");
 import jwt from "jsonwebtoken";
 import { config } from "../config/env";
 import userModel from "../models/user.model";
+import { checking } from "../Error/globalErrorHandler";
 import bcrypt from "bcrypt";
 
 @injectable()
@@ -19,7 +20,7 @@ export default class UserController {
         this.UserService = userService;
     }
 
-    async createUser(req: express.Request, res: express.Response, next: NextFunction) {
+    async createUser(req: express.Request, res: express.Response,next:NextFunction) {
         try {
             const user: CreateUser = {
                 emailId: req.body.emailId,
@@ -29,11 +30,11 @@ export default class UserController {
             return message.sendResponse(200, "user created successfully", service, res);
         }
         catch (err) {
-            return sendErrorProd(err, req, res);
+            return checking(err,req,res,next);
         }
     }
 
-    async getUser(req: express.Request, res: express.Response) {
+    async getUser(req: express.Request, res: express.Response,next:NextFunction) {
         try {
             const users = await this.UserService.getUser();
             if (users) {
@@ -41,23 +42,23 @@ export default class UserController {
             }
         }
         catch (err) {
-            return sendErrorProd(err, req, res);
+            return checking(err,req,res,next);
         }
     }
 
-    async getUserbyId(req: express.Request, res: express.Response) {
+    async getUserbyId(req: express.Request, res: express.Response,next:NextFunction) {
         try {
             const userId = req.params.id;
             const user = await this.UserService.getUserbyId(userId);
             return message.sendResponseGet(200, user, res);
         }
         catch (err) {
-            return sendErrorProd(err, req, res);
+            return checking(err,req,res,next);
         }
     }
 
-    async updateUser(req: express.Request, res: express.Response) {
-        try {
+    async updateUser(req: express.Request, res: express.Response,next:NextFunction) {
+       try{
             const userId = req.params.id;
             const User: UpdateUser = {
                 emailId: req.body.emailId,
@@ -72,27 +73,27 @@ export default class UserController {
                 return message.sendResponse(200, "User updated successfully", updatedUser, res);
             }
         }
-        catch (err) {
-            return sendErrorProd(err, req, res);
-        }
+       catch(err){
+            return checking(err,req,res,next);
+       }
     }
 
-    async deleteUser(req: express.Request, res: express.Response) {
-        try {
+    async deleteUser(req: express.Request, res: express.Response,next:NextFunction) {
+        try{
             const userId = req.params.id;
             const deleteUser = await this.UserService.deleteUser(userId);
             return message.sendResponseDelete(200, "user deleted successfully!", res);
         }
-        catch (err) {
-            return sendErrorProd(err, req, res);
+        catch(err){
+            return checking(err,req,res,next);
         }
     }
 
-    async LoginUser(req: express.Request, res: express.Response, next: NextFunction) {
-        try {
-            const user: CreateUser = {
-                emailId: req.body.emailId,
-                password: req.body.password
+    async LoginUser(req:express.Request, res:express.Response,next:NextFunction){
+        try{
+            const user : CreateUser = {
+                emailId:req.body.emailId,
+                password:req.body.password
             };
             const email = user.emailId;
             const password = user.password;
@@ -109,8 +110,8 @@ export default class UserController {
                 next(new AppError("Invalid credentials", 400));
             }
         }
-        catch (err) {
-            return sendErrorProd(err, req, res);
+        catch(err){
+            return checking(err,req,res,next);
         }
     }
 }

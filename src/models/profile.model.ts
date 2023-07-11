@@ -18,8 +18,9 @@ const profileSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Userschema",
     },
-    sId: {
-      type: String,
+    documentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "DocumentSchema",
     },
   },
   {

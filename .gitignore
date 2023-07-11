@@ -1,5 +1,6 @@
 node_modules/
 # npm node module
+package-lock.json
 .env
 dist/
  
