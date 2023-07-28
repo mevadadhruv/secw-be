@@ -17,8 +17,8 @@ private _vendorUserRepo : IVendorUserRepository;
             return findVendorUser;            
         }
         catch(err){
-            console.log("vendoruser service");
-            throw(err);
+            console.log("inside service get vendoruser", err);
+            throw new Error("inside service get vendoruser" + err);
         }
     }
 
@@ -28,8 +28,8 @@ private _vendorUserRepo : IVendorUserRepository;
             return vendorUserId;
         }
         catch(err){
-            console.log("vendor user service");
-            throw(err);
+            console.log("inside service add vendoruser", err);
+            throw new Error("inside service add vendoruser" + err);
         }
     }
 
@@ -39,8 +39,8 @@ private _vendorUserRepo : IVendorUserRepository;
             return findVendorUser;
         }
         catch(err){
-            console.log("vendor user service");
-            throw(err);
+            console.log("inside service get vendoruser", err);
+            throw new Error("inside service get vendoruser" + err);
         }
     }
 
@@ -50,8 +50,8 @@ private _vendorUserRepo : IVendorUserRepository;
             return deleteVenUser;
         }
         catch(err){
-            console.log("vendor user service");
-            throw(err);
+            console.log("inside service delete vendoruser", err);
+            throw new Error("inside service delete vendoruser" + err);
         }
     }
 }

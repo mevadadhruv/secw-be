@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { IVendorService } from "../interfaces/IVendorService";
-import { Vendor, GetVendor,DocumentType } from "../types/userTypes";
+import { vendor, getVendor,documentType } from "../types/userTypes";
 import { IVendorRepository } from "../interfaces/IVendorRepository";
 import { types } from "../config/types";
 
@@ -12,13 +12,14 @@ private _vendorRepository : IVendorRepository;
         this._vendorRepository = vendorRepository;
     }
 
-    async addVendor(vendor: Vendor): Promise<GetVendor> {
+    async addVendor(vendor: vendor): Promise<getVendor> {
         try{
             const createVendor = await this._vendorRepository.addVendor(vendor);
             return createVendor;
         }
         catch(err){
-            throw err;
+            console.log("inside service add vendor", err);
+            throw new Error("inside service add vendor" + err);
         }
     }
     
@@ -28,37 +29,41 @@ private _vendorRepository : IVendorRepository;
             return getAllVendors;
         }
         catch(err){
-            throw err;
+            console.log("inside service get vendors", err);
+            throw new Error("inside service get vendors" + err);
         }
     }
     
-    async getVendorById(id: string): Promise<GetVendor> {
+    async getVendorById(id: string): Promise<getVendor> {
         try{
             const getVendor = await this._vendorRepository.getVendorById(id);
             return getVendor;
         }
         catch(err){
-            throw err;
+            console.log("inside service get vendor by id", err);
+            throw new Error("inside service get vendor by id" + err);
         }
     }
     
-    async updateVendor(id: string, vendor: Vendor): Promise<GetVendor> {
+    async updateVendor(id: string, vendor: vendor): Promise<getVendor> {
         try{
             const updateVendor = await this._vendorRepository.updateVendor(id,vendor);
             return updateVendor;
         }
         catch(err){
-            throw err;
+            console.log("inside service update vendor", err);
+            throw new Error("inside service update vendor" + err);
         }
     }
     
-    async deleteVendor(id: string): Promise<GetVendor> {
+    async deleteVendor(id: string): Promise<getVendor> {
         try{
             const DeleteVendor = await this._vendorRepository.deleteVendor(id);
             return DeleteVendor;
         }
         catch(err){
-            throw err;
+            console.log("inside service delete vendor", err);
+            throw new Error("inside service delete vendor" + err);
         }
     }
 

@@ -1,5 +1,3 @@
-import { Vendor, CreateUser} from "../types/userTypes";
-
 export interface IVendorUserRepository{
     addVendorUser(vendorId:string,userId:string):any;
     getVendorUser():any;

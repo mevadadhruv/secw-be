@@ -3,8 +3,8 @@ import UserController from "../controllers/userController";
 import { iocContainer as Container } from "../config/container";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
-import { UserValidation } from "../validators/validation";
-import { VerifyToken } from "../middleware/auth";
+import { UserValidation } from "../Validators/validation";
+import { VerifyToken } from "../middleware/Auth";
 
 const router = express.Router();
 
@@ -32,7 +32,7 @@ router.delete("/users/:id", VerifyToken, (req, res, next) =>
 );
 
 router.post("/login", UserValidation, (req, res, next) =>
-  userController.LoginUser(req, res, next)
+  userController.loginUser(req, res, next)
 );
 
 export default router;

@@ -2,10 +2,10 @@ import { inject, injectable } from "inversify";
 import { IRegisterUserRepository } from "../interfaces/IRegisterUserRepository";
 import profileModel from "../models/profile.model";
 import {
-  CreateUser,
-  GetRegisterUser,
-  RegisterUser,
-  DocumentType,
+  createUser,
+  getRegisterUser,
+  registerUser,
+  documentType,
 } from "../types/userTypes";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import { types } from "../config/types";
@@ -24,13 +24,13 @@ export default class profileRepository implements IRegisterUserRepository {
     this._documentRepository = documentRepo;
   }
 
-  async UserRegistration(
-    user: RegisterUser,
-    users: CreateUser,
-    document: DocumentType
-  ): Promise<GetRegisterUser> {
+  async userRegistration(
+    user: registerUser,
+    users: createUser,
+    document: documentType
+  ): Promise<getRegisterUser> {
     try {
-      const documentRegister = await this._documentRepository.AddDocument(
+      const documentRegister = await this._documentRepository.addDocument(
         document
       );
       const documentId = documentRegister;
@@ -52,14 +52,15 @@ export default class profileRepository implements IRegisterUserRepository {
       });
       return RegisterUser;
     } catch (err) {
-      throw err;
+      console.log('error in add profile repository :-', err);
+			throw new Error('error in add profile repository' + err);
     }
   }
 
-  async UpdateProfile(
+  async updateProfile(
     id: string,
-    user: RegisterUser
-  ): Promise<GetRegisterUser> {
+    user: registerUser
+  ): Promise<getRegisterUser> {
     try {
       const updateProfile = await profileModel.findByIdAndUpdate(id, user);
       return {
@@ -70,11 +71,12 @@ export default class profileRepository implements IRegisterUserRepository {
         phoneNumber: updateProfile.phoneNumber,
       };
     } catch (err) {
-      throw err;
+      console.log('error in update profile repository :-', err);
+			throw new Error('error in update profile repository' + err);
     }
   }
 
-  async deleteProfile(id: string): Promise<GetRegisterUser> {
+  async deleteProfile(id: string): Promise<getRegisterUser> {
     try {
       const Deleteprofile = await profileModel.findByIdAndDelete(id);
       return {
@@ -85,7 +87,8 @@ export default class profileRepository implements IRegisterUserRepository {
         phoneNumber: Deleteprofile.phoneNumber,
       };
     } catch (err) {
-      throw err;
+      console.log('error in delete profile repository :-', err);
+			throw new Error('error in delete profile repository' + err);
     }
   }
 }

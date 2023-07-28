@@ -1,6 +1,6 @@
 import express, { NextFunction } from "express";
 import passport from "passport";
-import AuthController from "../controllers/authStrategyController";
+import AuthController from "../controllers/AuthStrategyController";
 import { iocContainer as container } from "../config/container";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";

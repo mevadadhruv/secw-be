@@ -1,13 +1,13 @@
 import roleModel from '../models/role.model';
-import { Role } from '../types/userTypes';
+import { role } from '../types/userTypes';
 import { IRoleRepository } from '../interfaces/IRoleRepository';
 import { injectable } from 'inversify';
-import appError from '../error/appError';
+import appError from '../Error/AppError';
 import mongoose from 'mongoose';
 const mongooseTypes = mongoose.Types;
 @injectable()
 export default class RoleRepository implements IRoleRepository {
-	async addRole(name: string): Promise<Role> {
+	async addRole(name: string): Promise<role> {
 		try {
 			const addRole = await roleModel.create({
 				name: name
@@ -20,7 +20,7 @@ export default class RoleRepository implements IRoleRepository {
 		}
 	}
 
-	async getRoleById(id: string): Promise<Role> {
+	async getRoleById(id: string): Promise<role> {
 		try {
 			const getRole = await roleModel.findById(id);
 			return getRole;
@@ -29,7 +29,7 @@ export default class RoleRepository implements IRoleRepository {
 			throw new Error('error in get role repository' + err);
 		}
 	}
-	async getRoles(): Promise<Role[]> {
+	async getRoles(): Promise<role[]> {
 		try {
 			const getRoles = await roleModel.find();
 			return getRoles;
@@ -38,7 +38,7 @@ export default class RoleRepository implements IRoleRepository {
 			throw new Error('error in get roles repository' + err);
 		}
 	}
-	async updateRole(id: string, name: string): Promise<Role> {
+	async updateRole(id: string, name: string): Promise<role> {
 		try {
 			const getRole = await this.getRoleById(id);
 			if (!getRole) {
@@ -56,7 +56,7 @@ export default class RoleRepository implements IRoleRepository {
 			throw new Error('error in update role repository' + err);
 		}
 	}
-	async deleteRole(id: string): Promise<Role> {
+	async deleteRole(id: string): Promise<role> {
 		try {
 			const getRole = await this.getRoleById(id);
 			if (!getRole) {

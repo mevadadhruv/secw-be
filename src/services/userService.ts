@@ -1,9 +1,9 @@
-import { CreateUser,UpdateUser,GetUser } from "../types/userTypes";
+import { createUser,updateUser,getUser } from "../types/userTypes";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import { injectable, inject } from "inversify";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
-import AppError from "../error/appError";
+import appError from "../Error/AppError";
 import userModel from "../models/user.model";
 
 @injectable()
@@ -14,17 +14,18 @@ private _userrepository : IUserRepository;
         this._userrepository = userRepository;
     }
 
-    async createUser(user:CreateUser):Promise<GetUser>{
+    async createUser(user:createUser):Promise<getUser>{
         try{
             const existingUser = await userModel.findOne({emailId:user.emailId});
             if(existingUser){
-                throw new AppError("email is already exist",400);
+                throw new appError("email is already exist",400);
             }
             const repo = await this._userrepository.createUser(user);
             return repo;
         }
         catch(err){
-            throw(err);
+            console.log("inside service create user", err);
+            throw new Error("inside service create user" + err);
         }
     }
 
@@ -34,30 +35,32 @@ private _userrepository : IUserRepository;
             return user;
         }
         catch(err){
-            throw(err);
+            console.log("inside service get user", err);
+            throw new Error("inside service get user" + err);
         }
     }
 
-    async getUserbyId(id : string):Promise<GetUser>{
+    async getUserbyId(id : string):Promise<getUser>{
         try{
             const users = await this._userrepository.getUserbyId(id);
             if(!users){
-                throw new AppError("user does not exist",400);
+                throw new appError("user does not exist",400);
             }
             else{
                 return users;
             } 
         }
         catch(err){
-            throw(err);
+            console.log("inside service get user by id", err);
+            throw new Error("inside service get user by id" + err);
         }
     }
 
-    async updateUser(id:String,user:UpdateUser):Promise<GetUser>{
+    async updateUser(id:String,user:updateUser):Promise<getUser>{
         try{
             const users = await this._userrepository.getUserbyId(id);
             if(!users){
-                throw new AppError("user does not exist",400);
+                throw new appError("user does not exist",400);
             }
             else{
                 const updateUser = await this._userrepository.updateUser(id,user);
@@ -65,15 +68,16 @@ private _userrepository : IUserRepository;
             }
         }
         catch(err){
-            throw(err);
+            console.log("inside service update user", err);
+            throw new Error("inside service update user" + err);
         }
     }
 
-    async deleteUser(id:String):Promise<GetUser>{
+    async deleteUser(id:String):Promise<getUser>{
         try{
             const users = await this._userrepository.getUserbyId(id);
             if(!users){
-                throw new AppError("user does not exist",400);
+                throw new appError("user does not exist",400);
             }
             else{
                 const deleteUser = await this._userrepository.deleteUser(id);
@@ -81,18 +85,20 @@ private _userrepository : IUserRepository;
             }
         }
         catch(err){
-            throw(err);
+            console.log("inside service delete user", err);
+            throw new Error("inside service delete user" + err);
         } 
     }
 
-    async LoginUser(user:CreateUser):Promise<GetUser>{
+    async loginUser(user:createUser):Promise<getUser>{
         try{
             const checkUser = await this._userrepository.loginUser(user);
             console.log(checkUser);
             return checkUser;
         }
         catch(err){
-            throw(err);
+            console.log("inside service login user", err);
+            throw new Error("inside service login user" + err);
         }
     }
 }

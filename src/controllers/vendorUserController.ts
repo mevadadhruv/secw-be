@@ -2,12 +2,8 @@ import express, { NextFunction } from "express";
 import { IVendorUserService } from "../interfaces/IVendorUserService";
 import { inject, injectable } from "inversify";
 import { types } from "../config/types";
-import { checking } from "../error/globalErrorHandler";
-import {
-  sendResponse,
-  sendResponseDelete,
-  sendResponseGet,
-} from "../error/globalSuccessHandler";
+import { checking } from "../Error/globalErrorHandler";
+const message = require("../Error/globalSuccessHandler");
 
 @injectable()
 export default class VendorUserController {
@@ -34,7 +30,7 @@ export default class VendorUserController {
         userId
       );
       if (vendorUserAdd) {
-        return sendResponse(200, "added", vendorUserAdd, res);
+        return message.sendResponse(200, "added", vendorUserAdd, res);
       }
     } catch (err) {
       return checking(err, req, res, next);
@@ -49,7 +45,7 @@ export default class VendorUserController {
     try {
       const findAll = await this._VendorUserService.getVendorUser();
       if (findAll) {
-        return sendResponseGet(200, findAll, res);
+        return message.sendResponseGet(200, findAll, res);
       }
     } catch (err) {
       return checking(err, req, res, next);
@@ -65,7 +61,7 @@ export default class VendorUserController {
       const id = req.params.id;
       const findById = await this._VendorUserService.getVendorUserbyId(id);
       if (findById) {
-        return sendResponseGet(200, findById, res);
+        return message.sendResponseGet(200, findById, res);
       }
     } catch (err) {
       return checking(err, req, res, next);
@@ -81,7 +77,7 @@ export default class VendorUserController {
       const id = req.params.id;
       const deleteUser = await this._VendorUserService.deleteVendorUser(id);
       if (deleteUser) {
-        return sendResponseDelete(200, "deleted", res);
+        return message.sendResponseDelete(200, "deleted", res);
       }
     } catch (err) {
       return checking(err, req, res, next);

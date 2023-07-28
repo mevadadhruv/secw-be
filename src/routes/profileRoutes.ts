@@ -10,7 +10,7 @@ const profileController = new ProfileController(profileService);
 const profileRouter = express.Router();
 
 profileRouter.post('/register',(req,res,next) => profileController.userRegistration(req,res,next));
-profileRouter.put('/update-profile/:id',(req,res,next)=>profileController.UpdateProfile(req,res,next));
-profileRouter.delete('/delete-profile/:id',(req,res,next)=>profileController.DeleteProfile(req,res,next));
+profileRouter.put('/update-profile/:id',(req,res,next)=>profileController.updateProfile(req,res,next));
+profileRouter.delete('/delete-profile/:id',(req,res,next)=>profileController.deleteProfile(req,res,next));
 
 export default profileRouter;

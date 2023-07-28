@@ -1,9 +1,9 @@
-import { GetVendor, Vendor , DocumentType} from "../types/userTypes";
+import { getVendor, vendor , documentType} from "../types/userTypes";
 
 export interface IVendorRepository{
-    addVendor(vendor:Vendor):Promise<GetVendor>;
+    addVendor(vendor:vendor):Promise<getVendor>;
     getVendors():any;
-    getVendorById(id:string):Promise<GetVendor>;
-    updateVendor(id:string,vendor:Vendor):Promise<GetVendor>;
-    deleteVendor(id:string):Promise<GetVendor>;
+    getVendorById(id:string):Promise<getVendor>;
+    updateVendor(id:string,vendor:vendor):Promise<getVendor>;
+    deleteVendor(id:string):Promise<getVendor>;
 }

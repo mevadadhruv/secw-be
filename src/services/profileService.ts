@@ -1,10 +1,10 @@
 import { inject, injectable } from "inversify";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import {
-  CreateUser,
-  GetRegisterUser,
-  RegisterUser,
-  DocumentType,
+  createUser,
+  getRegisterUser,
+  registerUser,
+  documentType,
 } from "../types/userTypes";
 import { IRegisterUserRepository } from "../interfaces/IRegisterUserRepository";
 import { types } from "../config/types";
@@ -17,44 +17,47 @@ export default class ProfileService implements IRegisterUserService {
   ) {
     this._profileRepository = profileRepo;
   }
-  async UserRegistration(
-    user: RegisterUser,
-    users: CreateUser,
-    document: DocumentType
-  ): Promise<GetRegisterUser> {
+  async userRegistration(
+    user: registerUser,
+    users: createUser,
+    document: documentType
+  ): Promise<getRegisterUser> {
     try {
-      const registerUser = await this._profileRepository.UserRegistration(
+      const registerUser = await this._profileRepository.userRegistration(
         user,
         users,
         document
       );
       return registerUser;
     } catch (err) {
-      throw err;
+      console.log("inside service add profile", err);
+            throw new Error("inside service add profile" + err);
     }
   }
 
-  async UpdateProfile(
+  async updateProfile(
     id: string,
-    user: RegisterUser
-  ): Promise<GetRegisterUser> {
+    user: registerUser
+  ): Promise<getRegisterUser> {
     try {
-      const updateProfile = await this._profileRepository.UpdateProfile(
+      const updateProfile = await this._profileRepository.updateProfile(
         id,
         user
       );
       return updateProfile;
     } catch (err) {
-      throw err;
+      console.log("inside service update profile", err);
+            throw new Error("inside service update profile" + err);
     }
   }
 
-  async deleteProfile(id: string): Promise<GetRegisterUser> {
+  async deleteProfile(id: string): Promise<getRegisterUser> {
     try {
       const DeleteProfile = await this._profileRepository.deleteProfile(id);
       return DeleteProfile;
     } catch (err) {
-      throw err;
+      console.log("inside service delete profile", err);
+            throw new Error("inside service delete profile" + err);
     }
   }
 }

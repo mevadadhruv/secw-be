@@ -1,6 +1,6 @@
 import router from "../routes/userRoutes";
 import profileRouter from "./profileRoutes";
-import FAuthRouter from "./fAuthRoutes";
+import FAuthRouter from "./FAuthRoutes";
 import GAuthRoutes from "./gAuthRoutes";
 import DocumentRouter from "./documentRoutes";
 import VendorRouter from "./vendorRoutes";

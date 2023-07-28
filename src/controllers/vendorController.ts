@@ -2,11 +2,11 @@ import express,{NextFunction} from "express";
 import { inject, injectable } from "inversify";
 import { IVendorService } from "../interfaces/IVendorService";
 import { types } from "../config/types";
-import { Vendor } from "../types/userTypes";
+import { vendor } from "../types/userTypes";
 import logo from "../config/document";
 const message = require("../error/globalSuccessHandler");
-import appError from "../error/appError";
-import {checking,sendErrorProd} from "../error/globalErrorHandler";
+import appError from "../Error/AppError";
+import {checking,sendErrorProd} from "../Error/globalErrorHandler";
 
 @injectable()
 export default class VendorController{
@@ -28,7 +28,7 @@ private _vendorService : IVendorService;
                 //console.log(documentFile);
                 const documentAttachment = documentFile.location;
                 //console.log(documentAttachment);
-                const vendor : Vendor = {
+                const vendor : vendor = {
                     name : req.body.name,
                     logo : documentAttachment
                 };
@@ -84,7 +84,7 @@ private _vendorService : IVendorService;
                 //console.log(documentFile);
                 const documentAttachment = documentFile.location;
                 //console.log(documentAttachment);
-                const vendor : Vendor = {
+                const vendor : vendor = {
                     name : req.body.name,
                     logo : documentAttachment
                 };

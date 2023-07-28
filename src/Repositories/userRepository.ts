@@ -1,12 +1,11 @@
 import { injectable } from "inversify";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import userModel from "../models/user.model";
-import { CreateUser, UpdateUser, GetUser } from "../types/userTypes";
+import { createUser, updateUser, getUser } from "../types/userTypes";
 import bcrypt from "bcrypt";
-import { ObjectId } from "mongodb";
 import * as dotenv from "dotenv";
-import jwt from "jsonwebtoken";
 var mongoose = require("mongoose");
+
 dotenv.config();
 const secretKey = process.env.JWT_SECRET_KEY;
 
@@ -14,7 +13,7 @@ const secretKey = process.env.JWT_SECRET_KEY;
 export default class UserRepository implements IUserRepository {
   constructor() {}
 
-  async createUser(user: CreateUser): Promise<GetUser> {
+  async createUser(user: createUser): Promise<getUser> {
     try {
       const emailId = user.emailId;
       const password = user.password;
@@ -41,7 +40,7 @@ export default class UserRepository implements IUserRepository {
     }
   }
 
-  async getUserbyId(id: String): Promise<GetUser> {
+  async getUserbyId(id: String): Promise<getUser> {
     try {
       id = mongoose.mongo.ObjectId(id);
       console.log("id- ", id);
@@ -56,7 +55,7 @@ export default class UserRepository implements IUserRepository {
     }
   }
 
-  async updateUser(id: String, user: UpdateUser): Promise<GetUser> {
+  async updateUser(id: String, user: updateUser): Promise<getUser> {
     try {
       const res = await userModel.findByIdAndUpdate(id, user);
       //const _id = res?._id
@@ -69,7 +68,7 @@ export default class UserRepository implements IUserRepository {
     }
   }
 
-  async deleteUser(id: String): Promise<GetUser> {
+  async deleteUser(id: String): Promise<getUser> {
     try {
       const res = await userModel.findByIdAndDelete(id);
       const _id = res?.id;
@@ -82,7 +81,7 @@ export default class UserRepository implements IUserRepository {
     }
   }
 
-  async loginUser(user: CreateUser): Promise<GetUser> {
+  async loginUser(user: createUser): Promise<getUser> {
     try {
       const emailId = user.emailId;
       const password = user.password;

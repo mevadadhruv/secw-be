@@ -22,8 +22,8 @@ export default class VendorUserRepository implements IVendorUserRepository{
             return findVendorbyId;
         }
         catch(err){
-            console.log("VendorUser repository : ");
-            throw(err);
+            console.log("inside repository get vendorUser", err);
+            throw new Error("inside repository get vendorUser" + err);
         }
     }
 
@@ -35,8 +35,8 @@ export default class VendorUserRepository implements IVendorUserRepository{
             return addVendorUser;
         }
         catch(err){
-            console.log("VendorUser repository : ");
-            throw(err);
+            console.log("inside repository add vendorUser", err);
+            throw new Error("inside repository add vendorUser" + err);
         }
     }
 
@@ -46,8 +46,8 @@ export default class VendorUserRepository implements IVendorUserRepository{
             return findVendorUser;
         }
         catch(err){
-            console.log("VendorUser repository : ");
-            throw(err);
+            console.log("inside repository get vendorUser", err);
+            throw new Error("inside repository get vendorUser" + err);
         }
     }
     
@@ -57,8 +57,8 @@ export default class VendorUserRepository implements IVendorUserRepository{
             return deleteVendorUser;
         }
         catch(err){
-            console.log("VendorUser repository : ");
-            throw(err);
+            console.log("inside repository delete vendorUser", err);
+            throw new Error("inside repository delete vendorUser" + err);
         }
     }
     

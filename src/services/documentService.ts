@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { IDocumentService } from "../interfaces/IDocumentService";
-import { DocumentType, GetDocument } from "../types/userTypes";
+import { documentType, getDocument } from "../types/userTypes";
 import { IDocumentRepository } from "../interfaces/IDocumentRepository";
 import { types } from "../config/types";
 
@@ -12,43 +12,47 @@ private _documentRepository : IDocumentRepository;
         this._documentRepository = documentRepository;
     }
 
-    async AddDocument(document: DocumentType): Promise<GetDocument> {
+    async addDocument(document: documentType): Promise<getDocument> {
         try{
-            const addDocument = await this._documentRepository.AddDocument(document);
+            const addDocument = await this._documentRepository.addDocument(document);
             return addDocument;
         }
         catch(err){
-            throw err;
+            console.log("inside service add document", err);
+            throw new Error("inside service add document" + err);
         }
     }
     
-    getDocumentById(id: string): Promise<GetDocument> {
+    getDocumentById(id: string): Promise<getDocument> {
         try{
             const getDocument = this._documentRepository.getDocumentById(id);
             return getDocument;
         }
         catch(err){
-            throw err;
+            console.log("inside service get document", err);
+            throw new Error("inside service get document" + err);
         }
     }
     
-    async UpdateDocument(id: string, document: DocumentType): Promise<GetDocument> {
+    async updateDocument(id: string, document: documentType): Promise<getDocument> {
         try{
-            const UpdateDocument = await this._documentRepository.UpdateDocument(id,document);
+            const UpdateDocument = await this._documentRepository.updateDocument(id,document);
             return UpdateDocument;
         }
         catch(err){
-            throw err;
+            console.log("inside service update document", err);
+            throw new Error("inside service update document" + err);
         }
     }
     
-    async DeleteDocument(id: string): Promise<GetDocument> {
+    async deleteDocument(id: string): Promise<getDocument> {
         try{
-            const deleteDocument = await this._documentRepository.DeleteDocument(id);
+            const deleteDocument = await this._documentRepository.deleteDocument(id);
             return deleteDocument;
         }
         catch(err){
-            throw err;
+            console.log("inside service delete document", err);
+            throw new Error("inside service delete document" + err);
         }
     }
 }

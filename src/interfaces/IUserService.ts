@@ -1,10 +1,10 @@
-import { CreateUser, GetUser, UpdateUser } from "../types/userTypes";
+import { createUser, getUser, updateUser } from "../types/userTypes";
 
 export interface IUserService{
-    createUser(user:CreateUser):Promise<GetUser>;
+    createUser(user:createUser):Promise<getUser>;
     getUser():any;
-    getUserbyId(id:String):Promise<GetUser>;
-    updateUser(id:String,user:UpdateUser):Promise<GetUser>;
-    deleteUser(id:String):Promise<GetUser>;
-    LoginUser(user:CreateUser):Promise<GetUser>;
+    getUserbyId(id:String):Promise<getUser>;
+    updateUser(id:String,user:updateUser):Promise<getUser>;
+    deleteUser(id:String):Promise<getUser>;
+    loginUser(user:createUser):Promise<getUser>;
 }

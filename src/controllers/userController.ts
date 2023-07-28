@@ -1,15 +1,14 @@
 import express, { NextFunction } from "express";
 import { inject, injectable } from "inversify";
-import { CreateUser, UpdateUser } from "../types/userTypes";
+import { createUser, updateUser } from "../types/userTypes";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
-import AppError from "../error/appError";
-import { sendErrorProd } from "../error/globalErrorHandler";
+import AppError from "../Error/AppError";
 const message = require("../error/globalSuccessHandler");
 import jwt from "jsonwebtoken";
 import { config } from "../config/env";
 import userModel from "../models/user.model";
-import { checking } from "../error/globalErrorHandler";
+import { checking } from "../Error/globalErrorHandler";
 import bcrypt from "bcrypt";
 
 @injectable()
@@ -22,7 +21,7 @@ export default class UserController {
 
     async createUser(req: express.Request, res: express.Response,next:NextFunction) {
         try {
-            const user: CreateUser = {
+            const user: createUser = {
                 emailId: req.body.emailId,
                 password: req.body.password
             };
@@ -60,7 +59,7 @@ export default class UserController {
     async updateUser(req: express.Request, res: express.Response,next:NextFunction) {
        try{
             const userId = req.params.id;
-            const User: UpdateUser = {
+            const User: updateUser = {
                 emailId: req.body.emailId,
                 password: req.body.password
             };
@@ -89,9 +88,9 @@ export default class UserController {
         }
     }
 
-    async LoginUser(req:express.Request, res:express.Response,next:NextFunction){
+    async loginUser(req:express.Request, res:express.Response,next:NextFunction){
         try{
-            const user : CreateUser = {
+            const user : createUser = {
                 emailId:req.body.emailId,
                 password:req.body.password
             };

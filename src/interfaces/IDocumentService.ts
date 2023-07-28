@@ -1,8 +1,8 @@
-import {GetDocument,DocumentType} from "../types/userTypes";
+import {getDocument,documentType} from "../types/userTypes";
 
 export interface IDocumentService{
-    AddDocument(document:DocumentType):Promise<GetDocument>;
-    getDocumentById(id:string):Promise<GetDocument>;
-    UpdateDocument(id:string,document:DocumentType):Promise<GetDocument>;
-    DeleteDocument(id:string):Promise<GetDocument>;
+    addDocument(document:documentType):Promise<getDocument>;
+    getDocumentById(id:string):Promise<getDocument>;
+    updateDocument(id:string,document:documentType):Promise<getDocument>;
+    deleteDocument(id:string):Promise<getDocument>;
 }

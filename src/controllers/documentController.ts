@@ -1,12 +1,12 @@
 import express, { NextFunction } from "express";
-import {checking,sendErrorProd} from "../error/globalErrorHandler";
+import {checking} from "../Error/globalErrorHandler";
 import document from "../config/document";
 const message = require("../error/globalSuccessHandler");
-import appError from "../error/appError";
+import appError from "../Error/AppError";
 import { inject, injectable } from "inversify";
 import { IDocumentService } from "../interfaces/IDocumentService";
 import { types } from "../config/types";
-import {DocumentType} from "../types/userTypes";
+import {documentType} from "../types/userTypes";
 
 @injectable()
 export default class DocumentController {
@@ -16,7 +16,7 @@ private _documentService : IDocumentService;
         this._documentService = documentService;
     }
 
-    async AddDocument(req: express.Request, res: express.Response, next: NextFunction) {
+    async addDocument(req: express.Request, res: express.Response, next: NextFunction) {
         try {
             const uploadImage = document('dhruv-images').single("Attachment");
             uploadImage(req, res, async (err) => {
@@ -30,7 +30,7 @@ private _documentService : IDocumentService;
                 const documentAttachment = documentFile.location;
                 const documentExtension = documentFile.mimetype;
                 const documentSize = documentFile.size;
-                const documentType : DocumentType = {
+                const documentType : documentType = {
                     name : documentName,
                     description : documentDescription,
                     attachment : documentAttachment,
@@ -38,7 +38,7 @@ private _documentService : IDocumentService;
                     size : documentSize
                 };
                 //console.log(documentFile.location);
-                const document = await this._documentService.AddDocument(documentType);
+                const document = await this._documentService.addDocument(documentType);
                 return message.sendResponse(200, "image created", document, res);
             })
         }
@@ -60,7 +60,7 @@ private _documentService : IDocumentService;
         }
     }
 
-    async UpdateDocument(req:express.Request,res:express.Response,next:NextFunction){
+    async updateDocument(req:express.Request,res:express.Response,next:NextFunction){
         try{
             const updateId = req.params.id;
             const uploadImage  = document('dhruv-images').single("Attachment");
@@ -74,14 +74,14 @@ private _documentService : IDocumentService;
                 const documentAttachment = documentFile.location;
                 const documentExtension = documentFile.mimetype;
                 const documentSize = documentFile.size;
-                const documentType : DocumentType = {
+                const documentType : documentType = {
                     name : documentName,
                     description : documentDescription,
                     attachment : documentAttachment,
                     extension : documentExtension,
                     size : documentSize
                 };
-                const updatedDocument = await this._documentService.UpdateDocument(updateId,documentType);
+                const updatedDocument = await this._documentService.updateDocument(updateId,documentType);
                 if(updatedDocument){
                     return message.sendResponse(200,"updated successfully",updatedDocument,res);
                 }
@@ -92,10 +92,10 @@ private _documentService : IDocumentService;
         }
     }
     
-    async DeleteDocument(req:express.Request,res:express.Response,next:NextFunction){
+    async deleteDocument(req:express.Request,res:express.Response,next:NextFunction){
         try{
             const deleteId = req.params.id;
-            const DeleteDocument = await this._documentService.DeleteDocument(deleteId);
+            const DeleteDocument = await this._documentService.deleteDocument(deleteId);
             if(DeleteDocument){
                 return message.sendResponseDelete(200,"Deleted successfully!",res);
             }

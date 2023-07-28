@@ -1,12 +1,11 @@
 import express, { NextFunction } from "express";
-import { CreateUser, RegisterUser, DocumentType } from "../types/userTypes";
+import { createUser, registerUser, documentType } from "../types/userTypes";
 import { inject, injectable } from "inversify";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
 import { types } from "../config/types";
-import * as dotenv from "dotenv";
 import document from "../config/document";
-import AppError from "../error/appError";
-import { checking, sendErrorProd } from "../error/globalErrorHandler";
+import AppError from "../Error/AppError";
+import { checking } from "../Error/globalErrorHandler";
 const message = require("../error/globalSuccessHandler");
 
 @injectable()
@@ -36,25 +35,25 @@ export default class ProfileController {
         const documentAttachment = documentFile.location;
         const documentExtension = documentFile.mimetype;
         const documentSize = documentFile.size;
-        const documentType: DocumentType = {
+        const documentType: documentType = {
           name: documentName,
           description: documentDescription,
           attachment: documentAttachment,
           extension: documentExtension,
           size: documentSize,
         };
-        const register: RegisterUser = {
+        const register: registerUser = {
           address: req.body.Address,
           firstName: req.body.first_name,
           lastName: req.body.last_name,
           phoneNumber: req.body.phone_number,
         };
-        const Registeration: CreateUser = {
+        const Registeration: createUser = {
           emailId: req.body.emailId,
           password: req.body.password,
         };
         console.log(documentType);
-        const registerUser = await this._profileService.UserRegistration(
+        const registerUser = await this._profileService.userRegistration(
           register,
           Registeration,
           documentType
@@ -70,20 +69,20 @@ export default class ProfileController {
     }
   }
 
-  async UpdateProfile(
+  async updateProfile(
     req: express.Request,
     res: express.Response,
     next: NextFunction
   ) {
     try {
       const updateProfileId = req.params.id;
-      const Profile: RegisterUser = {
+      const Profile: registerUser = {
         address: req.body.Address,
         firstName: req.body.first_name,
         lastName: req.body.last_name,
         phoneNumber: req.body.phone_number,
       };
-      const updateProfile = await this._profileService.UpdateProfile(
+      const updateProfile = await this._profileService.updateProfile(
         updateProfileId,
         Profile
       );
@@ -100,7 +99,7 @@ export default class ProfileController {
     }
   }
 
-  async DeleteProfile(
+  async deleteProfile(
     req: express.Request,
     res: express.Response,
     next: NextFunction

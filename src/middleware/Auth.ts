@@ -1,7 +1,7 @@
 import express, { NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
-import AppError from "../error/appError";
+import AppError from "../Error/AppError";
 
 dotenv.config();
 
