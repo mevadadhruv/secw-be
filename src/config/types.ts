@@ -12,4 +12,6 @@ export const types = {
   IRoleService: Symbol("IRoleService"),
   IVendorUserRepository: Symbol("IVendorUserRepository"),
   IVendorUserService: Symbol("IVendorUserService"),
+  ICountryRepository: Symbol("ICountryRepository"),
+  ICountryService: Symbol("ICountryService"),
 };

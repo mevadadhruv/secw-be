@@ -26,6 +26,10 @@ import { IRoleRepository } from "../interfaces/IRoleRepository";
 import RoleRepository from "../repositories/roleRepository";
 import { IRoleService } from "../interfaces/IRoleService";
 import RoleService from "../services/roleService";
+import { ICountryService } from "../interfaces/ICountryService";
+import { ICountryRepository } from "../interfaces/ICountryRepository";
+import CountryRepository from "../repositories/countryRepository";
+import CountryService from "../services/countryService";
 
 const iocContainer = new Container();
 
@@ -55,4 +59,8 @@ iocContainer
   .to(VendorUserService);
 iocContainer.bind<IRoleService>(types.IRoleService).to(RoleService);
 iocContainer.bind<IRoleRepository>(types.IRoleRepository).to(RoleRepository);
+iocContainer.bind<ICountryService>(types.ICountryService).to(CountryService);
+iocContainer
+  .bind<ICountryRepository>(types.ICountryRepository)
+  .to(CountryRepository);
 export { iocContainer };
