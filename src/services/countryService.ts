@@ -36,9 +36,9 @@ export default class CountryService implements ICountryService {
     }
   }
 
-  async getCountryById(id: string): Promise<Country> {
+  async getCountryByCodeName(id?: string, code?: string): Promise<Country> {
     try {
-      const getCountry = this._countryRepository.getCountryById(id);
+      const getCountry = this._countryRepository.getCountryByCodeName(id, code);
       return getCountry;
     } catch (err) {
       throw new Error(

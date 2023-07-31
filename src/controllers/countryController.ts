@@ -30,14 +30,18 @@ export default class CountryController {
       return sendErrorProd(err, req, res);
     }
   }
-  async getCountryById(
+  async getCountryByCodeName(
     req: express.Request,
     res: express.Response,
     next: NextFunction
   ) {
     try {
-      const countryId = req.params.id;
-      const getCountrys = await this._countryService.getCountryById(countryId);
+      const countryId = req.body.name;
+      const code = req.body.code;
+      const getCountrys = await this._countryService.getCountryByCodeName(
+        countryId,
+        code
+      );
       if (getCountrys) {
         return message.sendResponse(
           200,

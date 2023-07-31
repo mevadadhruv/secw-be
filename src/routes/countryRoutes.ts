@@ -12,8 +12,8 @@ const countryRouter = express.Router();
 countryRouter.post("/createcountry", (req, res, next) =>
   countryController.addCountry(req, res, next)
 );
-countryRouter.get("/getcountry/:id", (req, res, next) =>
-  countryController.getCountryById(req, res, next)
+countryRouter.get("/getcountry", (req, res, next) =>
+  countryController.getCountryByCodeName(req, res, next)
 );
 countryRouter.get("/getcountries", (req, res, next) =>
   countryController.getCountrys(req, res, next)

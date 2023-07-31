@@ -67,9 +67,18 @@ export default class CountryRepository implements ICountryRepository {
     }
   }
 
-  async getCountryById(id: string): Promise<Country> {
+  async getCountryByCodeName(name?: string, code?: string): Promise<Country> {
     try {
-      const getCountry = await countryModel.findById(new ObjectId(id));
+      const getCountry = await countryModel.findOne({
+        $or: [
+          {
+            name: name,
+          },
+          {
+            code: code,
+          },
+        ],
+      });
       return getCountry;
     } catch (err) {
       throw new Error(`${err}`);
