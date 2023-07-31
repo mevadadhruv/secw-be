@@ -1,12 +1,12 @@
 import router from "../routes/userRoutes";
 import profileRouter from "./profileRoutes";
-import FAuthRouter from "./fAuthRoutes";
+import FAuthRouter from "./FAuthRoutes";
 import GAuthRoutes from "./gAuthRoutes";
 import DocumentRouter from "./documentRoutes";
 import VendorRouter from "./vendorRoutes";
 import VendorUserRouter from "./vendorUserRoutes";
 import roleRouter from "./roleRoutes";
-
+import countryRouter from "./countryRoutes";
 export default {
   router,
   profileRouter,
@@ -16,4 +16,5 @@ export default {
   roleRouter,
   GAuthRoutes,
   FAuthRouter,
+  countryRouter,
 };
