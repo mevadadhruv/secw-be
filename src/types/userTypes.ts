@@ -83,3 +83,9 @@ export declare type Country = {
   createdAt?: Date;
   updatedAt?: Date;
 };
+
+export declare type Permission = {
+  id?: string;
+  name?: String;
+  description?: String;
+};
