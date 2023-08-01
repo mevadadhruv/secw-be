@@ -35,6 +35,7 @@ app.use("/role", index.roleRouter);
 app.use("/vendorUser", index.VendorUserRouter);
 app.use("/country", index.countryRouter);
 app.use("/permission", index.permissionRouter);
+app.use("/permissionrole", index.permissionRoleRouter);
 
 app.listen(port, (): void => {
   console.log(`server running on  ${port}`);

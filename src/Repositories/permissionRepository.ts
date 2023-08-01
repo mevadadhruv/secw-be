@@ -18,10 +18,7 @@ export default class PermissionRepository implements IPermissionRepository {
         ],
       });
       if (getPermission) {
-        throw new appError(
-          "Record is There! Please provide unique Permission",
-          400
-        );
+        throw new appError("Record must be unique Permission", 400);
       }
       const addPermission = await permissionModel.create({
         name,

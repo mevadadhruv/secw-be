@@ -16,4 +16,6 @@ export const types = {
   ICountryService: Symbol("ICountryService"),
   IPermissionRepository: Symbol("IPermissionRepository"),
   IPermissionService: Symbol("IPermissionService"),
+  IPermissionRoleRepository: Symbol("IPermissionRoleRepository"),
+  IPermissionRoleService: Symbol("IPermissionRoleService"),
 };
