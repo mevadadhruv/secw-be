@@ -6,60 +6,60 @@ import { types } from "../config/types";
 import VendorUserModel from "../models/vendorUser.model";
 
 @injectable()
-export default class VendorUserRepository implements IVendorUserRepository{
-    private _vendorRepo : IVendorRepository;
-    private _userRepo : IUserRepository;
+export default class VendorUserRepository implements IVendorUserRepository {
+  private _vendorRepo: IVendorRepository;
+  private _userRepo: IUserRepository;
 
-    constructor(@inject(types.IVendorRepository) vendorRepo : IVendorRepository,
-    @inject(types.IUserRepository) userRepo : IUserRepository){
-        this._vendorRepo = vendorRepo;
-        this._userRepo = userRepo;
-    }
+  constructor(
+    @inject(types.IVendorRepository) vendorRepo: IVendorRepository,
+    @inject(types.IUserRepository) userRepo: IUserRepository
+  ) {
+    this._vendorRepo = vendorRepo;
+    this._userRepo = userRepo;
+  }
 
-    async getVendorUserbyId(id:string) {
-        try{
-            const findVendorbyId = await VendorUserModel.findById(id);
-            return findVendorbyId;
-        }
-        catch(err){
-            console.log("VendorUser repository : ");
-            throw(err);
-        }
+  async getVendorUserbyId(id: string) {
+    try {
+      const findVendorbyId = await VendorUserModel.findById(id);
+      return findVendorbyId;
+    } catch (err) {
+      console.log("VendorUser repository : ");
+      throw err;
     }
+  }
 
-    async addVendorUser(vendorId: string, userId: string) {
-        try{
-            const userRegister = await this._userRepo.getUserbyId(userId);
-            const vendorRegister = await this._vendorRepo.getVendorById(vendorId);
-            const addVendorUser = await VendorUserModel.create({userId:userRegister.id,VendorId:vendorRegister.id});
-            return addVendorUser;
-        }
-        catch(err){
-            console.log("VendorUser repository : ");
-            throw(err);
-        }
+  async addVendorUser(vendorId: string, userId: string) {
+    try {
+      const userRegister = await this._userRepo.getUserbyId(userId);
+      const vendorRegister = await this._vendorRepo.getVendorById(vendorId);
+      const addVendorUser = await VendorUserModel.create({
+        userId: userRegister.id,
+        VendorId: vendorRegister.id,
+      });
+      return addVendorUser;
+    } catch (err) {
+      console.log("VendorUser repository : ");
+      throw err;
     }
+  }
 
-    async getVendorUser() {
-        try{
-            const findVendorUser = await VendorUserModel.find();
-            return findVendorUser;
-        }
-        catch(err){
-            console.log("VendorUser repository : ");
-            throw(err);
-        }
+  async getVendorUser() {
+    try {
+      const findVendorUser = await VendorUserModel.find();
+      return findVendorUser;
+    } catch (err) {
+      console.log("VendorUser repository : ");
+      throw err;
     }
-    
-    async deleteVendorUser(id:string) {
-        try{
-            const deleteVendorUser = await VendorUserModel.findByIdAndDelete(id);
-            return deleteVendorUser;
-        }
-        catch(err){
-            console.log("VendorUser repository : ");
-            throw(err);
-        }
+  }
+
+  async deleteVendorUser(id: string) {
+    try {
+      const deleteVendorUser = await VendorUserModel.findByIdAndDelete(id);
+      return deleteVendorUser;
+    } catch (err) {
+      console.log("VendorUser repository : ");
+      throw err;
     }
-    
+  }
 }

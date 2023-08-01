@@ -8,6 +8,7 @@ import VendorUserRouter from "./vendorUserRoutes";
 import roleRouter from "./roleRoutes";
 import countryRouter from "./countryRoutes";
 import permissionRouter from "./permissionRoutes";
+import permissionRoleRouter from "./permissionRoleRoutes";
 export default {
   router,
   profileRouter,
@@ -19,4 +20,5 @@ export default {
   FAuthRouter,
   countryRouter,
   permissionRouter,
+  permissionRoleRouter,
 };

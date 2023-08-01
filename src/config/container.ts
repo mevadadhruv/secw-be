@@ -34,6 +34,10 @@ import PermissionRepository from "../repositories/permissionRepository";
 import PermissionService from "../services/permissionService";
 import { IPermissionService } from "../interfaces/IPermissionService";
 import { IPermissionRepository } from "../interfaces/IPermissionRepository";
+import PermissionRoleRepository from "../repositories/permissionRoleRepository";
+import { IPermissionRoleRepository } from "../interfaces/IPermissionRoleRepository";
+import { IPermissionRoleService } from "../interfaces/IPermissionRoleService";
+import PermissionRoleService from "../services/permissionRoleService";
 
 const iocContainer = new Container();
 
@@ -75,4 +79,11 @@ iocContainer.bind<ICountryService>(types.ICountryService).to(CountryService);
 iocContainer
   .bind<ICountryRepository>(types.ICountryRepository)
   .to(CountryRepository);
+
+iocContainer
+  .bind<IPermissionRoleService>(types.IPermissionRoleService)
+  .to(PermissionRoleService);
+iocContainer
+  .bind<IPermissionRoleRepository>(types.IPermissionRoleRepository)
+  .to(PermissionRoleRepository);
 export { iocContainer };
