@@ -12,7 +12,9 @@ export default class CategoryRepository implements ICategoryRepository {
     try {
       const addCategory = await categoryModel.create({
         name: category.name,
-        categoryId: new ObjectId(category.categoryId),
+        categoryId: category.categoryId
+          ? new ObjectId(category.categoryId)
+          : null,
       });
       return addCategory;
     } catch (err) {
