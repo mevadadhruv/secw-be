@@ -36,8 +36,7 @@ export default class RoleController {
     next: NextFunction
   ) {
     try {
-      const roleId = req.params.id;
-      const getRoles = await this._roleService.getRoleById(roleId);
+      const getRoles = await this._roleService.getRoleById(req.params.id);
       if (getRoles) {
         return message.sendResponse(
           200,
@@ -76,14 +75,10 @@ export default class RoleController {
     next: NextFunction
   ) {
     try {
-      const id = req.body.id;
-      const name = req.body.name;
-      console.log("name", name);
-      console.log("id", id);
-
-      const updatedRole = await this._roleService.updateRole(id, name);
-      console.log("updatedRole", updatedRole);
-
+      const updatedRole = await this._roleService.updateRole(
+        req.body.id,
+        req.body.name
+      );
       if (updatedRole) {
         return message.sendResponse(
           200,
@@ -102,9 +97,8 @@ export default class RoleController {
     next: NextFunction
   ) {
     try {
-      const deleteId = req.params.id;
-      const DeleteRole = await this._roleService.deleteRole(deleteId);
-      if (DeleteRole) {
+      const deleteRole = await this._roleService.deleteRole(req.params.id);
+      if (deleteRole) {
         return message.sendResponseDelete(
           200,
           "successfully deleted role!",

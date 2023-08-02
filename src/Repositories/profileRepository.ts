@@ -2,10 +2,10 @@ import { inject, injectable } from "inversify";
 import { IRegisterUserRepository } from "../interfaces/IRegisterUserRepository";
 import profileModel from "../models/profile.model";
 import {
-  CreateUser,
-  GetRegisterUser,
-  RegisterUser,
-  DocumentType,
+  createUser,
+  getRegisterUser,
+  registerUser,
+  documentType,
 } from "../types/userTypes";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import { types } from "../config/types";
@@ -24,13 +24,13 @@ export default class profileRepository implements IRegisterUserRepository {
     this._documentRepository = documentRepo;
   }
 
-  async UserRegistration(
-    user: RegisterUser,
-    users: CreateUser,
-    document: DocumentType
-  ): Promise<GetRegisterUser> {
+  async userRegistration(
+    user: registerUser,
+    users: createUser,
+    document: documentType
+  ): Promise<getRegisterUser> {
     try {
-      const documentRegister = await this._documentRepository.AddDocument(
+      const documentRegister = await this._documentRepository.addDocument(
         document
       );
       const documentId = documentRegister;
@@ -56,10 +56,10 @@ export default class profileRepository implements IRegisterUserRepository {
     }
   }
 
-  async UpdateProfile(
+  async updateProfile(
     id: string,
-    user: RegisterUser
-  ): Promise<GetRegisterUser> {
+    user: registerUser
+  ): Promise<getRegisterUser> {
     try {
       const updateProfile = await profileModel.findByIdAndUpdate(id, user);
       return {
@@ -74,15 +74,15 @@ export default class profileRepository implements IRegisterUserRepository {
     }
   }
 
-  async deleteProfile(id: string): Promise<GetRegisterUser> {
+  async deleteProfile(id: string): Promise<getRegisterUser> {
     try {
-      const Deleteprofile = await profileModel.findByIdAndDelete(id);
+      const deleteprofile = await profileModel.findByIdAndDelete(id);
       return {
-        id: Deleteprofile.id,
-        address: Deleteprofile.address,
-        firstName: Deleteprofile.firstName,
-        lastName: Deleteprofile.lastName,
-        phoneNumber: Deleteprofile.phoneNumber,
+        id: deleteprofile.id,
+        address: deleteprofile.address,
+        firstName: deleteprofile.firstName,
+        lastName: deleteprofile.lastName,
+        phoneNumber: deleteprofile.phoneNumber,
       };
     } catch (err) {
       throw err;

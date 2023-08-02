@@ -19,8 +19,7 @@ export default class CountryService implements ICountryService {
       return deleteCountry;
     } catch (error) {
       throw new Error(
-        "internal server error in the delete country service. which is:- " +
-          error
+        "internal server error in the delete country service.  :- " + error
       );
     }
   }
@@ -31,7 +30,7 @@ export default class CountryService implements ICountryService {
       return addCountry;
     } catch (err) {
       throw new Error(
-        "internal server error in the add country service. which is:- " + err
+        "internal server error in the add country service.  :- " + err
       );
     }
   }
@@ -42,7 +41,7 @@ export default class CountryService implements ICountryService {
       return getCountry;
     } catch (err) {
       throw new Error(
-        "internal server error in the country id service. which is:- " + err
+        "internal server error in the country id service.  :- " + err
       );
     }
   }
@@ -53,7 +52,7 @@ export default class CountryService implements ICountryService {
       return getCountrys;
     } catch (err) {
       throw new Error(
-        "internal server error in the get countries service. which is:- " + err
+        "internal server error in the get countries service.  :- " + err
       );
     }
   }
@@ -67,7 +66,7 @@ export default class CountryService implements ICountryService {
       return UpdateCountry;
     } catch (err) {
       throw new Error(
-        "internal server error in the update country service. which is:- " + err
+        "internal server error in the update country service.  :- " + err
       );
     }
   }
@@ -78,7 +77,7 @@ export default class CountryService implements ICountryService {
       return listCountry;
     } catch (err) {
       throw new Error(
-        "internal server error in the delete country service. which is:- " + err
+        "internal server error in the delete country service.  :- " + err
       );
     }
   }

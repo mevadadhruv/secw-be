@@ -9,19 +9,19 @@ const permissionRoleService = Container.get<IPermissionRoleService>(
 );
 const permissionRole = new PermissionRoleController(permissionRoleService);
 
-const PermissionRoleRouter = express.Router();
+const permissionRoleRouter = express.Router();
 
-PermissionRoleRouter.post("/createpermissionrole", (req, res, next) =>
+permissionRoleRouter.post("/createpermissionrole", (req, res, next) =>
   permissionRole.addPermissionRole(req, res, next)
 );
-PermissionRoleRouter.get("/permissionrole", (req, res, next) =>
+permissionRoleRouter.get("/permissionrole", (req, res, next) =>
   permissionRole.getPermissionRoles(req, res, next)
 );
-PermissionRoleRouter.get("/permissionrole/:id", (req, res, next) =>
-  permissionRole.getById(req, res, next)
+permissionRoleRouter.get("/permissionrole/:id", (req, res, next) =>
+  permissionRole.getPermissionRoleById(req, res, next)
 );
-PermissionRoleRouter.delete("/deletepermissionrole/:id", (req, res, next) =>
+permissionRoleRouter.delete("/deletepermissionrole/:id", (req, res, next) =>
   permissionRole.deletePermissionRole(req, res, next)
 );
 
-export default PermissionRoleRouter;
+export default permissionRoleRouter;

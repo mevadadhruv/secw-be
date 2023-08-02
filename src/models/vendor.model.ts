@@ -1,14 +1,17 @@
 import mongoose from "mongoose";
 
-const VendorSchmea = new mongoose.Schema({
-    name : {
-        type : String
+const vendorSchmea = new mongoose.Schema(
+  {
+    name: {
+      type: String,
     },
-    logo : {
-        type : String
-    }
-},{
-    timestamps : true
-});
+    logo: {
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default mongoose.model("Vendor",VendorSchmea);
+export default mongoose.model("Vendor", vendorSchmea);

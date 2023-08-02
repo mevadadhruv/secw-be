@@ -20,8 +20,9 @@ export default class PermissionRoleService implements IPermissionRoleService {
         await this._permissionRoleRepo.getPermissionRolebyId(id);
       return findPermissionRole;
     } catch (err) {
-      console.log("permission role service");
-      throw err;
+      throw new Error(
+        "internal server error in the permission role service. :- " + err
+      );
     }
   }
 
@@ -33,8 +34,9 @@ export default class PermissionRoleService implements IPermissionRoleService {
       );
       return permissionRoleId;
     } catch (err) {
-      console.log("create permission role service");
-      throw err;
+      throw new Error(
+        "internal server error in the add permission role service. :- " + err
+      );
     }
   }
 
@@ -44,8 +46,9 @@ export default class PermissionRoleService implements IPermissionRoleService {
         await this._permissionRoleRepo.getPermissionRoles();
       return findPermissionRole;
     } catch (err) {
-      console.log("permission roles service");
-      throw err;
+      throw new Error(
+        "internal server error in the permission roles service. :- " + err
+      );
     }
   }
 
@@ -56,8 +59,9 @@ export default class PermissionRoleService implements IPermissionRoleService {
       );
       return deleteVenUser;
     } catch (err) {
-      console.log("delete permission role service");
-      throw err;
+      throw new Error(
+        "internal server error in the delete permission role service. :- " + err
+      );
     }
   }
 }

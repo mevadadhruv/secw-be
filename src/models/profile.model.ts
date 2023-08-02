@@ -16,11 +16,11 @@ const profileSchema = new mongoose.Schema(
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Userschema",
+      ref: "userSchema",
     },
     documentId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "DocumentSchema",
+      ref: "documentSchema",
     },
   },
   {

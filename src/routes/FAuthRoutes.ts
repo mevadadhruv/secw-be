@@ -15,10 +15,10 @@ const profileService = container.get<IRegisterUserService>(
   types.IRegisterUserService
 );
 const authController = new AuthStrategyController(userService, profileService);
-const FAuthRouter = express.Router();
-FAuthRouter.use(cookieParser());
-FAuthRouter.use(bodyParser.urlencoded({ extended: false }));
-FAuthRouter.use(
+const fAuthRouter = express.Router();
+fAuthRouter.use(cookieParser());
+fAuthRouter.use(bodyParser.urlencoded({ extended: false }));
+fAuthRouter.use(
   session({
     secret: "keyboard cat",
     name: "sid",
@@ -26,23 +26,23 @@ FAuthRouter.use(
     saveUninitialized: true,
   })
 );
-FAuthRouter.use(passport.initialize());
-FAuthRouter.use(passport.session());
-FAuthRouter.get("/", function (req, res) {
+fAuthRouter.use(passport.initialize());
+fAuthRouter.use(passport.session());
+fAuthRouter.get("/", function (req, res) {
   res.render("index", { user: req.user });
 });
 
-FAuthRouter.get("/account", ensureAuthenticated, function (req, res) {
+fAuthRouter.get("/account", ensureAuthenticated, function (req, res) {
   console.log("facebook account req- ", req);
   res.render("account", { user: req.user });
 });
 
-FAuthRouter.get(
+fAuthRouter.get(
   "/fbauth",
   passport.authenticate("facebook", { scope: "email" })
 );
 
-FAuthRouter.get(
+fAuthRouter.get(
   "/fbutton",
   async (req: express.Request, res: express.Response, next: NextFunction) => {
     res.send("<button><a href='/fbauth'>facebook</a></button>"),
@@ -51,7 +51,7 @@ FAuthRouter.get(
   }
 );
 
-FAuthRouter.get(
+fAuthRouter.get(
   "/fbauth/facebook/callback",
   passport.authenticate("facebook", {
     successRedirect: handlefun(true, false),
@@ -59,7 +59,7 @@ FAuthRouter.get(
   })
 );
 
-FAuthRouter.get("/logout", function (req, res) {
+fAuthRouter.get("/logout", function (req, res) {
   console.log("facebook logout");
   req.logout((err) => {
     if (err) {
@@ -77,4 +77,4 @@ function ensureAuthenticated(req: any, res: any, next: any) {
   res.redirect("/login");
 }
 
-export default FAuthRouter;
+export default fAuthRouter;
