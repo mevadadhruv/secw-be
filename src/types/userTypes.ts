@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export declare type createUser = {
   emailId: String;
   password: string;
@@ -88,4 +90,10 @@ export declare type permission = {
   id?: string;
   name?: String;
   description?: String;
+};
+
+export declare type category = {
+  id?: string;
+  name?: String;
+  categoryId?: mongoose.Types.ObjectId | null;
 };
