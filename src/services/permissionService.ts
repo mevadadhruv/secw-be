@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { IPermissionService } from "../interfaces/IPermissionService";
-import { Permission } from "../types/userTypes";
+import { permission } from "../types/userTypes";
 import { IPermissionRepository } from "../interfaces/IPermissionRepository";
 import { types } from "../config/types";
 
@@ -15,7 +15,7 @@ export default class PermissionService implements IPermissionService {
     this._permissionRepository = permissionRepository;
   }
 
-  async addPermission(name: string, description: string): Promise<Permission> {
+  async addPermission(name: string, description: string): Promise<permission> {
     try {
       const addPermission = await this._permissionRepository.addPermission(
         name,
@@ -27,7 +27,7 @@ export default class PermissionService implements IPermissionService {
     }
   }
 
-  async getPermissionById(id: string): Promise<Permission> {
+  async getPermissionById(id: string): Promise<permission> {
     try {
       const getPermission = this._permissionRepository.getPermissionById(id);
       console.log("getPermission service:-", getPermission);
@@ -37,7 +37,7 @@ export default class PermissionService implements IPermissionService {
     }
   }
 
-  async getPermissions(): Promise<Permission[]> {
+  async getPermissions(): Promise<permission[]> {
     try {
       const getPermissions = this._permissionRepository.getPermissions();
       return getPermissions;
@@ -50,7 +50,7 @@ export default class PermissionService implements IPermissionService {
     id: string,
     name: string,
     description: string
-  ): Promise<Permission> {
+  ): Promise<permission> {
     try {
       if (name.length <= 0 && name.trim() === "") {
         throw new Error("please enter name ");
@@ -68,7 +68,7 @@ export default class PermissionService implements IPermissionService {
     }
   }
 
-  async deletePermission(id: string): Promise<Permission> {
+  async deletePermission(id: string): Promise<permission> {
     try {
       const deletePermission =
         await this._permissionRepository.deletePermission(id);

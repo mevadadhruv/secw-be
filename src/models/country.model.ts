@@ -1,6 +1,6 @@
 import mongoose, { Schema, Types } from "mongoose";
 
-const Countryschema = new mongoose.Schema(
+const countrySchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -15,4 +15,4 @@ const Countryschema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Country", Countryschema);
+export default mongoose.model("Country", countrySchema);

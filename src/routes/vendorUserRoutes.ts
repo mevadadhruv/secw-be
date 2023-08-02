@@ -9,19 +9,19 @@ const vendorService = Container.get<IVendorUserService>(
 );
 const vendorUser = new VendorUserController(vendorService);
 
-const VendorUserRouter = express.Router();
+const vendorUserRouter = express.Router();
 
-VendorUserRouter.post("/add", (req, res, next) =>
+vendorUserRouter.post("/add", (req, res, next) =>
   vendorUser.addVendorUser(req, res, next)
 );
-VendorUserRouter.get("/vendorusers", (req, res, next) =>
-  vendorUser.getVendorUser(req, res, next)
+vendorUserRouter.get("/vendorusers", (req, res, next) =>
+  vendorUser.getVendorUsers(req, res, next)
 );
-VendorUserRouter.get("/vendorusers/:id", (req, res, next) =>
-  vendorUser.getById(req, res, next)
+vendorUserRouter.get("/vendorusers/:id", (req, res, next) =>
+  vendorUser.getVendorUserById(req, res, next)
 );
-VendorUserRouter.delete("/delete/:id", (req, res, next) =>
+vendorUserRouter.delete("/delete/:id", (req, res, next) =>
   vendorUser.deleteVendorUser(req, res, next)
 );
 
-export default VendorUserRouter;
+export default vendorUserRouter;

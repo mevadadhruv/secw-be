@@ -23,7 +23,6 @@ export default class VendorUserRepository implements IVendorUserRepository {
       const findVendorbyId = await VendorUserModel.findById(id);
       return findVendorbyId;
     } catch (err) {
-      console.log("VendorUser repository : ");
       throw err;
     }
   }
@@ -38,17 +37,15 @@ export default class VendorUserRepository implements IVendorUserRepository {
       });
       return addVendorUser;
     } catch (err) {
-      console.log("VendorUser repository : ");
       throw err;
     }
   }
 
-  async getVendorUser() {
+  async getVendorUsers() {
     try {
       const findVendorUser = await VendorUserModel.find();
       return findVendorUser;
     } catch (err) {
-      console.log("VendorUser repository : ");
       throw err;
     }
   }
@@ -58,7 +55,6 @@ export default class VendorUserRepository implements IVendorUserRepository {
       const deleteVendorUser = await VendorUserModel.findByIdAndDelete(id);
       return deleteVendorUser;
     } catch (err) {
-      console.log("VendorUser repository : ");
       throw err;
     }
   }

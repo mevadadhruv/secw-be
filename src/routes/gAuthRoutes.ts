@@ -14,10 +14,10 @@ const profileService = container.get<IRegisterUserService>(
   types.IRegisterUserService
 );
 const authController = new AuthController(userService, profileService);
-const GAuthRouter = express.Router();
-GAuthRouter.use(cookieParser());
-GAuthRouter.use(bodyParser.urlencoded({ extended: false }));
-GAuthRouter.use(
+const gAuthRouter = express.Router();
+gAuthRouter.use(cookieParser());
+gAuthRouter.use(bodyParser.urlencoded({ extended: false }));
+gAuthRouter.use(
   session({
     resave: false,
     saveUninitialized: true,
@@ -25,9 +25,9 @@ GAuthRouter.use(
     name: "sid",
   })
 );
-GAuthRouter.use(passport.initialize());
-GAuthRouter.use(passport.session());
-GAuthRouter.get(
+gAuthRouter.use(passport.initialize());
+gAuthRouter.use(passport.session());
+gAuthRouter.get(
   "/gbutton",
   (req: express.Request, res: express.Response, next: NextFunction) => {
     res.send("<button><a href='/gauth'>Google</a></button>"),
@@ -36,14 +36,14 @@ GAuthRouter.get(
   }
 );
 
-GAuthRouter.get(
+gAuthRouter.get(
   "/gauth",
   passport.authenticate("google", {
     scope: ["profile", "email"],
   })
 );
 
-GAuthRouter.get(
+gAuthRouter.get(
   "/gauth/google/callback",
   passport.authenticate("google", {
     successRedirect: handlefun(true, true),
@@ -51,4 +51,4 @@ GAuthRouter.get(
   })
 );
 
-export default GAuthRouter;
+export default gAuthRouter;

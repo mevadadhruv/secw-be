@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import userModel from "../models/user.model";
-import { CreateUser, UpdateUser, GetUser } from "../types/userTypes";
+import { createUser, updateUser, getUser } from "../types/userTypes";
 import bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
 import * as dotenv from "dotenv";
@@ -12,9 +12,7 @@ const secretKey = process.env.JWT_SECRET_KEY;
 
 @injectable()
 export default class UserRepository implements IUserRepository {
-  constructor() {}
-
-  async createUser(user: CreateUser): Promise<GetUser> {
+  async createUser(user: createUser): Promise<getUser> {
     try {
       const emailId = user.emailId;
       const password = user.password;
@@ -26,8 +24,7 @@ export default class UserRepository implements IUserRepository {
       const pass = res.password;
       return { id: id, emailId: email, password: pass };
     } catch (err) {
-      console.log("inside repository createUser", err);
-      throw new Error("inside repository createUser" + err);
+      throw err;
     }
   }
 
@@ -36,27 +33,24 @@ export default class UserRepository implements IUserRepository {
       const res = await userModel.find();
       return res;
     } catch (err) {
-      console.log("inside repository getUser", err);
-      throw new Error("inside repository getUser" + err);
+      throw err;
     }
   }
 
-  async getUserbyId(id: String): Promise<GetUser> {
+  async getUserbyId(id: String): Promise<getUser> {
     try {
       id = mongoose.mongo.ObjectId(id);
-      console.log("id- ", id);
       const res = await userModel.findById(id);
       const _id = res?.id;
       const email = res?.emailId;
       const pass = res?.password;
       return { id: _id, emailId: email, password: pass };
     } catch (err) {
-      console.log("inside repository getUserbyid", err);
-      throw new Error("inside repository getUserbyid" + err);
+      throw err;
     }
   }
 
-  async updateUser(id: String, user: UpdateUser): Promise<GetUser> {
+  async updateUser(id: String, user: updateUser): Promise<getUser> {
     try {
       const res = await userModel.findByIdAndUpdate(id, user);
       //const _id = res?._id
@@ -64,12 +58,11 @@ export default class UserRepository implements IUserRepository {
       const pass = res?.password;
       return { emailId: email, password: pass };
     } catch (err) {
-      console.log("inside repository updateUser", err);
-      throw new Error("inside repository updateUser" + err);
+      throw err;
     }
   }
 
-  async deleteUser(id: String): Promise<GetUser> {
+  async deleteUser(id: String): Promise<getUser> {
     try {
       const res = await userModel.findByIdAndDelete(id);
       const _id = res?.id;
@@ -77,12 +70,11 @@ export default class UserRepository implements IUserRepository {
       const password = res?.password;
       return { id: _id, emailId: email, password: password };
     } catch (err) {
-      console.log("inside repository deleteUser", err);
-      throw new Error("inside repository deleteUser" + err);
+      throw err;
     }
   }
 
-  async loginUser(user: CreateUser): Promise<GetUser> {
+  async loginUser(user: createUser): Promise<getUser> {
     try {
       const emailId = user.emailId;
       const password = user.password;
@@ -96,8 +88,7 @@ export default class UserRepository implements IUserRepository {
       console.log(userCheck);
       return { id: id, emailId, password };
     } catch (err) {
-      console.log("inside repository loginUser", err);
-      throw new Error("inside repository loginUser" + err);
+      throw err;
     }
   }
 }

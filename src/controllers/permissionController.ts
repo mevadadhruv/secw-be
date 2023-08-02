@@ -41,11 +41,8 @@ export default class PermissionController {
     next: NextFunction
   ) {
     try {
-      const permissionId = req.params.id;
-      console.log("permissionId:-", permissionId);
-
       const getPermissions = await this._permissionService.getPermissionById(
-        permissionId
+        req.params.id
       );
       console.log("getPermissions:-  ", getPermissions);
 
@@ -87,16 +84,11 @@ export default class PermissionController {
     next: NextFunction
   ) {
     try {
-      const id = req.body.id;
-      const name = req.body.name;
-      const description = req.body.description;
-
       const updatedPermission = await this._permissionService.updatePermission(
-        id,
-        name,
-        description
+        req.body.id,
+        req.body.name,
+        req.body.description
       );
-      console.log("updatedPermission", updatedPermission);
 
       if (updatedPermission) {
         return message.sendResponse(
@@ -116,11 +108,10 @@ export default class PermissionController {
     next: NextFunction
   ) {
     try {
-      const deleteId = req.params.id;
-      const DeletePermission = await this._permissionService.deletePermission(
-        deleteId
+      const deletePermission = await this._permissionService.deletePermission(
+        req.params.id
       );
-      if (DeletePermission) {
+      if (deletePermission) {
         return message.sendResponseDelete(
           200,
           "successfully deleted permission!",

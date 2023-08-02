@@ -25,11 +25,9 @@ export default class PermissionRoleController {
     next: NextFunction
   ) {
     try {
-      const permissionId = req.body.permissionId;
-      const roleId = req.body.roleId;
       const vendorUserAdd = await this._permissionRoleService.addPermissionRole(
-        permissionId,
-        roleId
+        req.body.permissionId,
+        req.body.roleId
       );
       if (vendorUserAdd) {
         return sendResponse(200, "added", vendorUserAdd, res);
@@ -54,15 +52,14 @@ export default class PermissionRoleController {
     }
   }
 
-  async getById(
+  async getPermissionRoleById(
     req: express.Request,
     res: express.Response,
     next: NextFunction
   ) {
     try {
-      const id = req.params.id;
       const findById = await this._permissionRoleService.getPermissionRolebyId(
-        id
+        req.params.id
       );
       if (findById) {
         return sendResponseGet(200, findById, res);
@@ -78,9 +75,8 @@ export default class PermissionRoleController {
     next: NextFunction
   ) {
     try {
-      const id = req.params.id;
       const deleteUser = await this._permissionRoleService.deletePermissionRole(
-        id
+        req.params.id
       );
       if (deleteUser) {
         return sendResponseDelete(200, "deleted", res);

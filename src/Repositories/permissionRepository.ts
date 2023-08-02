@@ -1,5 +1,5 @@
 import permissionModel from "../models/permission.model";
-import { Permission } from "../types/userTypes";
+import { permission } from "../types/userTypes";
 import { IPermissionRepository } from "../interfaces/IPermissionRepository";
 import { injectable } from "inversify";
 import appError from "../error/appError";
@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 const mongooseTypes = mongoose.Types;
 @injectable()
 export default class PermissionRepository implements IPermissionRepository {
-  async addPermission(name: string, description: string): Promise<Permission> {
+  async addPermission(name: string, description: string): Promise<permission> {
     try {
       const getPermission = await permissionModel.findOne({
         $or: [
@@ -24,24 +24,21 @@ export default class PermissionRepository implements IPermissionRepository {
         name,
         description,
       });
-      console.log("add permission :- ", addPermission);
       return addPermission;
     } catch (err) {
       throw err;
     }
   }
 
-  async getPermissionById(id: string): Promise<Permission> {
+  async getPermissionById(id: string): Promise<permission> {
     try {
       const getPermission = await permissionModel.findById(id);
-      console.log("getPermission Repository :-", getPermission);
-
       return getPermission;
     } catch (err) {
       throw err;
     }
   }
-  async getPermissions(): Promise<Permission[]> {
+  async getPermissions(): Promise<permission[]> {
     try {
       const getPermissions = await permissionModel.find();
       return getPermissions;
@@ -53,7 +50,7 @@ export default class PermissionRepository implements IPermissionRepository {
     id: string,
     name: string,
     description: string
-  ): Promise<Permission> {
+  ): Promise<permission> {
     try {
       const getPermission = await this.getPermissionById(id);
 
@@ -61,7 +58,6 @@ export default class PermissionRepository implements IPermissionRepository {
         throw new appError("Record Not Found in Permission", 400);
       }
       const _id = new mongooseTypes.ObjectId(id);
-      console.log("update id:", _id);
       const updatePermission = await permissionModel.findByIdAndUpdate(
         { _id },
         { name, description }
@@ -71,7 +67,7 @@ export default class PermissionRepository implements IPermissionRepository {
       throw err;
     }
   }
-  async deletePermission(id: string): Promise<Permission> {
+  async deletePermission(id: string): Promise<permission> {
     try {
       const getPermission = await this.getPermissionById(id);
       if (!getPermission) {
