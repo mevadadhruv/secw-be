@@ -38,6 +38,10 @@ import PermissionRoleRepository from "../repositories/permissionRoleRepository";
 import { IPermissionRoleRepository } from "../interfaces/IPermissionRoleRepository";
 import { IPermissionRoleService } from "../interfaces/IPermissionRoleService";
 import PermissionRoleService from "../services/permissionRoleService";
+import { ICategoryRepository } from "../interfaces/ICategoryRepository";
+import CategoryRepository from "../repositories/categoryRepository";
+import { ICategoryService } from "../interfaces/ICategoryService";
+import CategoryService from "../services/categoryService";
 
 const iocContainer = new Container();
 
@@ -86,4 +90,9 @@ iocContainer
 iocContainer
   .bind<IPermissionRoleRepository>(types.IPermissionRoleRepository)
   .to(PermissionRoleRepository);
+iocContainer
+  .bind<ICategoryRepository>(types.ICategoryRepository)
+  .to(CategoryRepository);
+iocContainer.bind<ICategoryService>(types.ICategoryService).to(CategoryService);
+
 export { iocContainer };
