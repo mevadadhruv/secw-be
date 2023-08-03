@@ -20,4 +20,6 @@ export const types = {
   IPermissionRoleService: Symbol("IPermissionRoleService"),
   ICategoryRepository: Symbol("ICategoryRepository"),
   ICategoryService: Symbol("ICategoryService"),
+  IProductRepository: Symbol("IProductRepository"),
+  IProductService: Symbol("IProductService"),
 };

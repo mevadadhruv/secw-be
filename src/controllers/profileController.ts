@@ -35,6 +35,7 @@ export default class ProfileController {
         const documentAttachment = documentFile.location;
         const documentExtension = documentFile.mimetype;
         const documentSize = documentFile.size;
+
         const documentType: documentType = {
           name: documentName,
           description: documentDescription,
@@ -42,6 +43,7 @@ export default class ProfileController {
           extension: documentExtension,
           size: documentSize,
         };
+        console.log("documentType:- ", documentType);
         const register: registerUser = {
           address: req.body.Address,
           firstName: req.body.first_name,

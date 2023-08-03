@@ -42,6 +42,10 @@ import { ICategoryRepository } from "../interfaces/ICategoryRepository";
 import CategoryRepository from "../repositories/categoryRepository";
 import { ICategoryService } from "../interfaces/ICategoryService";
 import CategoryService from "../services/categoryService";
+import { IProductService } from "../interfaces/IProductService";
+import ProductRepository from "../repositories/productRepository";
+import ProductService from "../services/productService";
+import { IProductRepository } from "../interfaces/IProductRepository";
 
 const iocContainer = new Container();
 
@@ -94,5 +98,10 @@ iocContainer
   .bind<ICategoryRepository>(types.ICategoryRepository)
   .to(CategoryRepository);
 iocContainer.bind<ICategoryService>(types.ICategoryService).to(CategoryService);
+
+iocContainer
+  .bind<IProductRepository>(types.IProductRepository)
+  .to(ProductRepository);
+iocContainer.bind<IProductService>(types.IProductService).to(ProductService);
 
 export { iocContainer };

@@ -10,6 +10,7 @@ import countryRouter from "./countryRoutes";
 import permissionRouter from "./permissionRoutes";
 import permissionRoleRouter from "./permissionRoleRoutes";
 import categoryRouter from "./categoryRoutes";
+import productRouter from "./productRoutes";
 export default {
   router,
   profileRouter,
@@ -23,4 +24,5 @@ export default {
   permissionRouter,
   permissionRoleRouter,
   categoryRouter,
+  productRouter,
 };
