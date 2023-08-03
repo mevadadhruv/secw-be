@@ -2,39 +2,50 @@ import { Container } from "inversify";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import { buildProviderModule } from "inversify-binding-decorators";
 import { types } from "./types";
-import UserRepository from "../repositories/userRepository";
+import UserRepository from "../Repositories/userRepository";
 import { IUserService } from "../interfaces/IUserService";
 import UserService from "../services/userService";
 import "reflect-metadata";
 import { IRegisterUserRepository } from "../interfaces/IRegisterUserRepository";
 import ProfileService from "../services/profileService";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
-import profileRepository from "../repositories/profileRepository";
+import profileRepository from "../Repositories/profileRepository";
 import { IDocumentRepository } from "../interfaces/IDocumentRepository";
-import DocumentRepository from "../repositories/documentRepository";
+import DocumentRepository from "../Repositories/documentRepository";
 import { IDocumentService } from "../interfaces/IDocumentService";
 import DocumentService from "../services/documentService";
 import { IVendorRepository } from "../interfaces/IVendorRepository";
-import VendorRepository from "../repositories/vendorRepository";
+import VendorRepository from "../Repositories/vendorRepository";
 import { IVendorService } from "../interfaces/IVendorService";
 import VendorService from "../services/vendorService";
 import { IVendorUserRepository } from "../interfaces/IVendorUserRepository";
 import { IVendorUserService } from "../interfaces/IVendorUserService";
 import VendorUserService from "../services/vendorUserService";
-import VendorUserRepository from "../repositories/vendorUserRepository";
+import VendorUserRepository from "../Repositories/vendorUserRepository";
 import { IRoleRepository } from "../interfaces/IRoleRepository";
-import RoleRepository from "../repositories/roleRepository";
+import RoleRepository from "../Repositories/roleRepository";
 import { IRoleService } from "../interfaces/IRoleService";
 import RoleService from "../services/roleService";
 import { ICountryService } from "../interfaces/ICountryService";
 import { ICountryRepository } from "../interfaces/ICountryRepository";
-import CountryRepository from "../repositories/countryRepository";
+import CountryRepository from "../Repositories/countryRepository";
 import CountryService from "../services/countryService";
 import { IUserRoleService } from "../interfaces/IUserRoleService";
 import UserRoleService from "../services/userRoleService";
 import { IUserRoleRepository } from "../interfaces/IUserRoleRepository";
-import UserRoleRepository from "../repositories/userRoleRepository";
-
+import UserRoleRepository from "../Repositories/userRoleRepository";
+import { IPermissionRoleService } from "../interfaces/IPermissionRoleService";
+import { IPermissionRoleRepository } from "../interfaces/IPermissionRoleRepository";
+import { ICategoryRepository } from "../interfaces/ICategoryRepository";
+import { ICategoryService } from "../interfaces/ICategoryService";
+import CategoryRepository from "../Repositories/categoryRepository";
+import CategoryService from "../services/categoryService";
+import PermissionRoleService from "../services/permissionRoleService";
+import PermissionRoleRepository from "../Repositories/permissionRoleRepository";
+import PermissionService from "../services/permissionService";
+import { IPermissionService } from "../interfaces/IPermissionService";
+import PermissionRepository from "../Repositories/permissionRepository";
+import { IPermissionRepository } from "../interfaces/IPermissionRepository";
 const iocContainer = new Container();
 
 iocContainer.load(buildProviderModule());
@@ -73,4 +84,25 @@ iocContainer.bind<ICountryService>(types.ICountryService).to(CountryService);
 iocContainer
   .bind<ICountryRepository>(types.ICountryRepository)
   .to(CountryRepository);
+
+iocContainer
+  .bind<IPermissionRoleService>(types.IPermissionRoleService)
+  .to(PermissionRoleService);
+iocContainer
+  .bind<IPermissionRoleRepository>(types.IPermissionRoleRepository)
+  .to(PermissionRoleRepository);
+
+iocContainer
+  .bind<ICategoryRepository>(types.ICategoryRepository)
+  .to(CategoryRepository);
+iocContainer.bind<ICategoryService>(types.ICategoryService).to(CategoryService);
+
+iocContainer
+  .bind<IPermissionRepository>(types.IPermissionRepository)
+  .to(PermissionRepository);
+
+iocContainer
+  .bind<IPermissionService>(types.IPermissionService)
+  .to(PermissionService);
+
 export { iocContainer };

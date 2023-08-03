@@ -1,54 +1,66 @@
 import { inject, injectable } from "inversify";
 import { IDocumentService } from "../interfaces/IDocumentService";
-import { DocumentType, GetDocument } from "../types/userTypes";
+import { documentType, getDocument } from "../types/userTypes";
 import { IDocumentRepository } from "../interfaces/IDocumentRepository";
 import { types } from "../config/types";
 
 @injectable()
-export default class DocumentService implements IDocumentService{
-private _documentRepository : IDocumentRepository;
+export default class DocumentService implements IDocumentService {
+  private _documentRepository: IDocumentRepository;
 
-    constructor(@inject(types.IDocumentRepository) documentRepository : IDocumentRepository){
-        this._documentRepository = documentRepository;
-    }
+  constructor(
+    @inject(types.IDocumentRepository) documentRepository: IDocumentRepository
+  ) {
+    this._documentRepository = documentRepository;
+  }
 
-    async AddDocument(document: DocumentType): Promise<GetDocument> {
-        try{
-            const addDocument = await this._documentRepository.AddDocument(document);
-            return addDocument;
-        }
-        catch(err){
-            throw err;
-        }
+  async addDocument(document: documentType): Promise<getDocument> {
+    try {
+      const addDocument = await this._documentRepository.addDocument(document);
+      return addDocument;
+    } catch (err) {
+      throw new Error(
+        "internal server error in the add document service. :- " + err
+      );
     }
-    
-    getDocumentById(id: string): Promise<GetDocument> {
-        try{
-            const getDocument = this._documentRepository.getDocumentById(id);
-            return getDocument;
-        }
-        catch(err){
-            throw err;
-        }
+  }
+
+  getDocumentById(id: string): Promise<getDocument> {
+    try {
+      const getDocument = this._documentRepository.getDocumentById(id);
+      return getDocument;
+    } catch (err) {
+      throw new Error(
+        "internal server error in the document service. :- " + err
+      );
     }
-    
-    async UpdateDocument(id: string, document: DocumentType): Promise<GetDocument> {
-        try{
-            const UpdateDocument = await this._documentRepository.UpdateDocument(id,document);
-            return UpdateDocument;
-        }
-        catch(err){
-            throw err;
-        }
+  }
+
+  async updateDocument(
+    id: string,
+    document: documentType
+  ): Promise<getDocument> {
+    try {
+      const updateDocument = await this._documentRepository.updateDocument(
+        id,
+        document
+      );
+      return updateDocument;
+    } catch (err) {
+      throw new Error(
+        "internal server error in the update document service. :- " + err
+      );
     }
-    
-    async DeleteDocument(id: string): Promise<GetDocument> {
-        try{
-            const deleteDocument = await this._documentRepository.DeleteDocument(id);
-            return deleteDocument;
-        }
-        catch(err){
-            throw err;
-        }
+  }
+
+  async deleteDocument(id: string): Promise<getDocument> {
+    try {
+      const deleteDocument = await this._documentRepository.deleteDocument(id);
+      return deleteDocument;
+    } catch (err) {
+      throw new Error(
+        "internal server error in the delete document service. :- " + err
+      );
     }
+  }
 }

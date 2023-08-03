@@ -1,15 +1,17 @@
-export declare type CreateUser = {
+import mongoose from "mongoose";
+
+export declare type createUser = {
   emailId: String;
   password: string;
   token?: string;
 };
 
-export declare type UpdateUser = {
+export declare type updateUser = {
   emailId: String;
   password: String;
 };
 
-export declare type GetUser = {
+export declare type getUser = {
   id?: String;
   emailId?: String;
   password?: String;
@@ -18,7 +20,7 @@ export declare type GetUser = {
   lastLoginAt?: Date;
 };
 
-export declare type RegisterUser = {
+export declare type registerUser = {
   address?: String;
   firstName: String | undefined;
   lastName: String | undefined;
@@ -29,7 +31,7 @@ export declare type RegisterUser = {
   sId?: String;
 };
 
-export declare type GetRegisterUser = {
+export declare type getRegisterUser = {
   id?: String;
   address?: String;
   firstName?: String;
@@ -39,7 +41,7 @@ export declare type GetRegisterUser = {
   password?: String;
 };
 
-export declare type DocumentType = {
+export declare type documentType = {
   id?: string;
   name: string;
   description: string;
@@ -48,7 +50,7 @@ export declare type DocumentType = {
   size: string;
 };
 
-export declare type GetDocument = {
+export declare type getDocument = {
   id: string;
   name: string;
   description: string;
@@ -63,13 +65,13 @@ export declare type Vendor = {
   logo: string;
 };
 
-export declare type GetVendor = {
+export declare type getVendor = {
   id?: string;
   name: string;
   logo: string;
 };
 
-export declare type Role = {
+export declare type role = {
   id?: string;
   name?: string;
   createdAt?: Date;
@@ -82,4 +84,16 @@ export declare type Country = {
   code?: string;
   createdAt?: Date;
   updatedAt?: Date;
+};
+
+export declare type permission = {
+  id?: string;
+  name?: String;
+  description?: String;
+};
+
+export declare type category = {
+  id?: string;
+  name?: String;
+  categoryId?: mongoose.Types.ObjectId | null;
 };

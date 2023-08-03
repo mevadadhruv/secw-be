@@ -25,13 +25,9 @@ export default class VendorUserController {
     next: NextFunction
   ) {
     try {
-      const vendorId = req.body.VendorId;
-      console.log(typeof vendorId);
-      const userId = req.body.userId;
-      console.log(":- ", typeof userId);
       const vendorUserAdd = await this._VendorUserService.addVendorUser(
-        vendorId,
-        userId
+        req.body.vendorId,
+        req.body.userId
       );
       if (vendorUserAdd) {
         return sendResponse(200, "added", vendorUserAdd, res);
@@ -41,13 +37,13 @@ export default class VendorUserController {
     }
   }
 
-  async getVendorUser(
+  async getVendorUsers(
     req: express.Request,
     res: express.Response,
     next: NextFunction
   ) {
     try {
-      const findAll = await this._VendorUserService.getVendorUser();
+      const findAll = await this._VendorUserService.getVendorUsers();
       if (findAll) {
         return sendResponseGet(200, findAll, res);
       }
@@ -56,14 +52,15 @@ export default class VendorUserController {
     }
   }
 
-  async getById(
+  async getVendorUserById(
     req: express.Request,
     res: express.Response,
     next: NextFunction
   ) {
     try {
-      const id = req.params.id;
-      const findById = await this._VendorUserService.getVendorUserbyId(id);
+      const findById = await this._VendorUserService.getVendorUserbyId(
+        req.params.id
+      );
       if (findById) {
         return sendResponseGet(200, findById, res);
       }
@@ -78,8 +75,9 @@ export default class VendorUserController {
     next: NextFunction
   ) {
     try {
-      const id = req.params.id;
-      const deleteUser = await this._VendorUserService.deleteVendorUser(id);
+      const deleteUser = await this._VendorUserService.deleteVendorUser(
+        req.params.id
+      );
       if (deleteUser) {
         return sendResponseDelete(200, "deleted", res);
       }

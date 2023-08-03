@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
-const VendorUserSchema = new mongoose.Schema({
+const vendorUserSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Userschema",
+    ref: "userSchema",
   },
-  vendorId: {
+  VendorId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "VendorSchmea",
+    ref: "vendorSchmea",
   },
 });
 
-export default mongoose.model("VendorUser", VendorUserSchema);
+export default mongoose.model("VendorUser", vendorUserSchema);

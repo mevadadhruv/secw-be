@@ -1,10 +1,10 @@
 import passport from "passport";
 import userModel from "../models/user.model";
-import { CreateUser, RegisterUser } from "../types/userTypes";
+import { createUser, registerUser } from "../types/userTypes";
 import { inject, injectable } from "inversify";
 import { types } from "../config/types";
 import { IRegisterUserService } from "../interfaces/IRegisterUserService";
-import { DocumentType } from "../types/userTypes";
+import { documentType } from "../types/userTypes";
 @injectable()
 export class AuthController {
   private _ProfilService: IRegisterUserService;
@@ -25,14 +25,14 @@ export class AuthController {
       const email = profile!.emails[0].value;
       const firstname = profile.name?.givenName;
       const lastname = profile.name?.familyName;
-      const AddUser: RegisterUser = {
+      const AddUser: registerUser = {
         firstName: firstname,
         lastName: lastname,
         address: "",
         phoneNumber: "",
         sId: id,
       };
-      const AddUserInfo: CreateUser = {
+      const AddUserInfo: createUser = {
         emailId: email,
         password: "",
       };
@@ -42,7 +42,7 @@ export class AuthController {
       });
       console.log("checking userCheck!!!" + userCheck);
       if (!userCheck) {
-        const NewUser = await this._ProfilService.UserRegistration(
+        const NewUser = await this._ProfilService.userRegistration(
           AddUser,
           AddUserInfo
         );

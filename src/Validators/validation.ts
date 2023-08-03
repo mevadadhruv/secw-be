@@ -1,7 +1,7 @@
 import Express from "express";
 import Joi from "joi";
 
-export const UserValidation = async (
+export const userValidation = async (
   req: Express.Request,
   res: Express.Response,
   next: Express.NextFunction
@@ -25,8 +25,6 @@ export const UserValidation = async (
       .required(),
   });
   let options = { abortEarly: false };
-  console.log("req.body:- ", req.body);
-
   const { error } = userSchema.validate(req.body, options);
   if (error) {
     const errorMessages = error.details.map((err: any) => err.message);

@@ -14,19 +14,19 @@ import { config } from "../config/env";
 const profileService = Container.get<IRegisterUserService>(
   types.IRegisterUserService
 );
-const Controller = new AuthController(profileService);
+const controller = new AuthController(profileService);
 
 @injectable()
 export default class AuthStrategyController {
-  private _UserService: IUserService;
-  private _ProfilService: IRegisterUserService;
+  private _userService: IUserService;
+  private _profilService: IRegisterUserService;
 
   constructor(
     @inject(types.IUserService) userService: IUserService,
     @inject(types.IRegisterUserService) profileService: IRegisterUserService
   ) {
-    this._UserService = userService;
-    this._ProfilService = profileService;
+    this._userService = userService;
+    this._profilService = profileService;
   }
 
   async AuthUser(isGoogle: Boolean): Promise<void> {
@@ -59,7 +59,7 @@ export default class AuthStrategyController {
               done: passport.DoneCallback
             ) => {
               console.log("authuser use GoogleStrategy");
-              await Controller.AuthCallback(
+              await controller.AuthCallback(
                 accessToken,
                 refreshToken,
                 profile,
@@ -86,7 +86,7 @@ export default class AuthStrategyController {
               done: any
             ) {
               console.log("authuser use FacebookStrategy");
-              await Controller.AuthCallback(
+              await controller.AuthCallback(
                 accessToken,
                 refreshToken,
                 profile,

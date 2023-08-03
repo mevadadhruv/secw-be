@@ -53,7 +53,7 @@ export default class CountryRepository implements ICountryRepository {
       const addCountry = await countryModel.create({ name, code });
       return addCountry;
     } catch (err) {
-      throw new Error(`${err}`);
+      throw err;
     }
   }
 
@@ -63,7 +63,7 @@ export default class CountryRepository implements ICountryRepository {
       console.log(getAllCountrys);
       return getAllCountrys;
     } catch (err) {
-      throw new Error(`${err}`);
+      throw err;
     }
   }
 
@@ -81,7 +81,7 @@ export default class CountryRepository implements ICountryRepository {
       });
       return getCountry;
     } catch (err) {
-      throw new Error(`${err}`);
+      throw err;
     }
   }
 
@@ -90,7 +90,7 @@ export default class CountryRepository implements ICountryRepository {
       const updateCountry = await countryModel.findByIdAndUpdate(id, country);
       return updateCountry;
     } catch (err) {
-      throw new Error(`${err}`);
+      throw err;
     }
   }
 
@@ -99,7 +99,7 @@ export default class CountryRepository implements ICountryRepository {
       const deleteCountry = await countryModel.findByIdAndDelete(id);
       return deleteCountry;
     } catch (err) {
-      throw new Error(`${err}`);
+      throw err;
     }
   }
 }
