@@ -3,8 +3,8 @@ import UserController from "../controllers/userController";
 import { iocContainer as Container } from "../config/container";
 import { IUserService } from "../interfaces/IUserService";
 import { types } from "../config/types";
-import { userValidation } from "../validators/validation";
-import { verifyToken } from "../middleware/auth";
+import { userValidation } from "../Validators/validation";
+import { verifyToken } from "../middleware/Auth";
 
 const router = express.Router();
 
