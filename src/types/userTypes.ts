@@ -97,3 +97,17 @@ export declare type category = {
   name?: String;
   categoryId?: mongoose.Types.ObjectId | null;
 };
+
+export declare type product = {
+  id?: string;
+  prodName?: String;
+  prodPrice?: Number;
+  categoryId?: mongoose.mongo.BSON.ObjectId;
+  // documentId?: mongoose.mongo.BSON.ObjectId | null;
+};
+export declare type updateProduct = {
+  prodName?: String;
+  prodPrice?: Number;
+  categoryId?: mongoose.mongo.BSON.ObjectId;
+  // documentId?: mongoose.mongo.BSON.ObjectId | null;
+};
