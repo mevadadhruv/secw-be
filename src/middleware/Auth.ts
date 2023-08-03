@@ -14,7 +14,7 @@ export const verifyToken = async (
 ) => {
   const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
-  if(token){
+  if (token) {
     try {
       const decoded = jwt.verify(token, secretKey);
       req.user = decoded;

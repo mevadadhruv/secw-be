@@ -1,6 +1,6 @@
 import router from "../routes/userRoutes";
 import profileRouter from "./profileRoutes";
-import fAuthRouter from "./fAuthRoutes";
+import fAuthRouter from "./FAuthRoutes";
 import GAuthRoutes from "./gAuthRoutes";
 import documentRouter from "./documentRoutes";
 import VendorRouter from "./vendorRoutes";
@@ -10,6 +10,8 @@ import countryRouter from "./countryRoutes";
 import permissionRouter from "./permissionRoutes";
 import permissionRoleRouter from "./permissionRoleRoutes";
 import categoryRouter from "./categoryRoutes";
+import UserRoleRouter from "./userRoleRoutes";
+
 export default {
   router,
   profileRouter,
@@ -23,4 +25,5 @@ export default {
   permissionRouter,
   permissionRoleRouter,
   categoryRouter,
+  UserRoleRouter,
 };

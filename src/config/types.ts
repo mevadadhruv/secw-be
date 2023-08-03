@@ -16,6 +16,8 @@ export const types = {
   ICountryService: Symbol("ICountryService"),
   IPermissionRepository: Symbol("IPermissionRepository"),
   IPermissionService: Symbol("IPermissionService"),
+  IUserRoleRepository: Symbol("IUserRoleRepository"),
+  IUserRoleService: Symbol("IUserRoleService"),
   IPermissionRoleRepository: Symbol("IPermissionRoleRepository"),
   IPermissionRoleService: Symbol("IPermissionRoleService"),
   ICategoryRepository: Symbol("ICategoryRepository"),

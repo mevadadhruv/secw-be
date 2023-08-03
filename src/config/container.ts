@@ -30,19 +30,22 @@ import { ICountryService } from "../interfaces/ICountryService";
 import { ICountryRepository } from "../interfaces/ICountryRepository";
 import CountryRepository from "../Repositories/countryRepository";
 import CountryService from "../services/countryService";
-import PermissionRepository from "../Repositories/permissionRepository";
+import { IUserRoleService } from "../interfaces/IUserRoleService";
+import UserRoleService from "../services/userRoleService";
+import { IUserRoleRepository } from "../interfaces/IUserRoleRepository";
+import UserRoleRepository from "../Repositories/userRoleRepository";
+import { IPermissionRoleService } from "../interfaces/IPermissionRoleService";
+import { IPermissionRoleRepository } from "../interfaces/IPermissionRoleRepository";
+import { ICategoryRepository } from "../interfaces/ICategoryRepository";
+import { ICategoryService } from "../interfaces/ICategoryService";
+import CategoryRepository from "../Repositories/categoryRepository";
+import CategoryService from "../services/categoryService";
+import PermissionRoleService from "../services/permissionRoleService";
+import PermissionRoleRepository from "../Repositories/permissionRoleRepository";
 import PermissionService from "../services/permissionService";
 import { IPermissionService } from "../interfaces/IPermissionService";
+import PermissionRepository from "../Repositories/permissionRepository";
 import { IPermissionRepository } from "../interfaces/IPermissionRepository";
-import PermissionRoleRepository from "../Repositories/permissionRoleRepository";
-import { IPermissionRoleRepository } from "../interfaces/IPermissionRoleRepository";
-import { IPermissionRoleService } from "../interfaces/IPermissionRoleService";
-import PermissionRoleService from "../services/permissionRoleService";
-import { ICategoryRepository } from "../interfaces/ICategoryRepository";
-import CategoryRepository from "../Repositories/categoryRepository";
-import { ICategoryService } from "../interfaces/ICategoryService";
-import CategoryService from "../services/categoryService";
-
 const iocContainer = new Container();
 
 iocContainer.load(buildProviderModule());
@@ -72,12 +75,10 @@ iocContainer
 iocContainer.bind<IRoleService>(types.IRoleService).to(RoleService);
 iocContainer.bind<IRoleRepository>(types.IRoleRepository).to(RoleRepository);
 
+iocContainer.bind<IUserRoleService>(types.IUserRoleService).to(UserRoleService);
 iocContainer
-  .bind<IPermissionService>(types.IPermissionService)
-  .to(PermissionService);
-iocContainer
-  .bind<IPermissionRepository>(types.IPermissionRepository)
-  .to(PermissionRepository);
+  .bind<IUserRoleRepository>(types.IUserRoleRepository)
+  .to(UserRoleRepository);
 
 iocContainer.bind<ICountryService>(types.ICountryService).to(CountryService);
 iocContainer
@@ -90,9 +91,18 @@ iocContainer
 iocContainer
   .bind<IPermissionRoleRepository>(types.IPermissionRoleRepository)
   .to(PermissionRoleRepository);
+
 iocContainer
   .bind<ICategoryRepository>(types.ICategoryRepository)
   .to(CategoryRepository);
 iocContainer.bind<ICategoryService>(types.ICategoryService).to(CategoryService);
+
+iocContainer
+  .bind<IPermissionRepository>(types.IPermissionRepository)
+  .to(PermissionRepository);
+
+iocContainer
+  .bind<IPermissionService>(types.IPermissionService)
+  .to(PermissionService);
 
 export { iocContainer };
