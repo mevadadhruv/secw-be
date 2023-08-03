@@ -15,17 +15,18 @@ export const VerifyToken = async (
   const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
 
-  const bearerToken = req.headers.authorization.split("Bearer")[1];
-
-  if (!bearerToken) {
+  if(token){
+    try {
+      const decoded = jwt.verify(token, secretKey);
+      console.log("decoded" + decoded);
+      req.user = decoded;
+    } catch (err) {
+      next(new AppError("invalid token", 402));
+    }
+  }
+  if (!token) {
     next(new AppError("PLease Login First to continue", 403));
   }
-  try {
-    const decoded = jwt.verify(bearerToken, secretKey);
-    console.log("decoded" + decoded);
-    req.user = decoded;
-  } catch (err) {
-    next(new AppError("invalid token", 402));
-  }
+  
   return next();
 };
