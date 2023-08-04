@@ -50,6 +50,10 @@ import { IProductService } from "../interfaces/IProductService";
 import ProductRepository from "../repositories/productRepository";
 import ProductService from "../services/productService";
 import { IProductRepository } from "../interfaces/IProductRepository";
+import { ICartRepository } from "../interfaces/ICartRepository";
+import CartRepository from "../repositories/cartRepository";
+import CartService from "../services/cartService";
+import { ICartService } from "../interfaces/ICartService";
 const iocContainer = new Container();
 
 iocContainer.load(buildProviderModule());
@@ -113,5 +117,8 @@ iocContainer
 iocContainer
   .bind<IPermissionService>(types.IPermissionService)
   .to(PermissionService);
+
+iocContainer.bind<ICartRepository>(types.ICartRepository).to(CartRepository);
+iocContainer.bind<ICartService>(types.ICartService).to(CartService);
 
 export { iocContainer };

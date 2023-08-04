@@ -39,7 +39,7 @@ export default class UserRepository implements IUserRepository {
 
   async getUserbyId(id: String): Promise<getUser> {
     try {
-      id = mongoose.mongo.ObjectId(id);
+      id = new mongoose.mongo.ObjectId(id);
       const res = await userModel.findById(id);
       const _id = res?.id;
       const email = res?.emailId;

@@ -111,3 +111,16 @@ export declare type updateProduct = {
   categoryId?: mongoose.mongo.BSON.ObjectId;
   // documentId?: mongoose.mongo.BSON.ObjectId | null;
 };
+
+export declare type cart = {
+  id?: string;
+  quantity?: Number;
+  productId?: mongoose.Types.ObjectId;
+  userId?: mongoose.Types.ObjectId;
+};
+
+export declare type createUpdateCartInput = {
+  quantity?: Number;
+  productId?: mongoose.Types.ObjectId;
+  userId?: mongoose.Types.ObjectId;
+};

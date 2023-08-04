@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const vendorUserSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "userSchema",
+    ref: "User",
   },
   VendorId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "vendorSchmea",
+    ref: "Vendor",
   },
 });
 

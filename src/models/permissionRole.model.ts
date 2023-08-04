@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 const permissionRoleSchema = new mongoose.Schema({
   permissionId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "permissionSchema",
+    ref: "Permission",
   },
   roleId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Roleschema",
+    ref: "Role",
   },
 });
 
-export default mongoose.model("permissionRole", permissionRoleSchema);
+export default mongoose.model("PermissionRole", permissionRoleSchema);

@@ -12,6 +12,7 @@ import permissionRoleRouter from "./permissionRoleRoutes";
 import categoryRouter from "./categoryRoutes";
 import productRouter from "./productRoutes";
 import UserRoleRouter from "./userRoleRoutes";
+import cartRouter from "./cartRoutes";
 
 export default {
   router,
@@ -28,4 +29,5 @@ export default {
   categoryRouter,
   productRouter,
   UserRoleRouter,
+  cartRouter,
 };
