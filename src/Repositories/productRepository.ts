@@ -8,6 +8,7 @@ import { ObjectId } from "mongodb";
 import { IDocumentRepository } from "../interfaces/IDocumentRepository";
 import { types } from "../config/types";
 const mongooseTypes = mongoose.Types;
+
 @injectable()
 export default class ProductRepository implements IProductRepository {
   private _documentRepository: IDocumentRepository;

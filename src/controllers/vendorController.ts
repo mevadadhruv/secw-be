@@ -7,6 +7,8 @@ import logo from "../config/document";
 const message = require("../error/globalSuccessHandler");
 import appError from "../error/appError";
 import { checking, sendErrorProd } from "../error/globalErrorHandler";
+import document from "../config/document";
+import { documentType } from "../types/userTypes";
 
 @injectable()
 export default class VendorController {
@@ -23,19 +25,30 @@ export default class VendorController {
   ) {
     try {
       //console.log("name",req.body.name);
-      const uploadImage = logo("dhruv-images").single("logo");
-      uploadImage(req, res, async (err) => {
+      const uplodImage = document("dhruv-images").single("logo");
+      console.log("test");
+      uplodImage(req, res, async (err: any) => {
         if (err) {
           return new appError("Image not found", 301);
         }
         const documentFile: any = req.file;
+        const documentName = documentFile.originalname;
+        const documentDescription = documentFile.encoding;
         const documentAttachment = documentFile.location;
+        const documentExtension = documentFile.mimetype;
+        const documentSize = documentFile.size;
+        const documentType: documentType = {
+          name: documentName,
+          description: documentDescription,
+          attachment: documentAttachment,
+          extension: documentExtension,
+          size: documentSize,
+        };
         const vendor: Vendor = {
-          name: req.body.name,
-          logo: documentAttachment,
+          name: req.body.name
         };
         //console.log(vendor.name);
-        const addVendor = await this._vendorService.addVendor(vendor);
+        const addVendor = await this._vendorService.addVendor(vendor,documentType);
         if (addVendor) {
           return message.sendResponse(200, "vendor created", addVendor, res);
         } else {
@@ -96,8 +109,7 @@ export default class VendorController {
         const documentAttachment = documentFile.location;
         //console.log(documentAttachment);
         const vendor: Vendor = {
-          name: req.body.name,
-          logo: documentAttachment,
+          name: req.body.name
         };
         //console.log(vendor.name);
         const updateVendor = await this._vendorService.updateVendor(

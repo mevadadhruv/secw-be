@@ -14,9 +14,9 @@ export default class VendorService implements IVendorService {
     this._vendorRepository = vendorRepository;
   }
 
-  async addVendor(vendor: Vendor): Promise<getVendor> {
+  async addVendor(vendor: Vendor,document : documentType): Promise<getVendor> {
     try {
-      const createVendor = await this._vendorRepository.addVendor(vendor);
+      const createVendor = await this._vendorRepository.addVendor(vendor,document);
       return createVendor;
     } catch (err) {
       throw new Error(

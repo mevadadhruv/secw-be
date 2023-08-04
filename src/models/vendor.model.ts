@@ -6,7 +6,7 @@ const vendorSchmea = new mongoose.Schema(
       type: String,
     },
     logo: {
-      type: String,
+      type: mongoose.Types.ObjectId,
     },
   },
   {

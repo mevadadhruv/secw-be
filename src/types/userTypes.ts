@@ -62,13 +62,13 @@ export declare type getDocument = {
 export declare type Vendor = {
   id?: string;
   name: string;
-  logo: string;
+  //logo: string;
 };
 
 export declare type getVendor = {
   id?: string;
   name: string;
-  logo: string;
+  //logo: string;
 };
 
 export declare type role = {
