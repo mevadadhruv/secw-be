@@ -124,3 +124,25 @@ export declare type createUpdateCartInput = {
   productId?: mongoose.Types.ObjectId;
   userId?: mongoose.Types.ObjectId;
 };
+
+export declare type shipping = {
+  id?: string;
+  shippingType?: String;
+  shippingCharge?: Number;
+};
+
+export declare type createUpdateShippingInput = {
+  shippingType?: String;
+  shippingCharge?: Number;
+};
+
+export declare type discount = {
+  id?: string;
+  discountType?: String;
+  discountPrice?: Number;
+};
+
+export declare type createUpdateDiscountInput = {
+  discountType?: String;
+  discountPrice?: Number;
+};

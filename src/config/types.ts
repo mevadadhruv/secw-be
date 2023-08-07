@@ -26,4 +26,8 @@ export const types = {
   IProductService: Symbol("IProductService"),
   ICartRepository: Symbol("ICartRepository"),
   ICartService: Symbol("ICartService"),
+  IShippingRepository: Symbol("IShippingRepository"),
+  IShippingService: Symbol("IShippingService"),
+  IDiscountRepository: Symbol("IDiscountRepository"),
+  IDiscountService: Symbol("IDiscountService"),
 };

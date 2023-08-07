@@ -13,6 +13,8 @@ import categoryRouter from "./categoryRoutes";
 import productRouter from "./productRoutes";
 import UserRoleRouter from "./userRoleRoutes";
 import cartRouter from "./cartRoutes";
+import discountRouter from "./discountRoutes";
+import shippingRouter from "./shippingRoutes";
 
 export default {
   router,
@@ -30,4 +32,6 @@ export default {
   productRouter,
   UserRoleRouter,
   cartRouter,
+  shippingRouter,
+  discountRouter,
 };
