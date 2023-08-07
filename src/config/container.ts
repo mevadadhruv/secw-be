@@ -62,6 +62,14 @@ import { IShippingService } from "../interfaces/IShippingService";
 import ShippingRepository from "../repositories/shippingRepository";
 import ShippingService from "../services/shippingService";
 import DiscountService from "../services/discountService";
+import { IOrderDetailRepository } from "../interfaces/IOrderDetailRepository";
+import OrderDetailRepository from "../repositories/orderDetailRepository";
+import { IOrderDetailService } from "../interfaces/IOrderDetailService";
+import { IOrderService } from "../interfaces/IOrderService";
+import { IOrderRepository } from "../interfaces/IOrderRepository";
+import OrderRepository from "../repositories/orderRepository";
+import OrderDetailService from "../services/orderDetailService";
+import OrderService from "../services/orderService";
 const iocContainer = new Container();
 
 iocContainer.load(buildProviderModule());
@@ -139,4 +147,13 @@ iocContainer
   .to(ShippingRepository);
 iocContainer.bind<IShippingService>(types.IShippingService).to(ShippingService);
 
+iocContainer.bind<IOrderRepository>(types.IOrderRepository).to(OrderRepository);
+iocContainer.bind<IOrderService>(types.IOrderService).to(OrderService);
+
+iocContainer
+  .bind<IOrderDetailRepository>(types.IOrderDetailRepository)
+  .to(OrderDetailRepository);
+iocContainer
+  .bind<IOrderDetailService>(types.IOrderDetailService)
+  .to(OrderDetailService);
 export { iocContainer };

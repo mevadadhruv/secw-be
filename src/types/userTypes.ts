@@ -146,3 +146,51 @@ export declare type createUpdateDiscountInput = {
   discountType?: String;
   discountPrice?: Number;
 };
+
+export declare type order = {
+  id?: mongoose.Types.ObjectId;
+  orderStatus?: string;
+  orderDate?: Date;
+  total?: Number;
+  subTotal?: Number;
+  shippingId?: mongoose.Types.ObjectId;
+  discountId?: mongoose.Types.ObjectId;
+  userId?: mongoose.Types.ObjectId;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export declare type createUpdateOrderInput = {
+  orderStatus: String;
+  orderDate?: Date;
+  total: Number;
+  subTotal: Number;
+  shippingId: mongoose.Types.ObjectId;
+  discountId: mongoose.Types.ObjectId;
+  userId: mongoose.Types.ObjectId;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export declare type orderDetail = {
+  id?: mongoose.Types.ObjectId;
+  quantity?: Number;
+  itemPrice?: Number;
+  itemTotal?: Number;
+  productId?: mongoose.Types.ObjectId;
+  orderId?: mongoose.Types.ObjectId;
+  userId?: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export declare type createUpdateOrderDetailInput = {
+  quantity: Number;
+  itemPrice: Number;
+  itemTotal: Number;
+  productId: mongoose.Types.ObjectId;
+  orderId: mongoose.Types.ObjectId;
+  userId: mongoose.Types.ObjectId;
+  createdAt?: Date;
+  updatedAt?: Date;
+};

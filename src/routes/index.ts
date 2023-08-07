@@ -16,6 +16,9 @@ import cartRouter from "./cartRoutes";
 import discountRouter from "./discountRoutes";
 import shippingRouter from "./shippingRoutes";
 
+import orderRouter from "./orderRoutes";
+import orderDetailRouter from "./orderDetailRoutes";
+
 export default {
   router,
   profileRouter,
@@ -34,4 +37,6 @@ export default {
   cartRouter,
   shippingRouter,
   discountRouter,
+  orderDetailRouter,
+  orderRouter,
 };

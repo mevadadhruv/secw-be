@@ -51,6 +51,9 @@ export default class CartRepository implements ICartRepository {
   async getCartById(id: string): Promise<cart> {
     try {
       const getCart = await cartModel.findById(id);
+      if (!getCart) {
+        throw new Error("Record is not there!");
+      }
       return getCart;
     } catch (err) {
       throw err;

@@ -42,7 +42,8 @@ app.use("/product", index.productRouter);
 app.use("/cart", index.cartRouter);
 app.use("/shipping", index.shippingRouter);
 app.use("/discount", index.discountRouter);
-
+app.use("/orderdetail", index.orderDetailRouter);
+app.use("/order", index.orderRouter);
 app.listen(port, (): void => {
   console.log(`server running on  ${port}`);
 });

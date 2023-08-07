@@ -17,14 +17,15 @@ export default class VendorRepository implements IVendorRepository {
     this._document = documentRepository;
   }
 
-  async addVendor(vendor: Vendor,document: documentType): Promise<getVendor> {
+  async addVendor(vendor: Vendor, document: documentType): Promise<getVendor> {
     try {
       const name = vendor.name;
-      const documentRegister = await this._document.addDocument(
-        document
-      );
-      const addVendor = await vendorModel.create({ name: name, logo: documentRegister.id });
-      return { name: addVendor.name};
+      const documentRegister = await this._document.addDocument(document);
+      const addVendor = await vendorModel.create({
+        name: name,
+        logo: documentRegister.id,
+      });
+      return { name: addVendor.name };
     } catch (err) {
       throw err;
     }
@@ -33,6 +34,9 @@ export default class VendorRepository implements IVendorRepository {
   async getVendors() {
     try {
       const getAllVendors = await vendorModel.find();
+      if (!getAllVendors) {
+        throw new Error("Record is not there!");
+      }
       return getAllVendors;
     } catch (err) {
       throw err;
@@ -42,7 +46,7 @@ export default class VendorRepository implements IVendorRepository {
   async getVendorById(id: string): Promise<getVendor> {
     try {
       const getVendor = await vendorModel.findById(new ObjectId(id));
-      return { id: getVendor.id, name: getVendor.name};
+      return { id: getVendor.id, name: getVendor.name };
     } catch (err) {
       throw err;
     }
@@ -51,7 +55,7 @@ export default class VendorRepository implements IVendorRepository {
   async updateVendor(id: string, vendor: Vendor): Promise<getVendor> {
     try {
       const updateVendor = await vendorModel.findByIdAndUpdate(id, vendor);
-      return { name: updateVendor.name};
+      return { name: updateVendor.name };
     } catch (err) {
       throw err;
     }
@@ -60,7 +64,7 @@ export default class VendorRepository implements IVendorRepository {
   async deleteVendor(id: string): Promise<getVendor> {
     try {
       const deleteVendor = await vendorModel.findByIdAndDelete(id);
-      return { name: deleteVendor.name};
+      return { name: deleteVendor.name };
     } catch (err) {
       throw err;
     }

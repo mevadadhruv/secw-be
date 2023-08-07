@@ -23,6 +23,9 @@ export default class PermissionRoleRepository
   async getPermissionRolebyId(id: string) {
     try {
       const findPermissionbyId = await PermissionRoleModel.findById(id);
+      if (!findPermissionbyId) {
+        throw new Error("Record is not there!");
+      }
       return findPermissionbyId;
     } catch (err) {
       throw err;

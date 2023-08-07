@@ -21,6 +21,9 @@ export default class RoleRepository implements IRoleRepository {
   async getRoleById(id: string): Promise<role> {
     try {
       const getRole = await roleModel.findById(id);
+      if (!getRole) {
+        throw new Error("Record is not there!");
+      }
       return getRole;
     } catch (err) {
       throw err;

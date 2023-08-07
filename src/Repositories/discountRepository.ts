@@ -23,6 +23,9 @@ export default class DiscountRepository implements IDiscountRepository {
   async getDiscountById(id: string): Promise<discount> {
     try {
       const getDiscount = await discountModel.findById(id);
+      if (!getDiscount) {
+        throw new Error("Record is not there!");
+      }
       return getDiscount;
     } catch (err) {
       throw err;

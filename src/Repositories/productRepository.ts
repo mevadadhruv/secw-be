@@ -47,6 +47,9 @@ export default class ProductRepository implements IProductRepository {
   async getProductById(id: string): Promise<product> {
     try {
       const getProduct = await productModel.findById(id);
+      if (!getProduct) {
+        throw new Error("Record is not there!");
+      }
       return getProduct;
     } catch (err) {
       throw err;

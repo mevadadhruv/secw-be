@@ -39,6 +39,9 @@ export default class DocumentRepository implements IDocumentRepository {
   async getDocumentById(id: string): Promise<getDocument> {
     try {
       const getDocument = await documentModel.findById(id);
+      if (!getDocument) {
+        throw new Error("Record is not there!");
+      }
       return {
         id: getDocument.id,
         name: getDocument.name,

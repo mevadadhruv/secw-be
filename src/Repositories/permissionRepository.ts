@@ -33,6 +33,9 @@ export default class PermissionRepository implements IPermissionRepository {
   async getPermissionById(id: string): Promise<permission> {
     try {
       const getPermission = await permissionModel.findById(id);
+      if (!getPermission) {
+        throw new Error("Record is not there!");
+      }
       return getPermission;
     } catch (err) {
       throw err;

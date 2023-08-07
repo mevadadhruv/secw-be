@@ -31,6 +31,9 @@ export default class UserRepository implements IUserRepository {
   async getUser() {
     try {
       const res = await userModel.find();
+      if (!res) {
+        throw new Error("Record is not there!");
+      }
       return res;
     } catch (err) {
       throw err;

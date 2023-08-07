@@ -23,6 +23,9 @@ export default class ShippingRepository implements IShippingRepository {
   async getShippingById(id: string): Promise<shipping> {
     try {
       const getShipping = await shippingModel.findById(id);
+      if (!getShipping) {
+        throw new Error("Record is not there!");
+      }
       return getShipping;
     } catch (err) {
       throw err;

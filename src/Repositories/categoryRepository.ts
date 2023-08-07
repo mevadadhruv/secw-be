@@ -25,6 +25,9 @@ export default class CategoryRepository implements ICategoryRepository {
   async getCategoryById(id: string): Promise<category> {
     try {
       const getCategory = await categoryModel.findById(id);
+      if (!getCategory) {
+        throw new Error("Record is not there!");
+      }
       return getCategory;
     } catch (err) {
       throw err;

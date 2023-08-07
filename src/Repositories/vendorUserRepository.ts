@@ -21,6 +21,9 @@ export default class VendorUserRepository implements IVendorUserRepository {
   async getVendorUserbyId(id: string) {
     try {
       const findVendorbyId = await VendorUserModel.findById(id);
+      if (!findVendorbyId) {
+        throw new Error("Record is not there!");
+      }
       return findVendorbyId;
     } catch (err) {
       throw err;

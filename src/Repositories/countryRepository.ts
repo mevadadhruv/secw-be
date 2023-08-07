@@ -79,6 +79,9 @@ export default class CountryRepository implements ICountryRepository {
           },
         ],
       });
+      if (!getCountry) {
+        throw new Error("Record is not there!");
+      }
       return getCountry;
     } catch (err) {
       throw err;

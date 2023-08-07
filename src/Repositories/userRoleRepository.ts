@@ -21,6 +21,9 @@ export default class UserRoleRepository implements IUserRoleRepository {
   async getUserRolebyId(id: string) {
     try {
       const findRolebyId = await UserRoleModel.findById(id);
+      if (!findRolebyId) {
+        throw new Error("Record is not there!");
+      }
       return findRolebyId;
     } catch (err) {
       throw err;
