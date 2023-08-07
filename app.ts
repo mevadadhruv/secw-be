@@ -40,6 +40,8 @@ app.use("/permissionrole", index.permissionRoleRouter);
 app.use("/category", index.categoryRouter);
 app.use("/product", index.productRouter);
 app.use("/cart", index.cartRouter);
+app.use("/shipping", index.shippingRouter);
+app.use("/discount", index.discountRouter);
 
 app.listen(port, (): void => {
   console.log(`server running on  ${port}`);

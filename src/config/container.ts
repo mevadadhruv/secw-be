@@ -54,6 +54,14 @@ import { ICartRepository } from "../interfaces/ICartRepository";
 import CartRepository from "../repositories/cartRepository";
 import CartService from "../services/cartService";
 import { ICartService } from "../interfaces/ICartService";
+import { IDiscountRepository } from "../interfaces/IDiscountRepository";
+import DiscountRepository from "../repositories/discountRepository";
+import { IDiscountService } from "../interfaces/IDiscountService";
+import { IShippingRepository } from "../interfaces/IShippingRepository";
+import { IShippingService } from "../interfaces/IShippingService";
+import ShippingRepository from "../repositories/shippingRepository";
+import ShippingService from "../services/shippingService";
+import DiscountService from "../services/discountService";
 const iocContainer = new Container();
 
 iocContainer.load(buildProviderModule());
@@ -120,5 +128,15 @@ iocContainer
 
 iocContainer.bind<ICartRepository>(types.ICartRepository).to(CartRepository);
 iocContainer.bind<ICartService>(types.ICartService).to(CartService);
+
+iocContainer
+  .bind<IDiscountRepository>(types.IDiscountRepository)
+  .to(DiscountRepository);
+iocContainer.bind<IDiscountService>(types.IDiscountService).to(DiscountService);
+
+iocContainer
+  .bind<IShippingRepository>(types.IShippingRepository)
+  .to(ShippingRepository);
+iocContainer.bind<IShippingService>(types.IShippingService).to(ShippingService);
 
 export { iocContainer };
